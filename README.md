@@ -3,7 +3,7 @@
 
 ## Команда Frontend
 
-- []()
+- [Natalya Plyusnina](https://github.com/TashaSlon)
 - [Nastya Tulupova](https://github.com/NastyaTulupova)
 - [TokmakDA](https://github.com/TokmakDA)
 
