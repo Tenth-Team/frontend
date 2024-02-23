@@ -1,12 +1,11 @@
 import React from "react"
 import { createRoot } from "react-dom/client"
 // import { Provider } from "react-redux"
-import App from "./components/app/App"
+import App from "./components/App/App"
 // import { store } from "./resux/store"
 import "./index.scss"
 
 import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
 
 const container = document.getElementById("root");
 
