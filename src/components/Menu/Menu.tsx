@@ -1,42 +1,21 @@
-import {
-  Box,
-  ListItemIcon,
-  ListItemText,
-  MenuItem,
-  MenuList,
-  Paper,
-  SvgIcon,
-} from "@mui/material"
+import { Box, SvgIcon } from "@mui/material"
+
+import PaperCustom from "../PaperCustom/PaperCustom"
+import MenuListCustom from "../MenuListCustom/MenuListCustom"
+import ListItemTextCustom from "../ListItemTextCustom/ListItemTextCustom"
+import MenuItemCustom from "../MenuItemCustom/MenuItemCustom"
+import ListItemIconCustom from "../ListItemIconCustom/ListItemIconCustom"
 
 import style from "./Menu.module.scss"
+
 const Menu = () => {
   return (
     <nav className={style.container}>
-      <Paper
-        sx={{
-          width: 256,
-          maxWidth: "100%",
-          height: "100%",
-          backgroundColor: "#f5f5f5",
-          boxShadow: "none",
-          border: "none",
-          borderRadius: "0",
-          p: 2,
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        <MenuList
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            height: "100%",
-            padding: "0",
-          }}
-        >
+      <PaperCustom>
+        <MenuListCustom>
           <Box display={"flex"} flexDirection={"column"} gap={2}>
-            <MenuItem sx={{ backgroundColor: "#4c34c2", borderRadius: 2 }}>
-              <ListItemIcon>
+            <MenuItemCustom>
+              <ListItemIconCustom>
                 <SvgIcon sx={{ width: "auto", height: "auto" }}>
                   <svg
                     width="16"
@@ -49,38 +28,33 @@ const Menu = () => {
                       fill-rule="evenodd"
                       clip-rule="evenodd"
                       d="M5.5 4C3.98122 4 2.75 5.23122 2.75 6.75C2.75 8.26878 3.98122 9.5 5.5 9.5C7.01878 9.5 8.25 8.26878 8.25 6.75C8.25 5.23122 7.01878 4 5.5 4ZM1.75 6.75C1.75 4.67893 3.42893 3 5.5 3C7.57107 3 9.25 4.67893 9.25 6.75C9.25 8.82107 7.57107 10.5 5.5 10.5C3.42893 10.5 1.75 8.82107 1.75 6.75Z"
-                      fill="#ECECEC"
+                      fill="#3F3F3F"
                     />
                     <path
                       fill-rule="evenodd"
                       clip-rule="evenodd"
-                      d="M10.5923 3L10.5938 3C11.5883 3 12.5422 3.39509 13.2454 4.09835C13.9487 4.80161 14.3438 5.75544 14.3438 6.75C14.3438 7.74456 13.9487 8.69839 13.2454 9.40165C12.5422 10.1049 11.5883 10.5 10.5938 10.5C10.3176 10.5 10.0938 10.2761 10.0938 10C10.0938 9.72386 10.3176 9.5 10.5938 9.5C11.3231 9.5 12.0226 9.21027 12.5383 8.69455C13.054 8.17882 13.3438 7.47935 13.3438 6.75C13.3438 6.02066 13.054 5.32118 12.5383 4.80546C12.0228 4.28991 11.3236 4.0002 10.5945 4C10.3408 4.00084 10.0883 4.0349 9.84341 4.10132C9.57689 4.1736 9.30224 4.01615 9.22996 3.74963C9.15768 3.48312 9.31513 3.20847 9.58165 3.13619C9.91112 3.04683 10.2509 3.00104 10.5923 3Z"
-                      fill="#ECECEC"
+                      d="M10.5918 3L10.5933 3C11.5879 3 12.5417 3.39509 13.2449 4.09835C13.9482 4.80161 14.3433 5.75544 14.3433 6.75C14.3433 7.74456 13.9482 8.69839 13.2449 9.40165C12.5417 10.1049 11.5879 10.5 10.5933 10.5C10.3171 10.5 10.0933 10.2761 10.0933 10C10.0933 9.72386 10.3171 9.5 10.5933 9.5C11.3226 9.5 12.0221 9.21027 12.5378 8.69455C13.0536 8.17882 13.3433 7.47935 13.3433 6.75C13.3433 6.02066 13.0536 5.32118 12.5378 4.80546C12.0223 4.28991 11.3231 4.0002 10.594 4C10.3403 4.00084 10.0878 4.0349 9.84292 4.10132C9.5764 4.1736 9.30176 4.01615 9.22947 3.74963C9.15719 3.48312 9.31464 3.20847 9.58116 3.13619C9.91063 3.04683 10.2504 3.00104 10.5918 3Z"
+                      fill="#3F3F3F"
                     />
                     <path
                       fill-rule="evenodd"
                       clip-rule="evenodd"
-                      d="M5.50004 10.4998C4.69767 10.4998 3.90708 10.6929 3.19505 11.0628C2.48302 11.4326 1.87047 11.9685 1.40913 12.625C1.25036 12.8509 0.938497 12.9053 0.712562 12.7466C0.486628 12.5878 0.432181 12.2759 0.590951 12.05C1.14455 11.2622 1.87961 10.6192 2.73405 10.1754C3.58848 9.73148 4.53719 9.49976 5.50004 9.49976C6.46289 9.49976 7.4116 9.73148 8.26604 10.1754C9.12047 10.6192 9.85553 11.2622 10.4091 12.05C10.5679 12.2759 10.5135 12.5878 10.2875 12.7466C10.0616 12.9053 9.74972 12.8509 9.59095 12.625C9.12962 11.9685 8.51707 11.4326 7.80504 11.0628C7.09301 10.6929 6.30242 10.4998 5.50004 10.4998Z"
-                      fill="#ECECEC"
+                      d="M5.50004 10.5C4.69767 10.5 3.90708 10.6931 3.19505 11.063C2.48302 11.4329 1.87047 11.9687 1.40913 12.6252C1.25036 12.8511 0.938497 12.9056 0.712562 12.7468C0.486628 12.588 0.432181 12.2762 0.590951 12.0502C1.14455 11.2625 1.87961 10.6195 2.73405 10.1756C3.58848 9.73172 4.53719 9.5 5.50004 9.5C6.46289 9.5 7.4116 9.73172 8.26604 10.1756C9.12047 10.6195 9.85553 11.2625 10.4091 12.0502C10.5679 12.2762 10.5135 12.588 10.2875 12.7468C10.0616 12.9056 9.74972 12.8511 9.59095 12.6252C9.12962 11.9687 8.51707 11.4329 7.80504 11.063C7.09301 10.6931 6.30242 10.5 5.50004 10.5Z"
+                      fill="#3F3F3F"
                     />
                     <path
                       fill-rule="evenodd"
                       clip-rule="evenodd"
                       d="M12.8991 11.0622C12.1871 10.6923 11.3964 10.4995 10.5941 10.5C10.3179 10.5002 10.0939 10.2765 10.0938 10.0003C10.0936 9.72417 10.3173 9.50017 10.5934 9.5C11.5565 9.4994 12.5055 9.73086 13.3601 10.1748C14.2147 10.6187 14.9497 11.262 15.503 12.0502C15.6616 12.2763 15.607 12.5881 15.381 12.7467C15.155 12.9054 14.8432 12.8508 14.6845 12.6248C14.2235 11.968 13.6111 11.4321 12.8991 11.0622Z"
-                      fill="#ECECEC"
+                      fill="#3F3F3F"
                     />
                   </svg>
                 </SvgIcon>
-              </ListItemIcon>
-              <ListItemText
-                disableTypography
-                sx={{ fontSize: 14, color: "#fff" }}
-              >
-                Амбассадоры
-              </ListItemText>
-            </MenuItem>
-            <MenuItem sx={{ backgroundColor: "#fff", borderRadius: 2 }}>
-              <ListItemIcon>
+              </ListItemIconCustom>
+              <ListItemTextCustom>Амбассадоры</ListItemTextCustom>
+            </MenuItemCustom>
+            <MenuItemCustom>
+              <ListItemIconCustom>
                 <SvgIcon sx={{ width: "auto", height: "auto" }}>
                   <svg
                     width="16"
@@ -139,14 +113,12 @@ const Menu = () => {
                     />
                   </svg>
                 </SvgIcon>
-              </ListItemIcon>
-              <ListItemText disableTypography sx={{ fontSize: 14 }}>
-                Промокоды
-              </ListItemText>
-            </MenuItem>
+              </ListItemIconCustom>
+              <ListItemTextCustom>Промокоды</ListItemTextCustom>
+            </MenuItemCustom>
 
-            <MenuItem sx={{ backgroundColor: "#fff", borderRadius: 2 }}>
-              <ListItemIcon>
+            <MenuItemCustom>
+              <ListItemIconCustom>
                 <SvgIcon sx={{ width: "auto", height: "auto" }}>
                   <svg
                     width="16"
@@ -163,13 +135,11 @@ const Menu = () => {
                     />
                   </svg>
                 </SvgIcon>
-              </ListItemIcon>
-              <ListItemText disableTypography sx={{ fontSize: 14 }}>
-                Управление рассылками
-              </ListItemText>
-            </MenuItem>
-            <MenuItem sx={{ backgroundColor: "#fff", borderRadius: 2 }}>
-              <ListItemIcon>
+              </ListItemIconCustom>
+              <ListItemTextCustom>Управление рассылками</ListItemTextCustom>
+            </MenuItemCustom>
+            <MenuItemCustom>
+              <ListItemIconCustom>
                 <SvgIcon sx={{ width: "auto", height: "auto" }}>
                   <svg
                     width="16"
@@ -204,13 +174,11 @@ const Menu = () => {
                     />
                   </svg>
                 </SvgIcon>
-              </ListItemIcon>
-              <ListItemText disableTypography sx={{ fontSize: 14 }}>
-                Контент амбассадоров
-              </ListItemText>
-            </MenuItem>
-            <MenuItem sx={{ backgroundColor: "#fff", borderRadius: 2 }}>
-              <ListItemIcon>
+              </ListItemIconCustom>
+              <ListItemTextCustom>Контент амбассадоров</ListItemTextCustom>
+            </MenuItemCustom>
+            <MenuItemCustom>
+              <ListItemIconCustom>
                 <SvgIcon sx={{ width: "auto", height: "auto" }}>
                   <svg
                     width="16"
@@ -251,14 +219,12 @@ const Menu = () => {
                     />
                   </svg>
                 </SvgIcon>
-              </ListItemIcon>
-              <ListItemText disableTypography sx={{ fontSize: 14 }}>
-                Программа лояльности
-              </ListItemText>
-            </MenuItem>
+              </ListItemIconCustom>
+              <ListItemTextCustom>Программа лояльности</ListItemTextCustom>
+            </MenuItemCustom>
 
-            <MenuItem sx={{ backgroundColor: "#fff", borderRadius: 2 }}>
-              <ListItemIcon>
+            <MenuItemCustom>
+              <ListItemIconCustom>
                 <SvgIcon sx={{ width: "auto", height: "auto" }}>
                   <svg
                     width="16"
@@ -287,14 +253,12 @@ const Menu = () => {
                     />
                   </svg>
                 </SvgIcon>
-              </ListItemIcon>
-              <ListItemText disableTypography sx={{ fontSize: 14 }}>
-                Отправка мерча
-              </ListItemText>
-            </MenuItem>
+              </ListItemIconCustom>
+              <ListItemTextCustom>Отправка мерча</ListItemTextCustom>
+            </MenuItemCustom>
 
-            <MenuItem sx={{ backgroundColor: "#fff", borderRadius: 2 }}>
-              <ListItemIcon>
+            <MenuItemCustom>
+              <ListItemIconCustom>
                 <SvgIcon sx={{ width: "auto", height: "auto" }}>
                   <svg
                     width="16"
@@ -323,16 +287,14 @@ const Menu = () => {
                     />
                   </svg>
                 </SvgIcon>
-              </ListItemIcon>
-              <ListItemText disableTypography sx={{ fontSize: 14 }}>
-                Аналитика
-              </ListItemText>
-            </MenuItem>
+              </ListItemIconCustom>
+              <ListItemTextCustom>Аналитика</ListItemTextCustom>
+            </MenuItemCustom>
           </Box>
 
           <Box display={"flex"} flexDirection={"column"} gap={2} mt={"auto"}>
-            <MenuItem sx={{ backgroundColor: "#fff", borderRadius: 2 }}>
-              <ListItemIcon>
+            <MenuItemCustom>
+              <ListItemIconCustom>
                 <SvgIcon sx={{ width: "auto", height: "auto" }}>
                   <svg
                     width="16"
@@ -355,16 +317,12 @@ const Menu = () => {
                     />
                   </svg>
                 </SvgIcon>
-              </ListItemIcon>
-              <ListItemText disableTypography sx={{ fontSize: 14 }}>
-                Настройки
-              </ListItemText>
-            </MenuItem>
+              </ListItemIconCustom>
+              <ListItemTextCustom>Настройки</ListItemTextCustom>
+            </MenuItemCustom>
 
-            <MenuItem
-              sx={{ backgroundColor: "#fff", mt: "auto", borderRadius: 2 }}
-            >
-              <ListItemIcon>
+            <MenuItemCustom>
+              <ListItemIconCustom>
                 <SvgIcon sx={{ width: "auto", height: "auto" }}>
                   <svg
                     width="16"
@@ -388,14 +346,12 @@ const Menu = () => {
                     </defs>
                   </svg>
                 </SvgIcon>
-              </ListItemIcon>
-              <ListItemText disableTypography sx={{ fontSize: 14 }}>
-                Выйти
-              </ListItemText>
-            </MenuItem>
+              </ListItemIconCustom>
+              <ListItemTextCustom>Выйти</ListItemTextCustom>
+            </MenuItemCustom>
           </Box>
-        </MenuList>
-      </Paper>
+        </MenuListCustom>
+      </PaperCustom>
     </nav>
   )
 }
