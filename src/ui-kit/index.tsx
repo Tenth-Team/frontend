@@ -1,5 +1,11 @@
 import { CircularProgress as Spinner } from "@mui/material"
-import { LinearProgress, Box, Modal } from "@mui/material"
+import {
+  LinearProgress,
+  Box,
+  Modal,
+  // временно
+  Typography,
+} from "@mui/material"
 
 import UsersIcon from "../assets/images/UsersIconDark.svg?react"
 import ExitIcon from "../assets/images/right.svg?react"
@@ -28,4 +34,6 @@ export {
   LinearProgress,
   Box,
   Modal,
+  // временно
+  Typography,
 }

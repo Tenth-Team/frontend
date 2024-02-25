@@ -1,11 +1,11 @@
-import { Box, Modal, Typography } from "@mui/material"
+import { Box, Modal, Typography } from "../../ui-kit"
 import type { FC } from "react"
 import { useState } from "react"
 
 export const ModalContainer: FC = () => {
   const [isOpen, setOpen] = useState<boolean>(true)
 
-  const toggleModal = () => {
+  const toggleModal: () => void = () => {
     setOpen(prev => !prev)
   }
   const style = {
