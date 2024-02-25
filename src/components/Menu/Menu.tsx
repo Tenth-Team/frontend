@@ -17,13 +17,14 @@ import PromocodeIcon from "../../assets/images/barcodeIcon.svg?react"
 import StatisticsIcon from "../../assets/images/chartPieIcon.svg?react"
 
 import style from "./Menu.module.scss"
+import BoxCustom from "../BoxCustom/BoxCustom"
 
 const Menu = () => {
   return (
     <nav className={style.menu}>
       <PaperCustom>
         <MenuListCustom>
-          <Box display={"flex"} flexDirection={"column"} gap={2}>
+          <BoxCustom>
             <MenuItemCustom>
               <ListItemIconCustom>
                 <UsersIcon />
@@ -68,9 +69,9 @@ const Menu = () => {
               </ListItemIconCustom>
               <ListItemTextCustom>Аналитика</ListItemTextCustom>
             </MenuItemCustom>
-          </Box>
+          </BoxCustom>
 
-          <Box display={"flex"} flexDirection={"column"} gap={2} mt={"auto"}>
+          <BoxCustom mt={"auto"}>
             <MenuItemCustom>
               <ListItemIconCustom>
                 <SettingIcon />
@@ -83,7 +84,7 @@ const Menu = () => {
               </ListItemIconCustom>
               <ListItemTextCustom>Выйти</ListItemTextCustom>
             </MenuItemCustom>
-          </Box>
+          </BoxCustom>
         </MenuListCustom>
       </PaperCustom>
     </nav>
