@@ -33,6 +33,16 @@ export const router = createBrowserRouter(
           </div>
         }
       />
+
+      <Route
+        path="/mailing-management"
+        element={
+          <div>
+            <h1>Управление рассылками</h1>
+          </div>
+        }
+      />
+
       <Route
         path="/loyalty-program"
         element={

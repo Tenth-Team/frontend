@@ -25,7 +25,7 @@ const Form = () => {
   }
 
   return (
-    <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
+    <form className={`${s.form} ${s.form__input}`} onSubmit={handleSubmit(onSubmit)}>
       <input className={s.form__input} {...register("firstName")} />
       <p className={s.form__error}>{errors.firstName?.message}</p>
 
