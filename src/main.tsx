@@ -6,7 +6,6 @@ import App from "./components/App/App"
 import "./index.scss"
 
 import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
 
 const container = document.getElementById("root");
 

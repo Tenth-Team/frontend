@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom"
 import style from "./App.module.scss"
 import Header from "../Header/Header"
 import Main from "../Main/Main"
+import Menu from "../Menu/Menu"
 
 const App = () => {
   return (
@@ -13,11 +14,7 @@ const App = () => {
             <>
               <Header />
               <Main />
-              {/*  <main className={style.main}>
-          <Menu />
-          <Outlet />
-        </main>
-      */}
+
             </>
           }
         ></Route>

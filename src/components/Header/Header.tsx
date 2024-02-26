@@ -4,8 +4,8 @@ import SvgIcon from "@mui/material/SvgIcon"
 const Header = () => {
   return (
     <header>
-      <div className={style.content}>
-        <SvgIcon sx={{ fontSize: 40, color: "#3F3F3F" }} className={style.icon}>
+      <div className={style.header}>
+        <SvgIcon sx={{ fontSize: 40, color: "#3F3F3F" }} className={style.header__icon}>
           <svg
             width="40"
             height="40"
