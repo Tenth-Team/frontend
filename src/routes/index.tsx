@@ -6,7 +6,7 @@ import {
 // import * as page from "../pages"
 import Layout from "../layouts/Layout"
 import { Spinner } from "../ui-kit"
-import { ModalContainer } from "../modules/ModalContainer"
+import { CustomizedDialogs } from "../modules/ModalContainer"
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -74,7 +74,7 @@ export const router = createBrowserRouter(
         }
       />
       {/* Временно для Кодинга. */}
-      <Route path="/modal" element={<ModalContainer />} />
+      <Route path="/modal" element={<CustomizedDialogs />} />
     </Route>,
   ),
   {
