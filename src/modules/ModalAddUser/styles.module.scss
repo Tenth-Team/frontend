@@ -1,11 +1,12 @@
 .modal {
   &__contaner {
+    display: flex;
+    flex-direction: column;
     border-radius: 8px;
     padding: 64px;
-    max-width: 792px;
-    min-height: fit-content;
-    width: 100%;
-    height: 100%;
+    gap: 32px;
+    width: 800px;
+    height: fit-content;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
     background: var(--gray-02-100);
   }

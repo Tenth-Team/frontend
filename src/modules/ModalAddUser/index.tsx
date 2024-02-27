@@ -1,5 +1,5 @@
 import Button from "@mui/material/Button"
-import { Dialog, DialogContent, Box } from "@mui/material/"
+import { DialogContent, Box, Modal } from "@mui/material/"
 import type { FC } from "react"
 import { useState } from "react"
 import s from "./styles.module.scss"
@@ -21,7 +21,34 @@ export const ModalAddUser: FC = () => {
         Open dialog
       </Button>
 
-      <Dialog onClose={handleClose} aria-labelledby="modal" open={open}>
+      {/*
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          component: 'form',
+          onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
+            event.preventDefault();
+            const formData = new FormData(event.currentTarget);
+            const formJson = Object.fromEntries((formData as any).entries());
+            const email = formJson.email;
+            console.log(email);
+            handleClose();
+          },
+        }}
+      > */}
+
+      <Modal
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        open={open}
+      >
         <Box className={s.modal__contaner}>
           <div className={s.modal__header}>
             <h2 id="customized-dialog-title" className={s.modal__title}>
@@ -37,11 +64,9 @@ export const ModalAddUser: FC = () => {
             </button>
           </div>
 
-          <DialogContent>
             <FormAddUser onClick={handleClose} />
-          </DialogContent>
         </Box>
-      </Dialog>
+      </Modal>
     </>
   )
 }
