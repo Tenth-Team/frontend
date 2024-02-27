@@ -3,6 +3,7 @@ import style from "./App.module.scss"
 import Header from "../Header/Header"
 import Menu from "../Menu/Menu"
 import SearchCustom from "../SearchCustom/SearchCustom"
+import FilterList from "../FilterList/FilterList"
 
 const App = () => {
   return (
@@ -15,7 +16,10 @@ const App = () => {
               <Header />
                 <main className={style.main}>
           <Menu />
+          <div className={style.main__ambassadors}>
           <SearchCustom />
+          <FilterList />
+          </div>
           {/* <Outlet /> */}
         </main>
 

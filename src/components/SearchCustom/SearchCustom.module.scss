@@ -1,0 +1,28 @@
+.search {
+    display: flex;
+  border: 1px;
+  border-radius: 4px;
+  border-style: solid;
+  border-color: #e0e0e0;
+  background-color: #fff;
+  margin-right: 0;
+  margin-left: 0;
+  padding: 6px 16px;
+  width: 860px;
+  height: 36px;
+  &:hover {
+    border-color: #3918d9;
+  };
+}
+
+.search__iconWrapper {
+    height: 100%;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search__button {
+    cursor: pointer;
+}
