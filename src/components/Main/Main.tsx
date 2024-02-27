@@ -3,9 +3,9 @@ import Table from "../TableComponent/TableComponent"
 
 const Main = () => {
   return (
-    <main>
+    <>
       <Table />
-    </main>
+    </>
   )
 }
 
