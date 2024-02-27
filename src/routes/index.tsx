@@ -7,6 +7,7 @@ import {
 import Layout from "../layouts/Layout"
 import { Spinner } from "../ui-kit"
 import { CustomizedDialogs } from "../modules/ModalContainer"
+import Main from "../components/Main/Main"
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,7 +21,7 @@ export const router = createBrowserRouter(
         index
         element={
           <div>
-            <h1>Амбассадоры</h1>
+            <Main />
           </div>
         }
       />
