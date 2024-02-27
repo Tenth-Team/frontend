@@ -6,6 +6,7 @@ import {
 // import * as page from "../pages"
 import Layout from "../layouts/Layout"
 import { Spinner } from "../ui-kit"
+import Main from "../components/Main/Main"
 import { ModalAddUser } from "../modules/ModalAddUser"
 
 export const router = createBrowserRouter(
@@ -20,7 +21,7 @@ export const router = createBrowserRouter(
         index
         element={
           <div>
-            <h1>Амбассадоры</h1>
+            <Main />
           </div>
         }
       />
