@@ -57,10 +57,20 @@
       }
     }
 
-    &:hover,
     &:focus {
       outline: 3px solid var(--primary---focus);
+      outline-offset: inherit;
+    }
+
+    &:focus:not([aria-current]):not(:active),
+    &:hover:not([aria-current]):not(:active) {
+      color: var(--primary---hover);
       transition: all 0.2s;
+      & svg {
+        & * {
+          fill: var(--primary---hover);
+        }
+      }
     }
 
     &:active {
