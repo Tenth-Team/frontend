@@ -18,7 +18,6 @@ const App = () => {
           <Menu />
           <div className={style.main__ambassadors}>
           <SearchCustom />
-          <FilterList />
           </div>
           {/* <Outlet /> */}
         </main>

@@ -1,17 +1,40 @@
-.container {
-    display: grid;
-    /* Будет создано 3 колонки */
-    grid-template-columns: 188px 281px 181px;
-    /* Будет создано 3 ряда */
-    grid-template-rows: 1fr 1fr;
-    row-gap: 16px;
-    column-gap: 32px;
-    padding: 32px;
-  }
+%item {
+  padding: 10px;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  height: 56px;
+  gap: 4px;
+}
 
-  .item {
-    display:flex;
-    flex-direction:column;
-    height: 56px; 
-    gap: 4px;
-  }
+.area {
+  padding: 32px;
+  width: 860px;
+  height: 192px;
+}
+.container {
+  display: flex;
+  gap: 16px;
+}
+
+.item__sort {
+  @extend %item;
+  margin-bottom: 4px;
+  width: 188px;
+}
+
+.item__city {
+  @extend %item;
+  margin-bottom: 4px;
+  width: 181px;
+}
+
+.item__program {
+  @extend %item;
+  width: 281px;
+}
+
+.item__gender {
+  @extend %item;
+  width: 176px;
+}
