@@ -6,11 +6,12 @@ type TypeInputProps = {
   name: string
   register: any
   error?: string
+  style?: object
 }
 
 export const Input: FC<TypeInputProps> = props => {
   return (
-    <fieldset className={s.input}>
+    <fieldset className={s.input} style={props.style}>
       <label className={s.input__label}>{props.label}</label>
       <input className={s.input__inner} {...props.register} />
       {props.error ? (

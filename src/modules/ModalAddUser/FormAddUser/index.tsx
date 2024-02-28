@@ -4,42 +4,156 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import s from "./styles.module.scss"
 import { Input } from "./components/Input"
+import { Button } from "./components/button"
 
 type TypeFormProps = {
   onClick: () => void
 }
 
-const phoneRegExp = /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/
-
-const schema = yup
-  .object({
-    phone: yup.string().matches(phoneRegExp, "Phone number is not valid"),
-    telegram: yup.string().min(2).max(100).required(),
-    email: yup.string().email().required(),
-    program: yup.string().required(),
-    education: yup.string().required(),
-    objective: yup.string().required(),
-    sex: yup
-      .mixed()
-      .oneOf(["male", "female", "other"] as const)
-      .defined(),
-    city: yup.string().required(),
-    country: yup.string().required(),
-    address: yup.string().required(),
-    index: yup.string().required(),
-    blog: yup.string(),
-    clothing: yup.string(),
-    shoes: yup.string(),
-  })
-  .required()
-
 export const FormAddUser: FC<TypeFormProps> = ({ onClick }) => {
+  const formInputsData: Record<
+    string,
+    {
+      label: string
+      name: string
+      type: string
+      placeholder: string
+      schema: yup.StringSchema | yup.MixedSchema
+    }
+  > = {
+    fullName: {
+      label: "ФИО",
+      name: "fullName",
+      type: "text",
+      placeholder: "",
+      schema: yup.string().min(3).max(100).required(),
+    },
+    phone: {
+      label: "Телефон",
+      name: "phone",
+      type: "tel",
+      placeholder: "",
+      schema: yup
+        .string()
+        .matches(
+          /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/,
+          "Phone number is not valid",
+        ),
+    },
+    telegram: {
+      label: "Телеграмм",
+      name: "telegram",
+      type: "text",
+      placeholder: "",
+      schema: yup.string().min(2).max(100).required(),
+    },
+    email: {
+      label: "Email",
+      name: "email",
+      type: "text",
+      placeholder: "",
+      schema: yup.string().min(2).max(100).required(),
+    },
+    program: {
+      label: "Программа обучения",
+      name: "program",
+      type: "text",
+      placeholder: "",
+      schema: yup.string().required(),
+    },
+    education: {
+      label: "Образование",
+      name: "education",
+      type: "text",
+      placeholder: "",
+      schema: yup.string().required(),
+    },
+    objective: {
+      label: "Цель обучения",
+      name: "objective",
+      type: "text",
+      placeholder: "",
+      schema: yup.string().required(),
+    },
+    sex: {
+      label: "Пол",
+      name: "sex",
+      type: "text",
+      placeholder: "",
+      schema: yup
+        .mixed()
+        .oneOf(["male", "female", "other"] as const)
+        .defined(),
+    },
+    city: {
+      label: "Город",
+      name: "city",
+      type: "text",
+      placeholder: "",
+      schema: yup.string().required(),
+    },
+    country: {
+      label: "Страна",
+      name: "country",
+      type: "text",
+      placeholder: "",
+      schema: yup.string().required(),
+    },
+    address: {
+      label: "Адрес",
+      name: "address",
+      type: "text",
+      placeholder: "",
+      schema: yup.string().required(),
+    },
+    index: {
+      label: "Индекс",
+      name: "index",
+      type: "text",
+      placeholder: "",
+      schema: yup.string().required(),
+    },
+    blog: {
+      label: "Блог",
+      name: "blog",
+      type: "text",
+      placeholder: "",
+      schema: yup.string(),
+    },
+    clothing: {
+      label: "Размер одежды",
+      name: "clothing",
+      type: "text",
+      placeholder: "",
+      schema: yup.string(),
+    },
+    shoes: {
+      label: "Размер обуви",
+      name: "shoes",
+      type: "text",
+      placeholder: "",
+      schema: yup.string(),
+    },
+  }
+
+  const schema = yup
+    .object(
+      Object.keys(formInputsData).reduce(
+        (prev, cur) => ({ ...prev, [cur]: formInputsData[cur].schema }),
+        {},
+      ),
+    )
+    .required()
+
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
     reset,
-  } = useForm({ mode: "onBlur", resolver: yupResolver(schema) })
+  } = useForm<typeof formInputsData>({
+    mode: "onBlur",
+    resolver: yupResolver(schema),
+  })
 
   const onSubmit = (data: any) => {
     console.log(data)
@@ -48,194 +162,42 @@ export const FormAddUser: FC<TypeFormProps> = ({ onClick }) => {
   }
 
   return (
-    <form className={`${s.form}`} onSubmit={handleSubmit(onSubmit)}>
-      {/* Телефон */}
-      <Input
-        label="Телефон"
-        name="phone"
-        error={errors.phone?.message}
-        register={{
-          ...register("phone"),
-          type: "tel",
-          placeholder: "",
-          defaultValue: "",
-        }}
-      />
+    <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
+      <div className={s.form__inputs}>
+        {Object.keys(formInputsData).map((item, idx, arr) => {
+          const firstColumn = Math.round(arr.length / 2) > idx
+          const style = {
+            gridColumnStart: firstColumn ? 1 : 2,
+            gridRowStart:
+              idx + 1 - (!firstColumn ? Math.round(arr.length / 2) : 0),
+          }
+          return (
+            <Input
+              key={item}
+              label={formInputsData[item].label}
+              name={item}
+              error={errors[item]?.message}
+              style={style}
+              register={{
+                ...register(item),
+                type: "tel",
+                placeholder: "",
+                defaultValue: "",
+              }}
+            />
+          )
+        })}
+      </div>
 
-      {/* Телеграмм */}
-      <Input
-        label="Телеграмм"
-        name="telegram"
-        error={errors.telegram?.message}
-        register={{
-          ...register("telegram"),
-          type: "text",
-          placeholder: "",
-          defaultValue: "",
-        }}
-      />
-      {/* Email */}
-      <Input
-        label="Email"
-        name="email"
-        error={errors.email?.message}
-        register={{
-          ...register("email"),
-          type: "",
-          placeholder: "",
-          defaultValue: "",
-        }}
-      />
-      {/* Программа обучения */}
-      <Input
-        label="Программа обучения"
-        name="program"
-        error={errors.program?.message}
-        register={{
-          ...register("program"),
-          type: "text",
-          placeholder: "",
-          defaultValue: "",
-        }}
-      />
-      {/* Образование */}
-      <Input
-        label="Образование"
-        name="education"
-        error={errors.education?.message}
-        register={{
-          ...register("education"),
-          type: "text",
-          placeholder: "",
-          defaultValue: "",
-        }}
-      />
-      {/* Цель обучения */}
-      <Input
-        label="Цель обучения"
-        name="objective"
-        error={errors.objective?.message}
-        register={{
-          ...register("objective"),
-          type: "text",
-          placeholder: "",
-          defaultValue: "",
-        }}
-      />
-      {/* Пол */}
-      <Input
-        label="Пол"
-        name="sex"
-        error={errors.sex?.message}
-        register={{
-          ...register("sex"),
-          type: "text",
-          placeholder: "",
-          defaultValue: "",
-        }}
-      />
+      <div className={s.form__footer}>
+        <Button secondary type="button">
+          Отменить
+        </Button>
 
-      {/* Город */}
-      <Input
-        label="Город"
-        name="city"
-        error={errors.city?.message}
-        register={{
-          ...register("city"),
-          type: "text",
-          placeholder: "",
-          defaultValue: "",
-        }}
-      />
-
-      {/* Страна */}
-      <Input
-        label="Страна"
-        name="country"
-        error={errors.country?.message}
-        register={{
-          ...register("country"),
-          type: "text",
-          placeholder: "",
-          defaultValue: "",
-        }}
-      />
-
-      {/* Адрес */}
-      <Input
-        label="Адрес"
-        name="address"
-        error={errors.address?.message}
-        register={{
-          ...register("address"),
-          type: "text",
-          placeholder: "",
-          defaultValue: "",
-        }}
-      />
-
-      {/* Индекс */}
-      <Input
-        label="Индекс"
-        name="index"
-        error={errors.index?.message}
-        register={{
-          ...register("index"),
-          type: "text",
-          placeholder: "",
-          defaultValue: "",
-        }}
-      />
-      {/* Блог */}
-      <Input
-        label="Блог"
-        name="blog"
-        error={errors.blog?.message}
-        register={{
-          ...register("blog"),
-          type: "text",
-          placeholder: "",
-          defaultValue: "",
-        }}
-      />
-      {/* Размер одежды */}
-      <Input
-        label="Размер одежды"
-        name="clothing"
-        error={errors.clothing?.message}
-        register={{
-          ...register("clothing"),
-          type: "text",
-          placeholder: "",
-          defaultValue: "",
-        }}
-      />
-      {/* Размер обуви */}
-      <Input
-        label="Размер обуви"
-        name="shoes"
-        error={errors.shoes?.message}
-        register={{
-          ...register("shoes"),
-          type: "text",
-          placeholder: "",
-          defaultValue: "",
-        }}
-      />
-
-      <button
-        className={`${s.form__button} ${s.form__button_secondary}`}
-        type="button"
-      >
-        Отменить
-      </button>
-      <button
-        className={`${s.form__button} ${s.form__button_primary}`}
-        type="submit"
-        disabled={!isValid}
-      >
-        Добавить
-      </button>
+        <Button primary type="submit" disabled={!isValid}>
+          Добавить
+        </Button>
+      </div>
     </form>
   )
 }
