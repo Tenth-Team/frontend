@@ -7,7 +7,7 @@ import { UserIconSVG, XIconSVG } from "../../ui-kit"
 import { FormAddUser } from "./FormAddUser"
 
 export const ModalAddUser: FC = () => {
-  const [open, setOpen] = useState<boolean>(false)
+  const [open, setOpen] = useState<boolean>(true)
 
   const handleClickOpen = () => {
     setOpen(true)
