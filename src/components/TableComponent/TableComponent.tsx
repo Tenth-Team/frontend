@@ -9,7 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Paper from '@mui/material/Paper';
-import Checkbox, { checkboxClasses } from '@mui/material/Checkbox';
+import Checkbox from '@mui/material/Checkbox';
 import { visuallyHidden } from '@mui/utils';
 import style from "./TableComponent.module.scss";
 import theme from "../../assets/theme"
