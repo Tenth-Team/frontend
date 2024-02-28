@@ -9,7 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Paper from '@mui/material/Paper';
-import Checkbox, { checkboxClasses } from '@mui/material/Checkbox';
+import Checkbox from '@mui/material/Checkbox';
 import { visuallyHidden } from '@mui/utils';
 import style from "./TableComponent.module.scss";
 import theme from "../../assets/theme"
@@ -24,9 +24,11 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     color: theme.palette.secondary.dark,
     fontWeight: 600,
     borderBottom: 'none',
+    textAlign: 'left',
   },
   [`&.${tableCellClasses.body}`]: {
     border: 'none',
+    textAlign: 'left',
   },
 }));
 
@@ -38,6 +40,7 @@ interface Data {
   ya_edu: string;
   city: string;
   status: string;
+  publications: number;
 }
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -96,27 +99,33 @@ const headCells: readonly HeadCell[] = [
   },
   {
     id: 'tg',
-    numeric: true,
+    numeric: false,
     disablePadding: false,
     label: 'Телеграмм',
   },
   {
     id: 'ya_edu',
-    numeric: true,
+    numeric: false,
     disablePadding: false,
     label: 'Программа обучения',
   },
   {
     id: 'city',
-    numeric: true,
+    numeric: false,
     disablePadding: false,
     label: 'Город',
   },
   {
     id: 'status',
-    numeric: true,
+    numeric: false,
     disablePadding: false,
     label: 'Статус',
+  },
+  {
+    id: 'publications',
+    numeric: false,
+    disablePadding: false,
+    label: 'Публикации',
   },
 ];
 
@@ -228,6 +237,27 @@ const TableComponent = () => {
     [order, orderBy],
   );
 
+  const getStatusClass = (status: string) => {
+    let statusClass: string;
+    switch (status) {
+      case 'Активный':
+        statusClass = 'status-active';
+        break;
+      case 'На паузе':
+        statusClass = 'status-pause';
+        break;
+      case 'Не амбассадор':
+        statusClass = 'status-not';
+        break;
+      case 'Уточняется':
+        statusClass = 'status-refine';
+        break;
+      default:
+        statusClass = 'status-refine';
+    }
+    return statusClass;
+  }
+
   return (
     <section className={style.tableBlock}>
       <TableContainer component={Paper} sx={{ maxHeight: 700, border: 'none', boxShadow: 'none' }}>
@@ -286,7 +316,10 @@ const TableComponent = () => {
                     </StyledTableCell>
                     <StyledTableCell align="right">{row.ya_edu}</StyledTableCell>
                     <StyledTableCell align="right">{row.city}</StyledTableCell>
-                    <StyledTableCell align="right">{row.status}</StyledTableCell>
+                    <StyledTableCell align="right">
+                      <div className={style.status + ' ' + style[getStatusClass(row.status)]}>{row.status}</div>
+                    </StyledTableCell>
+                    <StyledTableCell align="right">{row.publications}</StyledTableCell>
                   </TableRow>
                 );
               })}
