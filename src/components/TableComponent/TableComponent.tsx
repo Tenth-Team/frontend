@@ -40,6 +40,7 @@ interface Data {
   ya_edu: string;
   city: string;
   status: string;
+  publications: number;
 }
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -119,6 +120,12 @@ const headCells: readonly HeadCell[] = [
     numeric: false,
     disablePadding: false,
     label: 'Статус',
+  },
+  {
+    id: 'publications',
+    numeric: false,
+    disablePadding: false,
+    label: 'Публикации',
   },
 ];
 
@@ -312,6 +319,7 @@ const TableComponent = () => {
                     <StyledTableCell align="right">
                       <div className={style.status + ' ' + style[getStatusClass(row.status)]}>{row.status}</div>
                     </StyledTableCell>
+                    <StyledTableCell align="right">{row.publications}</StyledTableCell>
                   </TableRow>
                 );
               })}
