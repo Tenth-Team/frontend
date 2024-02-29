@@ -1,8 +1,5 @@
 import { CircularProgress as Spinner } from "@mui/material"
-import {
-  LinearProgress,
-  Box,
-} from "@mui/material"
+import { LinearProgress, Box } from "@mui/material"
 
 import UsersIcon from "../assets/images/UsersIconDark.svg?react"
 import ExitIcon from "../assets/images/right.svg?react"
@@ -45,8 +42,9 @@ import UserIconSVG from "../assets/images/icons/user.svg?react"
 import UsersIconSVG from "../assets/images/icons/Users.svg?react"
 import XCircleIconSVG from "../assets/images/icons/XCircle.svg?react"
 import XIconSVG from "../assets/images/icons/X.svg?react"
-import HomeIconSVG from "../assets/images/icons/home.svg"
-// import Icon from "../assets/images/icons/"
+import HomeIconSVG from "../assets/images/icons/home.svg?react"
+import ChatIconSVG from "../assets/images/icons/Chat.svg?react"
+// import IconSVG from "../assets/images/icons/"
 
 export {
   // Icon components
@@ -93,6 +91,7 @@ export {
   XCircleIconSVG,
   XIconSVG,
   HomeIconSVG,
+  ChatIconSVG,
   // UI-Kit components
   Spinner,
   LinearProgress,
