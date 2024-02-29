@@ -1,11 +1,16 @@
+import { Button, Drawer } from "@mui/material"
+import React, { useState } from "react"
+import { BellIconSVG, BellRedCircleIconSVG } from "../../ui-kit"
 import style from "./Header.module.scss"
 import SvgIcon from "@mui/material/SvgIcon"
 
 const Header = () => {
+  const [newNotifications, setNewNotifications] = useState<boolean>(false)
+
   return (
     <header>
       <div className={style.header}>
-        <SvgIcon
+       {/*  <SvgIcon
           sx={{ fontSize: 40, color: "#3F3F3F" }}
           className={style.header__icon}
         >
@@ -27,7 +32,12 @@ const Header = () => {
               // stroke-linejoin="round"
             />
           </svg>
-        </SvgIcon>
+        </SvgIcon> */}
+    <Button  className={style.header__icon}>
+    {!newNotifications ?
+    <BellIconSVG /> : 
+    <BellRedCircleIconSVG />}
+    </Button>
       </div>
     </header>
   )
