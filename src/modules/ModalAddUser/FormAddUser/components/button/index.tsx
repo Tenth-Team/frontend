@@ -6,6 +6,9 @@ type CommonButtonProps = {
   type: "button" | "submit" | "reset" | undefined
   disabled?: boolean
   icon?: ReactNode
+  style?: object
+  onClick?: () => void
+  parentClass?: string | CSSModuleClasses
 }
 
 type PrimaryButtonProps = CommonButtonProps & {
@@ -26,17 +29,18 @@ export const Button: FC<TypeButtonProps> = ({
   icon,
   primary = false,
   secondary = false,
+  onClick,
+  style,
+  parentClass,
 }) => {
-  // const classes =
-  //   (primary && s.form__button_primary) ||
-  //   (secondary && s.form__button_secondary) ||
-  //   ""
-
   return (
     <button
-      className={`${s.button} ${(primary && s.primary) || (secondary && s.secondary)}`}
+      onClick={onClick}
+      className={`${s.button} ${(primary && s.primary) || (secondary && s.secondary)} ${parentClass ? parentClass : ""}`}
       type={type}
       disabled={disabled}
+      style={style}
+
     >
       {icon}
       {children}
