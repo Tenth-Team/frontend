@@ -5,9 +5,10 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import style from "./LoginForm.module.scss"
 import { InputPassword } from "./InputPassword/InputPassword"
-import { Box, Popover, Button } from "@mui/material"
+import { Box, Button, Popover } from "@mui/material"
 import { AlertTtriangleIconSVG } from "../../../ui-kit"
 import React from "react"
+//import { Button } from "../../../modules/ModalAddUser/FormAddUser/components/button"
 
 /* type TypeFormProps = {
     onClick: () => void
@@ -29,7 +30,11 @@ export const LoginForm: FC = () => {
   })
 
   const handleClickOpen = () => {
-    setOpen(true)
+    if (!isValid) {
+      setOpen(true)
+    } else {
+      setOpen(false)
+    }
   }
 
   const handleClose = () => {
@@ -67,13 +72,17 @@ export const LoginForm: FC = () => {
                 defaultValue: "",
               }}
             />
-            {!isValid ? <AlertTtriangleIconSVG /> : null}
+
+            {!isValid ? (
+              <AlertTtriangleIconSVG className={style.form__errorIcon} />
+            ) : null}
             {!isValid ? (
               <p className={style.form__errorText}>Неправильный логин</p>
             ) : null}
           </div>
 
           <div className={style.form__input}>
+            {/*              {isValid ?
             <InputPassword
               label="Пароль"
               name="password"
@@ -82,7 +91,20 @@ export const LoginForm: FC = () => {
                 ...register("password"),
                 defaultValue: "",
               }}
+            /> :   */}
+            <Input
+              label="Пароль"
+              name="password"
+              error={errors.password?.message}
+              register={{
+                ...register("password"),
+                defaultValue: "",
+                placeholder: "Введите пароль",
+              }}
             />
+            {!isValid ? (
+              <AlertTtriangleIconSVG className={style.form__errorIcon} />
+            ) : null}
             {!isValid ? (
               <p className={style.form__errorText}>Неправильный пароль</p>
             ) : null}
