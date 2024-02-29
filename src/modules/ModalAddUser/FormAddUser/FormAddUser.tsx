@@ -190,7 +190,7 @@ export const FormAddUser: FC<TypeFormProps> = ({ onClick }) => {
       </div>
 
       <div className={s.form__footer}>
-        <Button secondary type="button" parentClass={s.form__footer}>
+        <Button secondary type="button">
           Отменить
         </Button>
 
