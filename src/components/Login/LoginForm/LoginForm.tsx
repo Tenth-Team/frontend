@@ -90,6 +90,7 @@ export const LoginForm: FC = () => {
 
   const styleButton = {
     width: "100%",
+    justifyContent: "center"
   }
 
   return (
