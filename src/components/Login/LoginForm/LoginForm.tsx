@@ -5,10 +5,10 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import style from "./LoginForm.module.scss"
 import { InputPassword } from "./InputPassword/InputPassword"
-import { Box, Button, Popover } from "@mui/material"
+import { Box, Popover } from "@mui/material"
 import { AlertTtriangleIconSVG } from "../../../ui-kit"
 import React from "react"
-//import { Button } from "../../../modules/ModalAddUser/FormAddUser/components/button"
+import { Button } from "../../../modules/ModalAddUser/FormAddUser/components/button"
 
 /* type TypeFormProps = {
   onClick: () => void
@@ -88,6 +88,10 @@ export const LoginForm: FC = () => {
     reset()
   }
 
+  const styleButton = {
+    width: "100%",
+  }
+
   return (
     <>
       <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
@@ -146,8 +150,9 @@ export const LoginForm: FC = () => {
         </div>
 
         <Button
-          variant="outlined"
+          primary
           type="submit"
+          style={styleButton}
           disabled={!isValid}
           onClick={handleClickOpen}
         >
