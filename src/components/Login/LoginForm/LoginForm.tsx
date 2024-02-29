@@ -5,50 +5,92 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import style from "./LoginForm.module.scss"
 import { InputPassword } from "./InputPassword/InputPassword"
-import { Box, Popover, Button } from "@mui/material"
+import { Box, Popover } from "@mui/material"
 import { AlertTtriangleIconSVG } from "../../../ui-kit"
 import React from "react"
+import { Button } from "../../../modules/ModalAddUser/FormAddUser/components/button"
 
 /* type TypeFormProps = {
-    onClick: () => void
-  } */
-
-const schema = yup
-  .object({
-    login: yup.string().min(2).max(15).required(),
-    password: yup.string().min(4).required(),
-  })
-  .required()
+  onClick: () => void
+} */
 
 export const LoginForm: FC = () => {
   const [open, setOpen] = useState<boolean>(false)
   const [isValid, setIsValid] = useState<boolean>(true)
-
   React.useEffect(() => {
     console.log(isValid)
   })
 
-  const handleClickOpen = () => {
-    setOpen(true)
+  const formInputsData: Record<
+    string,
+    {
+      label: string
+      name: string
+      type: string
+      placeholder: string
+      schema: yup.StringSchema | yup.MixedSchema
+    }
+  > = {
+    login: {
+      label: "Логин",
+      name: "login",
+      type: "text",
+      placeholder: "Введите логин",
+      schema: yup.string().min(3).max(15).required(),
+    },
+    password: {
+      label: "Пароль",
+      name: "password",
+      type: "password",
+      placeholder: "Введите пароль",
+      schema: yup.string().min(4).required(),
+    },
   }
 
-  const handleClose = () => {
-    setOpen(false)
-  }
+  const schema = yup
+    .object(
+      Object.keys(formInputsData).reduce(
+        (prev, cur) => ({ ...prev, [cur]: formInputsData[cur].schema }),
+        {},
+      ),
+    )
+    .required()
 
   const {
     register,
     handleSubmit,
     formState: {
       errors,
-      //  isValid
+      //    isValid
     },
     reset,
-  } = useForm({ mode: "onBlur", resolver: yupResolver(schema) })
+  } = useForm<typeof formInputsData>({
+    mode: "onBlur",
+    resolver: yupResolver(schema),
+  })
+
+  //  поменять на !isValid
+  const handleClickOpen = () => {
+    if (isValid) {
+      setOpen(true)
+    } else {
+      setOpen(false)
+    }
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
 
   const onSubmit = (data: any) => {
     console.log(data)
+    handleClickOpen()
     reset()
+  }
+
+  const styleButton = {
+    width: "100%",
+    justifyContent: "center"
   }
 
   return (
@@ -67,22 +109,41 @@ export const LoginForm: FC = () => {
                 defaultValue: "",
               }}
             />
-            {!isValid ? <AlertTtriangleIconSVG /> : null}
+
+            {!isValid ? (
+              <AlertTtriangleIconSVG className={style.form__errorIcon} />
+            ) : null}
             {!isValid ? (
               <p className={style.form__errorText}>Неправильный логин</p>
             ) : null}
           </div>
 
           <div className={style.form__input}>
-            <InputPassword
-              label="Пароль"
-              name="password"
-              error={errors.password?.message}
-              register={{
-                ...register("password"),
-                defaultValue: "",
-              }}
-            />
+            {isValid ? (
+              <InputPassword
+                label="Пароль"
+                name="password"
+                error={errors.password?.message}
+                register={{
+                  ...register("password"),
+                  defaultValue: "",
+                }}
+              />
+            ) : (
+              <Input
+                label="Пароль"
+                name="password"
+                error={errors.password?.message}
+                register={{
+                  ...register("password"),
+                  defaultValue: "",
+                  placeholder: "Введите пароль",
+                }}
+              />
+            )}
+            {!isValid ? (
+              <AlertTtriangleIconSVG className={style.form__errorIcon} />
+            ) : null}
             {!isValid ? (
               <p className={style.form__errorText}>Неправильный пароль</p>
             ) : null}
@@ -90,8 +151,9 @@ export const LoginForm: FC = () => {
         </div>
 
         <Button
-          variant="outlined"
+          primary
           type="submit"
+          style={styleButton}
           disabled={!isValid}
           onClick={handleClickOpen}
         >

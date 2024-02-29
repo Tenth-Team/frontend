@@ -4,10 +4,13 @@ import style from './Login.module.scss'
 
 import { LoginForm } from "./LoginForm/LoginForm";
 
-
 const Login = () => {
     const [loggedIn, setLogin] = useState(false);
+    const [open, setOpen] = useState<boolean>(false)
 
+/*     const handleClickOpen = () => {
+        setOpen(true)
+      } */
     return (
             loggedIn ? <Navigate to="/" replace /> :
             <section className={style.container}>
