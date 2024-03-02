@@ -10,8 +10,12 @@ const Header: FC = () => {
   const [open, setOpen] = useState<boolean>(false)
 
   const handleClickOpen = () => {
-    setOpen(true)
-    setNewNotifications(false)
+    if (open === false) {
+      setOpen(true)
+      setNewNotifications(false)
+    } else {
+      setOpen(false)
+    }
   }
 
   const handleOverlayClick = () => {
