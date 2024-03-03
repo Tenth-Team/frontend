@@ -1,0 +1,176 @@
+import type { FC, MouseEvent } from "react"
+import { useEffect, useRef, useState } from "react"
+import styles from "./styles.module.scss"
+import {
+  Box,
+  CaretDownIconSVG,
+  CheckboxOffSVG,
+  CheckboxOnSVG,
+  XIconSVG,
+} from "../../../../ui-kit"
+import type { Filter, Option } from "../Select/types"
+
+interface Props {
+  data: Filter
+  onSelect: (options: Option[]) => void
+}
+
+export const SelectCheckbox: FC<Props> = ({ data, onSelect }) => {
+  const { label, list } = data
+  const [selectedOptions, setSelectedOptions] = useState<Option[]>([])
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [searchValue, setSearchValue] = useState<string>("")
+  const selectRef = useRef<HTMLButtonElement>(null)
+
+  const handleOpen = () => {
+    setIsOpen(!isOpen)
+  }
+
+  const handleOptionClick = (option: Option) => {
+    const index = selectedOptions.findIndex(opt => opt.id === option.id)
+    if (index === -1) {
+      setSelectedOptions([...selectedOptions, option])
+    } else {
+      const updatedOptions = [...selectedOptions]
+      updatedOptions.splice(index, 1)
+      setSelectedOptions(updatedOptions)
+    }
+  }
+
+  const handleOverlayClick = (e: MouseEvent<Document, MouseEvent>) => {
+    if (selectRef.current && !selectRef.current.contains(e.target as Node)) {
+      setIsOpen(false)
+    }
+  }
+
+  function checkedTags(id: number) {
+    return selectedOptions.some(i => i.id === id)
+  }
+
+  useEffect(() => {
+    document.addEventListener(
+      "click",
+      handleOverlayClick as unknown as EventListener,
+    )
+    return () => {
+      document.removeEventListener(
+        "click",
+        handleOverlayClick as unknown as EventListener,
+      )
+    }
+  }, [])
+
+  const filteredList = list.filter(option =>
+    option.label.toLowerCase().includes(searchValue.toLowerCase()),
+  )
+
+  return (
+    <div className={styles.select}>
+      <span className={styles.select__label}>{label}</span>
+      <button
+        aria-haspopup="listbox"
+        aria-controls="options-list"
+        className={styles.select__button}
+        onClick={handleOpen}
+        aria-expanded={isOpen}
+        ref={selectRef}
+      >
+        Все
+        <CaretDownIconSVG />
+      </button>
+      {isOpen && (
+        <div
+          role="listbox"
+          id="options-list"
+          className={styles.select__box}
+          onClick={e => {
+            e.stopPropagation()
+            console.log("handleChildClick")
+          }}
+        >
+          <>
+            <div className={styles.select__search}>
+              <input
+                autoComplete="off"
+                type="search"
+                name="modules"
+                className={styles.select__searchInput}
+                placeholder="Начните ввод"
+                value={searchValue}
+                onChange={e => setSearchValue(e.target.value)}
+              />
+            </div>
+            <Box
+              sx={{
+                width: "100%",
+                maxHeight: 300,
+                overflow: "auto hidden",
+                overflowY: "scroll",
+                "&::-webkit-scrollbar": {
+                  height: 10,
+                  WebkitAppearance: "none",
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  borderRadius: 100,
+                  border: "1px solid",
+                  borderColor: "#E7EBF0",
+                  backgroundColor: "rgba(0 0 0 / 0.5)",
+                },
+              }}
+              className={styles.select__options}
+            >
+              <ul
+                className={styles.select__optionsList}
+                onClick={e => {
+                  e.stopPropagation()
+                  console.log("handleChildClick")
+                }}
+              >
+                {filteredList.length ? (
+                  filteredList.map(option => (
+                    <li
+                      key={option.id}
+                      className={styles.checkbox}
+                      // onClick={() => handleOptionClick(option)}
+                      onKeyDown={e => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          handleOptionClick(option)
+                        }
+                      }}
+                    >
+                      <label
+                        htmlFor={`${option.id}`}
+                        className={styles.checkbox__label}
+                        tabIndex={0}
+                      >
+                        <input
+                          className={styles.checkbox__input}
+                          id={`${option.id}`}
+                          type="checkbox"
+                          checked={checkedTags(option.id)}
+                          onChange={() => handleOptionClick(option)}
+                        />
+                        {checkedTags(option.id) ? (
+                          <CheckboxOnSVG />
+                        ) : (
+                          <CheckboxOffSVG />
+                        )}
+                        <span>{option.label}</span>
+                      </label>
+                    </li>
+                  ))
+                ) : (
+                  <li className="dropdown__item">
+                    <span className={styles.checkbox__label}>
+                      Ни чего не найдено
+                    </span>
+                  </li>
+                )}
+              </ul>
+            </Box>
+          </>
+        </div>
+      )}
+    </div>
+  )
+}

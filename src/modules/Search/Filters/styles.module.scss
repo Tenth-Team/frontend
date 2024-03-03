@@ -1,0 +1,19 @@
+.filters {
+  position: absolute;
+  top: calc(100% + 10px);
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  &__container {
+    border: 1px solid var(--gray-02---70);
+    border-radius: 4px;
+    padding: 32px;
+    width: 860px;
+    box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.1);
+    background: var(--gray-02-100);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px 32px;
+  }
+}

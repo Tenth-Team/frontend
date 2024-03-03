@@ -8,6 +8,7 @@ import Layout from "../layouts/Layout"
 import { Spinner } from "../ui-kit"
 import Main from "../components/Main/Main"
 import { ModalAddUser } from "../modules/ModalAddUser"
+import { Search } from "../modules/Search"
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,6 +32,7 @@ export const router = createBrowserRouter(
         element={
           <div>
             <h1>Промо-коды</h1>
+            <Search />
           </div>
         }
       />

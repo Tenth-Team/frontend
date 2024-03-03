@@ -46,6 +46,9 @@ import HomeIconSVG from "../assets/images/icons/home.svg?react"
 import ChatIconSVG from "../assets/images/icons/Chat.svg?react"
 // import IconSVG from "../assets/images/icons/"
 
+import CheckboxOffSVG from "../assets/images/chekbox_off.svg?react"
+import CheckboxOnSVG from "../assets/images/chekbox_on.svg?react"
+
 export {
   // Icon components
   UsersIcon,
@@ -92,6 +95,10 @@ export {
   XIconSVG,
   HomeIconSVG,
   ChatIconSVG,
+
+  CheckboxOffSVG,
+  CheckboxOnSVG,
+
   // UI-Kit components
   Spinner,
   LinearProgress,
