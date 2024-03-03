@@ -5,6 +5,8 @@ import { BarChart } from "@mui/x-charts/BarChart"
 import { MinusIconSVG } from "../../ui-kit"
 import { TextField } from "@mui/material"
 import { AUTHORS, CARDS, MERCH } from "../../assets/constants/analytics"
+import { HeaderContent } from "../HeaderContent/HeaderContent"
+import { Content } from "../Content/Content"
 
 const Analytics: FC = () => {
   type CardValue = {
@@ -77,9 +79,9 @@ const Analytics: FC = () => {
   })
 
   return (
-    <section className={style.container}>
+    <Content className={style.container}>
       <div className={style.container__calendarsArea}>
-        <h2 className={style.container__title}>Аналитика</h2>
+        <HeaderContent>Аналитика</HeaderContent>
         <form>
           <div className={style.container__date}>
             <TextField
@@ -149,8 +151,8 @@ const Analytics: FC = () => {
           <p className={style.container__text}>{total + clubSum} &#8381;</p>
         </li>
       </div>
-    </section>
+    </Content>
   )
 }
 
-export {Analytics}
+export { Analytics }

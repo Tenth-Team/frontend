@@ -10,6 +10,11 @@ import Main from "../components/Main/Main"
 import { ModalAddUser } from "../modules/ModalAddUser"
 import { Login } from "../components/Login"
 import { Analytics } from "../components/Analytics"
+import Loyality from "../components/Loyality/Loyality"
+import Settings from "../components/Settings/Settings"
+import Promocodes from "../components/Promocodes/Promocodes"
+import AmbassadorContent from "../components/AmbassadorContent/AmbassadorContent"
+import SendingMerch from "../components/SendingMerch/SendingMerch"
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,14 +36,7 @@ export const router = createBrowserRouter(
           }
         />
 
-        <Route
-          path="/promo-codes"
-          element={
-            <div>
-              <h1>Промо-коды</h1>
-            </div>
-          }
-        />
+        <Route path="/promo-codes" element={<Promocodes />} />
 
         <Route
           path="/mailing-management"
@@ -49,39 +47,11 @@ export const router = createBrowserRouter(
           }
         />
 
-        <Route
-          path="/loyalty-program"
-          element={
-            <div>
-              <h1>Программа лояльности</h1>
-            </div>
-          }
-        />
-        <Route
-          path="/ambassador-content"
-          element={
-            <div>
-              <h1>Контент амбассадоров</h1>
-            </div>
-          }
-        />
-        <Route
-          path="/sending-merch"
-          element={
-            <div>
-              <h1>Отправка мерча</h1>
-            </div>
-          }
-        />
+        <Route path="/loyalty-program" element={<Loyality />} />
+        <Route path="/ambassador-content" element={<AmbassadorContent />} />
+        <Route path="/sending-merch" element={<SendingMerch />} />
         <Route path="/analytics" element={<Analytics />} />
-        <Route
-          path="/setting"
-          element={
-            <div>
-              <h1>Настройка</h1>
-            </div>
-          }
-        />
+        <Route path="/setting" element={<Settings />} />
         {/* Временно для Кодинга. */}
         <Route path="/modal" element={<ModalAddUser />} />
       </Route>
