@@ -22,6 +22,7 @@ const theme = createTheme({
     fontFamily: 'Inter, sans-serif',
     fontSize: 14,
   },
+  
   components: {
     MuiCssBaseline: {
       styleOverrides: `

@@ -1,6 +1,5 @@
 import {
   Route,
-  Routes,
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom"
@@ -9,7 +8,8 @@ import Layout from "../layouts/Layout"
 import { Spinner } from "../ui-kit"
 import Main from "../components/Main/Main"
 import { ModalAddUser } from "../modules/ModalAddUser"
-import Login from "../components/Login/Login"
+import { Login } from "../components/Login"
+import { Analytics } from "../components/Analytics"
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -73,14 +73,7 @@ export const router = createBrowserRouter(
             </div>
           }
         />
-        <Route
-          path="/analytics"
-          element={
-            <div>
-              <h1>Аналитика</h1>
-            </div>
-          }
-        />
+        <Route path="/analytics" element={<Analytics />} />
         <Route
           path="/setting"
           element={
