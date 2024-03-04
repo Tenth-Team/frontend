@@ -24,6 +24,7 @@
   }
 
   &__inner {
+    position: relative;
     box-sizing: border-box;
     outline: 1px solid var(--gray-02---70);
     border-radius: 4px;

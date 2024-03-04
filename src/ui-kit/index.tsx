@@ -17,6 +17,7 @@ import ArrowLeftIconSVG from "../assets/images/icons/arrow-left.svg?react"
 import ArrowRightIconSVG from "../assets/images/icons/arrow-right.svg?react"
 import BarcodeIconSVG from "../assets/images/icons/barcode.svg?react"
 import BellIconSVG from "../assets/images/icons/bell.svg?react"
+import BellRedCircleIconSVG from "../assets/images/icons/bell-red-circle.svg?react"
 import CalendarIconSVG from "../assets/images/icons/calendar.svg?react"
 import CaretDownIconSVG from "../assets/images/icons/caret-down.svg?react"
 import CaretLeftIconSVG from "../assets/images/icons/caret-left.svg?react"
@@ -68,6 +69,7 @@ export {
   ArrowRightIconSVG,
   BarcodeIconSVG,
   BellIconSVG,
+  BellRedCircleIconSVG,
   CalendarIconSVG,
   CaretDownIconSVG,
   CaretLeftIconSVG,
