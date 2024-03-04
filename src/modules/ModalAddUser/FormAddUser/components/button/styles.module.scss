@@ -15,23 +15,25 @@
   &.secondary {
     color: var(--primary-main);
     background: var(--primary---secondary);
-    &:hover {
-      color: var(--primary---hover);
-    }
-    &:active {
-      color: var(--primary---pressed);
+    &:not(:disabled) {
+      &:hover {
+        color: var(--primary---hover);
+      }
+      &:active {
+        color: var(--primary---pressed);
+      }
     }
   }
-
   &.primary {
     color: var(--gray-02-100);
     background: var(--primary-main);
-
-    &:hover {
-      background: var(--primary---hover);
-    }
-    &:active {
-      background: var(--primary---pressed);
+    &:not(:disabled) {
+      &:hover {
+        background: var(--primary---hover);
+      }
+      &:active {
+        background: var(--primary---pressed);
+      }
     }
   }
 

@@ -47,11 +47,13 @@
       transition: all 0.2s;
     }
 
-    &:hover {
-      outline: 1px solid var(--primary---hover);
-    }
-    &:focus {
-      outline: 3px solid var(--primary---focus);
+    &:not(:disabled) {
+      &:hover {
+        outline: 1px solid var(--primary---hover);
+      }
+      &:focus {
+        outline: 3px solid var(--primary---focus);
+      }
     }
     &:disabled {
       background: var(--gray-02-90);
