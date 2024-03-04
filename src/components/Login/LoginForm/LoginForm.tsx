@@ -8,7 +8,7 @@ import { InputPassword } from "./InputPassword/InputPassword"
 import { Box, Popover } from "@mui/material"
 import { AlertTtriangleIconSVG } from "../../../ui-kit"
 import React from "react"
-import { Button } from "../../../modules/ModalAddUser/FormAddUser/components/button"
+import { Button } from "../../../modules/ModalAddUser/FormAddUser/components/Button"
 
 /* type TypeFormProps = {
   onClick: () => void
