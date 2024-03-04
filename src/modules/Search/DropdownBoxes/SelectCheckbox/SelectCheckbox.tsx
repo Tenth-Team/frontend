@@ -6,7 +6,6 @@ import {
   CaretDownIconSVG,
   CheckboxOffSVG,
   CheckboxOnSVG,
-  XIconSVG,
 } from "../../../../ui-kit"
 import type { Filter, Option } from "../Select/types"
 
@@ -27,14 +26,11 @@ export const SelectCheckbox: FC<Props> = ({ data, onSelect }) => {
   }
 
   const handleOptionClick = (option: Option) => {
-    const index = selectedOptions.findIndex(opt => opt.id === option.id)
-    if (index === -1) {
-      setSelectedOptions([...selectedOptions, option])
-    } else {
-      const updatedOptions = [...selectedOptions]
-      updatedOptions.splice(index, 1)
-      setSelectedOptions(updatedOptions)
-    }
+    setSelectedOptions(state =>
+      state.some(opt => opt.id === option.id)
+        ? state.filter(opt => opt.id !== option.id)
+        : state.concat(option),
+    )
   }
 
   const handleOverlayClick = (e: MouseEvent<Document, MouseEvent>) => {
@@ -104,17 +100,21 @@ export const SelectCheckbox: FC<Props> = ({ data, onSelect }) => {
               sx={{
                 width: "100%",
                 maxHeight: 300,
-                overflow: "auto hidden",
-                overflowY: "scroll",
+                overflow: " hidden auto",
+                // overflowY: "auto",
                 "&::-webkit-scrollbar": {
                   height: 10,
+                  width: 10,
                   WebkitAppearance: "none",
                 },
+                "&::-webkit-scrollbar-track": {
+                  borderRadius: 5,
+                },
                 "&::-webkit-scrollbar-thumb": {
-                  borderRadius: 100,
+                  borderRadius: 5,
                   border: "1px solid",
-                  borderColor: "#E7EBF0",
-                  backgroundColor: "rgba(0 0 0 / 0.5)",
+                  borderColor: "var(--gray-200)",
+                  background: "var(--gray-200)",
                 },
               }}
               className={styles.select__options}
@@ -131,7 +131,6 @@ export const SelectCheckbox: FC<Props> = ({ data, onSelect }) => {
                     <li
                       key={option.id}
                       className={styles.checkbox}
-                      // onClick={() => handleOptionClick(option)}
                       onKeyDown={e => {
                         if (e.key === "Enter" || e.key === " ") {
                           handleOptionClick(option)

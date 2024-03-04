@@ -4,7 +4,7 @@
   flex-direction: column;
   gap: 4px;
 
-  &Label {
+  &__label {
     color: var(--gray-02---20);
     font-family: var(--font-family);
     font-weight: 400;
@@ -12,7 +12,7 @@
     line-height: 143%;
   }
 
-  &Button {
+  &__button {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -54,7 +54,7 @@
     }
   }
 
-  &Options {
+  &__options {
     position: absolute;
     top: calc(100% + 8px);
     right: 0;
@@ -67,14 +67,14 @@
     background: var(--gray-02-100);
   }
 
-  &Option {
-    padding: 6px 16px;
+  &__option {
     width: 100%;
+    padding: 6px 16px;
+    color: var(--gray-800);
     font-family: var(--font-family);
     font-weight: 400;
     font-size: 14px;
     line-height: 143%;
-    color: var(--gray-800);
     cursor: pointer;
 
     &.selected {
@@ -88,14 +88,8 @@
       color: var(--primary---pressed);
     }
     &:focus {
-      outline-offset: -3px;
       outline: 3px solid var(--primary---focus);
+      outline-offset: -3px;
     }
   }
-
-  // .noOptions {
-  //   padding: 0.5rem 1rem;
-  //   color: #999;
-  // }
-
 }

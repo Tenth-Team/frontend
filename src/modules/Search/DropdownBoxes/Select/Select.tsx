@@ -50,11 +50,11 @@ export const Select: FC<Props> = ({ data, onSelect }) => {
 
   return (
     <div className={styles.select}>
-      <span className={styles.selectLabel}>{label}</span>
+      <span className={styles.select__label}>{label}</span>
       <button
         aria-haspopup="listbox"
         aria-controls="options-list"
-        className={styles.selectButton}
+        className={styles.select__button}
         onClick={handleOpen}
         aria-expanded={isOpen}
         ref={selectRef}
@@ -63,11 +63,11 @@ export const Select: FC<Props> = ({ data, onSelect }) => {
         <CaretDownIconSVG />
       </button>
       {isOpen && (
-        <ul role="listbox" id="options-list" className={styles.selectOptions}>
+        <ul role="listbox" id="options-list" className={styles.select__options}>
           {list.map(option => (
             <li
               key={option.id}
-              className={`${styles.selectOption} ${
+              className={`${styles.select__option} ${
                 selectedOption && selectedOption.id === option.id
                   ? styles.selected
                   : ""

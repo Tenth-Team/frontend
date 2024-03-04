@@ -736,7 +736,7 @@ export const filters = [
     type: "checkbox",
   },
   {
-    id: 5,
+    id: 6,
     label: "Пол",
     name: "sex",
     list: [

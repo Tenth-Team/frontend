@@ -97,30 +97,26 @@
     // overflow-y: scroll;
   }
 
-  &__checkbox {
-    width: 100%;
-    padding: 6px 16px;
-    color: var(--gray-800);
-    font-family: var(--font-family);
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 143%;
-    cursor: pointer;
+  // &__checkbox {
+  //   width: 100%;
+  //   padding: 6px 16px;
+  //   color: var(--gray-800);
+  //   font-family: var(--font-family);
+  //   font-weight: 400;
+  //   font-size: 14px;
+  //   line-height: 143%;
+  //   cursor: pointer;
 
-    &.selected {
-      color: var(--primary-main);
-    }
-
-    &:hover {
-      color: var(--primary---hover);
-    }
-    &:active {
-      color: var(--primary---pressed);
-    }
-    &:focus {
-      outline: 3px solid var(--primary---focus);
-    }
-  }
+  // &:hover {
+  //   color: var(--primary---hover);
+  // }
+  // &:active {
+  //   color: var(--primary---pressed);
+  // }
+  // &:focus {
+  //   outline: 3px solid var(--primary---focus);
+  // }
+  // }
 
   .checkbox {
     display: flex;
@@ -144,6 +140,12 @@
       transition: color 0.2s;
       cursor: pointer;
 
+      & svg {
+        width: 20px;
+        height: 20px;
+        min-height: 20px;
+        min-width: 20px;
+      }
       &:focus {
         outline: 3px solid var(--primary---focus);
         outline-offset: -3px;

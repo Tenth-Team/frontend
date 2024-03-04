@@ -10,11 +10,16 @@ export const Filters = () => {
         {filters.map(filter => {
           if (filter.type === "select") {
             return (
-              <Select data={filter} onSelect={() => console.log("click")} />
+              <Select
+                key={filter.id}
+                data={filter}
+                onSelect={() => console.log("click")}
+              />
             )
           } else {
             return (
               <SelectCheckbox
+                key={filter.id}
                 data={filter}
                 onSelect={() => console.log("click")}
               />
