@@ -11,10 +11,11 @@ import TableSortLabel from "@mui/material/TableSortLabel"
 import Paper from "@mui/material/Paper"
 import Checkbox from "@mui/material/Checkbox"
 import { visuallyHidden } from "@mui/utils"
-import style from "./TableComponent.module.scss"
+import style from "./TableLoyality.module.scss"
 import theme from "../../assets/theme"
 import ambassadors from "./ambassadors.json"
 import { Link } from "react-router-dom"
+import { CheckCircleIconSVG, MinusIconSVG } from "../../ui-kit"
 
 // TODO - убрать моки, когда будет готова апишка
 // FIXME - пока непонятно откуда брать публикации. Возможно это контент, надо добавать
@@ -36,11 +37,18 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 interface Data {
   id: number
   name: string
-  tg: string
-  ya_edu: string
-  city: string
-  status: string
   publications: number
+  friend: boolean
+  shoper: boolean
+  plus: boolean
+  arzamas: boolean
+  bag: boolean
+  crossbody: boolean
+  soks: boolean
+  coupon: boolean
+  mini: boolean
+  big: boolean
+  club: boolean
 }
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -67,10 +75,6 @@ function getComparator<Key extends keyof any>(
     : (a, b) => -descendingComparator(a, b, orderBy)
 }
 
-// Since 2020 all major browsers ensure sort stability with Array.prototype.sort().
-// stableSort() brings sort stability to non-modern browsers (notably IE11). If you
-// only support modern browsers you can replace stableSort(exampleArray, exampleComparator)
-// with exampleArray.slice().sort(exampleComparator)
 function stableSort<T>(
   array: readonly T[],
   comparator: (a: T, b: T) => number,
@@ -101,34 +105,76 @@ const headCells: readonly HeadCell[] = [
     label: "ФИО",
   },
   {
-    id: "tg",
-    numeric: false,
-    disablePadding: false,
-    label: "Телеграмм",
-  },
-  {
-    id: "ya_edu",
-    numeric: false,
-    disablePadding: false,
-    label: "Программа обучения",
-  },
-  {
-    id: "city",
-    numeric: false,
-    disablePadding: false,
-    label: "Город",
-  },
-  {
-    id: "status",
-    numeric: false,
-    disablePadding: false,
-    label: "Статус",
-  },
-  {
     id: "publications",
     numeric: false,
     disablePadding: false,
-    label: "Публикации",
+    label: "Количество публикаций",
+  },
+  {
+    id: "friend",
+    numeric: false,
+    disablePadding: false,
+    label: "“Друг практикума” (толстовка, кофе, стикеры)",
+  },
+  {
+    id: "shoper",
+    numeric: false,
+    disablePadding: false,
+    label: "“Я практикующий амбассадор” (шоппер)",
+  },
+  {
+    id: "plus",
+    numeric: false,
+    disablePadding: false,
+    label: "Плюс",
+  },
+  {
+    id: "arzamas",
+    numeric: false,
+    disablePadding: false,
+    label: "Арзамас",
+  },
+  {
+    id: "bag",
+    numeric: false,
+    disablePadding: false,
+    label: "Рюкзак",
+  },
+  {
+    id: "crossbody",
+    numeric: false,
+    disablePadding: false,
+    label: "Сумка кросс",
+  },
+  {
+    id: "soks",
+    numeric: false,
+    disablePadding: false,
+    label: "Носки",
+  },
+  {
+    id: "coupon",
+    numeric: false,
+    disablePadding: false,
+    label: "Скидка 50%",
+  },
+  {
+    id: "mini",
+    numeric: false,
+    disablePadding: false,
+    label: "Алиса мини",
+  },
+  {
+    id: "big",
+    numeric: false,
+    disablePadding: false,
+    label: "Алиса биг",
+  },
+  {
+    id: "club",
+    numeric: false,
+    disablePadding: false,
+    label: "Клуб учащихся ночью",
   },
 ]
 
@@ -199,7 +245,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   )
 }
 
-const TableComponent = () => {
+const TableLoyality = () => {
   const [order, setOrder] = React.useState<Order>("asc")
   const [orderBy, setOrderBy] = React.useState<keyof Data>("name")
   const [selected, setSelected] = React.useState<readonly number[]>([])
@@ -248,27 +294,6 @@ const TableComponent = () => {
     [order, orderBy],
   )
 
-  const getStatusClass = (status: string) => {
-    let statusClass: string
-    switch (status) {
-      case "Активный":
-        statusClass = "status-active"
-        break
-      case "На паузе":
-        statusClass = "status-pause"
-        break
-      case "Не амбассадор":
-        statusClass = "status-not"
-        break
-      case "Уточняется":
-        statusClass = "status-refine"
-        break
-      default:
-        statusClass = "status-refine"
-    }
-    return statusClass
-  }
-
   return (
     <section className={style.tableBlock}>
       <TableContainer
@@ -294,8 +319,6 @@ const TableComponent = () => {
             {visibleRows.map((row, index) => {
               const isItemSelected = isSelected(row.id)
               const labelId = `enhanced-table-checkbox-${index}`
-
-              const newTg = row.tg.replace("@", "")
 
               return (
                 <TableRow
@@ -327,34 +350,86 @@ const TableComponent = () => {
                   >
                     <Link to="/">{row.name}</Link>
                   </StyledTableCell>
-
-                  <StyledTableCell
-                    align="right"
-                    sx={{ color: theme.palette.primary.main }}
-                  >
-                    {!row.tg.includes("@") ? (
-                      <a href={`https://t.me/${row.tg}`} target="_blank">
-                        {row.tg}
-                      </a>
-                    ) : (
-                      <a href={`https://t.me/${newTg}`} target="_blank">
-                        {newTg}
-                      </a>
-                    )}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">{row.ya_edu}</StyledTableCell>
-                  <StyledTableCell align="right">{row.city}</StyledTableCell>
-                  <StyledTableCell align="right">
-                    <div
-                      className={
-                        style.status + " " + style[getStatusClass(row.status)]
-                      }
-                    >
-                      {row.status}
-                    </div>
-                  </StyledTableCell>
                   <StyledTableCell align="right">
                     {row.publications}
+                  </StyledTableCell>
+
+                  <StyledTableCell align="right">
+                    {row.friend === "true" ? (
+                      <CheckCircleIconSVG className={style.icon} />
+                    ) : (
+                      <MinusIconSVG />
+                    )}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.shoper === "true" ? (
+                      <CheckCircleIconSVG />
+                    ) : (
+                      <MinusIconSVG />
+                    )}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.plus === "true" ? (
+                      <CheckCircleIconSVG />
+                    ) : (
+                      <MinusIconSVG />
+                    )}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.arzamas === "true" ? (
+                      <CheckCircleIconSVG />
+                    ) : (
+                      <MinusIconSVG />
+                    )}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.bag === "true" ? (
+                      <CheckCircleIconSVG />
+                    ) : (
+                      <MinusIconSVG />
+                    )}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.crossbody === "true" ? (
+                      <CheckCircleIconSVG />
+                    ) : (
+                      <MinusIconSVG />
+                    )}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.soks === "true" ? (
+                      <CheckCircleIconSVG />
+                    ) : (
+                      <MinusIconSVG />
+                    )}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.coupon === "true" ? (
+                      <CheckCircleIconSVG />
+                    ) : (
+                      <MinusIconSVG />
+                    )}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.mini === "true" ? (
+                      <CheckCircleIconSVG />
+                    ) : (
+                      <MinusIconSVG />
+                    )}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.big === "true" ? (
+                      <CheckCircleIconSVG />
+                    ) : (
+                      <MinusIconSVG />
+                    )}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.club === "true" ? (
+                      <CheckCircleIconSVG />
+                    ) : (
+                      <MinusIconSVG />
+                    )}
                   </StyledTableCell>
                 </TableRow>
               )
@@ -366,4 +441,4 @@ const TableComponent = () => {
   )
 }
 
-export default TableComponent
+export default TableLoyality
