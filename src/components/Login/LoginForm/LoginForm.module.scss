@@ -6,23 +6,16 @@
   min-height: 204px;
   gap: 32px;
 
-  & svg {
-      width: 16px;
-      height: 16px;
 
-      & * {
-        stroke: var(--danger---main);
-      }
-  }
 
   &__errorIcon {
     position: absolute;
-    bottom: 28px;
+    top: 28px;
     right: 8px;
     display: inline-block;
     size: 16px 16px;
         }
-  
+
 
   &__inputs {
     display: flex;

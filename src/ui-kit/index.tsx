@@ -45,6 +45,7 @@ import XCircleIconSVG from "../assets/images/icons/XCircle.svg?react"
 import XIconSVG from "../assets/images/icons/X.svg?react"
 import HomeIconSVG from "../assets/images/icons/home.svg?react"
 import ChatIconSVG from "../assets/images/icons/Chat.svg?react"
+import EyeIconSVG from "../assets/images/icons/Eye.svg?react"
 // import IconSVG from "../assets/images/icons/"
 
 import CheckboxOffSVG from "../assets/images/chekbox_off.svg?react"
@@ -97,10 +98,9 @@ export {
   XIconSVG,
   HomeIconSVG,
   ChatIconSVG,
-
   CheckboxOffSVG,
   CheckboxOnSVG,
-
+  EyeIconSVG,
   // UI-Kit components
   Spinner,
   LinearProgress,
