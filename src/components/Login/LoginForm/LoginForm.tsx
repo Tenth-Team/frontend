@@ -6,18 +6,17 @@ import style from "./LoginForm.module.scss"
 import { Box, Popover } from "@mui/material"
 import { AlertTtriangleIconSVG } from "../../../ui-kit"
 import { Button } from "../../../modules/ModalAddUser/FormAddUser/components/Button"
-import { useAppDispatch, useAppSelector } from "../../../store/hooks"
+import { useAppDispatch } from "../../../store/hooks"
 import { login } from "../../../store/actions"
 import { InputLogin } from "./InputLogin"
-import { getAuthData } from "../../../store/selectors"
 import { LOGIN_FORM } from "../../../utils/formInputsData"
 import { unwrapResult } from "@reduxjs/toolkit"
 import { useNavigate } from "react-router-dom"
+import type { LoginData } from "../../../@types/api"
 
 export const LoginForm: FC = () => {
   const [open, setOpen] = useState<boolean>(false)
   const dispatch = useAppDispatch()
-  const { loading, error } = useAppSelector(getAuthData)
   const navigate = useNavigate()
 
   const formInputsData = LOGIN_FORM
@@ -36,7 +35,7 @@ export const LoginForm: FC = () => {
     handleSubmit,
     formState: { errors, isValid },
     reset,
-  } = useForm<typeof formInputsData>({
+  } = useForm<typeof formInputsData, any, LoginData>({
     mode: "onBlur",
     resolver: yupResolver(schema),
   })
@@ -45,7 +44,7 @@ export const LoginForm: FC = () => {
     setOpen(false)
   }
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: LoginData) => {
     try {
       const res = await dispatch(login(data))
       const originalPromiseResult = unwrapResult(res)
