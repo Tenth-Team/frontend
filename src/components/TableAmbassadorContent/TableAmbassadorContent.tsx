@@ -11,7 +11,7 @@ import TableSortLabel from "@mui/material/TableSortLabel"
 import Paper from "@mui/material/Paper"
 import Checkbox from "@mui/material/Checkbox"
 import { visuallyHidden } from "@mui/utils"
-import style from "./TableComponent.module.scss"
+import style from "../../components/TableComponent/TableComponent.module.scss"
 import theme from "../../assets/theme"
 import ambassadors from "./ambassadors.json"
 import { Link } from "react-router-dom"
@@ -37,10 +37,10 @@ interface Data {
   id: number
   name: string
   tg: string
-  ya_edu: string
-  city: string
-  status: string
-  publications: number
+  link: string
+  date: Date
+  status: string | number
+  comment: string
 }
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -67,10 +67,6 @@ function getComparator<Key extends keyof any>(
     : (a, b) => -descendingComparator(a, b, orderBy)
 }
 
-// Since 2020 all major browsers ensure sort stability with Array.prototype.sort().
-// stableSort() brings sort stability to non-modern browsers (notably IE11). If you
-// only support modern browsers you can replace stableSort(exampleArray, exampleComparator)
-// with exampleArray.slice().sort(exampleComparator)
 function stableSort<T>(
   array: readonly T[],
   comparator: (a: T, b: T) => number,
@@ -107,28 +103,28 @@ const headCells: readonly HeadCell[] = [
     label: "Телеграмм",
   },
   {
-    id: "ya_edu",
+    id: "link",
     numeric: false,
     disablePadding: false,
-    label: "Программа обучения",
+    label: "Ссылка на контент",
   },
   {
-    id: "city",
+    id: "date",
     numeric: false,
     disablePadding: false,
-    label: "Город",
+    label: "Дата публикации",
   },
   {
     id: "status",
     numeric: false,
     disablePadding: false,
-    label: "Статус",
+    label: "Статус публикации",
   },
   {
-    id: "publications",
+    id: "comment",
     numeric: false,
     disablePadding: false,
-    label: "Публикации",
+    label: "Комментарий менеджера",
   },
 ]
 
@@ -199,7 +195,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   )
 }
 
-const TableComponent = () => {
+const TableAmbassadorContent = () => {
   const [order, setOrder] = React.useState<Order>("asc")
   const [orderBy, setOrderBy] = React.useState<keyof Data>("name")
   const [selected, setSelected] = React.useState<readonly number[]>([])
@@ -248,23 +244,20 @@ const TableComponent = () => {
     [order, orderBy],
   )
 
-  const getStatusClass = (status: string) => {
+  const getStatusClass = (status: string | number) => {
     let statusClass: string
     switch (status) {
-      case "Активный":
+      case "Одобрено":
         statusClass = "status-active"
         break
-      case "На паузе":
-        statusClass = "status-pause"
-        break
-      case "Не амбассадор":
+      case "Не одобрено":
         statusClass = "status-not"
         break
-      case "Уточняется":
-        statusClass = "status-refine"
+      case "Новая публикация":
+        statusClass = "status-pause"
         break
       default:
-        statusClass = "status-refine"
+        statusClass = "status-pause"
     }
     return statusClass
   }
@@ -327,7 +320,6 @@ const TableComponent = () => {
                   >
                     <Link to="/">{row.name}</Link>
                   </StyledTableCell>
-
                   <StyledTableCell
                     align="right"
                     sx={{ color: theme.palette.primary.main }}
@@ -342,8 +334,12 @@ const TableComponent = () => {
                       </a>
                     )}
                   </StyledTableCell>
-                  <StyledTableCell align="right">{row.ya_edu}</StyledTableCell>
-                  <StyledTableCell align="right">{row.city}</StyledTableCell>
+                  <StyledTableCell align="right">
+                    <a target="_blank" href={row.link}>
+                      {row.link}
+                    </a>
+                  </StyledTableCell>
+                  <StyledTableCell align="right">{row.date}</StyledTableCell>
                   <StyledTableCell align="right">
                     <div
                       className={
@@ -353,9 +349,7 @@ const TableComponent = () => {
                       {row.status}
                     </div>
                   </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {row.publications}
-                  </StyledTableCell>
+                  <StyledTableCell align="right">{row.comment}</StyledTableCell>
                 </TableRow>
               )
             })}
@@ -366,4 +360,4 @@ const TableComponent = () => {
   )
 }
 
-export default TableComponent
+export default TableAmbassadorContent

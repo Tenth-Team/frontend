@@ -11,7 +11,7 @@ import TableSortLabel from "@mui/material/TableSortLabel"
 import Paper from "@mui/material/Paper"
 import Checkbox from "@mui/material/Checkbox"
 import { visuallyHidden } from "@mui/utils"
-import style from "./TableComponent.module.scss"
+import style from "../../components/TableComponent/TableComponent.module.scss"
 import theme from "../../assets/theme"
 import ambassadors from "./ambassadors.json"
 import { Link } from "react-router-dom"
@@ -35,12 +35,14 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 interface Data {
   id: number
+  merch: string
+  status: string | number
   name: string
+  size: string
+  adress: string
   tg: string
-  ya_edu: string
-  city: string
-  status: string
-  publications: number
+  comment: string
+  date: Date
 }
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -67,10 +69,6 @@ function getComparator<Key extends keyof any>(
     : (a, b) => -descendingComparator(a, b, orderBy)
 }
 
-// Since 2020 all major browsers ensure sort stability with Array.prototype.sort().
-// stableSort() brings sort stability to non-modern browsers (notably IE11). If you
-// only support modern browsers you can replace stableSort(exampleArray, exampleComparator)
-// with exampleArray.slice().sort(exampleComparator)
 function stableSort<T>(
   array: readonly T[],
   comparator: (a: T, b: T) => number,
@@ -95,10 +93,34 @@ interface HeadCell {
 
 const headCells: readonly HeadCell[] = [
   {
+    id: "merch",
+    numeric: false,
+    disablePadding: false,
+    label: "Мерч",
+  },
+  {
+    id: "status",
+    numeric: false,
+    disablePadding: false,
+    label: "Статус заявки",
+  },
+  {
     id: "name",
     numeric: false,
     disablePadding: true,
     label: "ФИО",
+  },
+  {
+    id: "size",
+    numeric: false,
+    disablePadding: false,
+    label: "Размер",
+  },
+  {
+    id: "adress",
+    numeric: false,
+    disablePadding: false,
+    label: "Адрес доставки",
   },
   {
     id: "tg",
@@ -107,28 +129,16 @@ const headCells: readonly HeadCell[] = [
     label: "Телеграмм",
   },
   {
-    id: "ya_edu",
+    id: "comment",
     numeric: false,
     disablePadding: false,
-    label: "Программа обучения",
+    label: "Комментарий менеджера",
   },
   {
-    id: "city",
+    id: "date",
     numeric: false,
     disablePadding: false,
-    label: "Город",
-  },
-  {
-    id: "status",
-    numeric: false,
-    disablePadding: false,
-    label: "Статус",
-  },
-  {
-    id: "publications",
-    numeric: false,
-    disablePadding: false,
-    label: "Публикации",
+    label: "Дата формирования заявки",
   },
 ]
 
@@ -199,7 +209,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   )
 }
 
-const TableComponent = () => {
+const TableMerch = () => {
   const [order, setOrder] = React.useState<Order>("asc")
   const [orderBy, setOrderBy] = React.useState<keyof Data>("name")
   const [selected, setSelected] = React.useState<readonly number[]>([])
@@ -248,23 +258,23 @@ const TableComponent = () => {
     [order, orderBy],
   )
 
-  const getStatusClass = (status: string) => {
+  const getStatusClass = (status: string | number) => {
     let statusClass: string
     switch (status) {
-      case "Активный":
+      case "Адрес проверен":
         statusClass = "status-active"
         break
-      case "На паузе":
-        statusClass = "status-pause"
-        break
-      case "Не амбассадор":
+      case "Отмененная":
         statusClass = "status-not"
         break
-      case "Уточняется":
+      case "Отправлено логистам":
         statusClass = "status-refine"
         break
+      case "Новая":
+        statusClass = "status-pause"
+        break
       default:
-        statusClass = "status-refine"
+        statusClass = "status-pause"
     }
     return statusClass
   }
@@ -294,7 +304,6 @@ const TableComponent = () => {
             {visibleRows.map((row, index) => {
               const isItemSelected = isSelected(row.id)
               const labelId = `enhanced-table-checkbox-${index}`
-
               const newTg = row.tg.replace("@", "")
 
               return (
@@ -318,6 +327,16 @@ const TableComponent = () => {
                       }}
                     />
                   </StyledTableCell>
+                  <StyledTableCell align="right">{row.merch}</StyledTableCell>
+                  <StyledTableCell align="right">
+                    <div
+                      className={
+                        style.status + " " + style[getStatusClass(row.status)]
+                      }
+                    >
+                      {row.status}
+                    </div>
+                  </StyledTableCell>
                   <StyledTableCell
                     component="th"
                     id={labelId}
@@ -327,7 +346,8 @@ const TableComponent = () => {
                   >
                     <Link to="/">{row.name}</Link>
                   </StyledTableCell>
-
+                  <StyledTableCell align="right">{row.size}</StyledTableCell>
+                  <StyledTableCell align="right">{row.adress}</StyledTableCell>
                   <StyledTableCell
                     align="right"
                     sx={{ color: theme.palette.primary.main }}
@@ -342,20 +362,8 @@ const TableComponent = () => {
                       </a>
                     )}
                   </StyledTableCell>
-                  <StyledTableCell align="right">{row.ya_edu}</StyledTableCell>
-                  <StyledTableCell align="right">{row.city}</StyledTableCell>
-                  <StyledTableCell align="right">
-                    <div
-                      className={
-                        style.status + " " + style[getStatusClass(row.status)]
-                      }
-                    >
-                      {row.status}
-                    </div>
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {row.publications}
-                  </StyledTableCell>
+                  <StyledTableCell align="right">{row.comment}</StyledTableCell>
+                  <StyledTableCell align="right">{row.date}</StyledTableCell>
                 </TableRow>
               )
             })}
@@ -366,4 +374,4 @@ const TableComponent = () => {
   )
 }
 
-export default TableComponent
+export default TableMerch

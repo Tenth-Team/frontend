@@ -82,6 +82,7 @@ const Analytics: FC = () => {
     <Content className={style.container}>
       <div className={style.container__calendarsArea}>
         <HeaderContent>Аналитика</HeaderContent>
+       
         <form>
           <div className={style.container__date}>
             <TextField
@@ -100,6 +101,7 @@ const Analytics: FC = () => {
           </div>
         </form>
       </div>
+      <div className={style.container__content}>
       <ul className={style.container__cards}>{cardItem}</ul>
       <div className={style.container__publicationsArea}>
         <div className={style.container__publicationsTop}>
@@ -150,6 +152,7 @@ const Analytics: FC = () => {
           <p className={style.container__text}>ВСЕГО</p>
           <p className={style.container__text}>{total + clubSum} &#8381;</p>
         </li>
+      </div>
       </div>
     </Content>
   )
