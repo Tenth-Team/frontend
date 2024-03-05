@@ -1,0 +1,59 @@
+.chip {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+  // width: 100%;
+  width: fit-content;
+  // max-width: 100%;
+  border: 1px solid var(--primary---border);
+  border-radius: 50px;
+  padding: 4px 8px;
+  background: var(--primary---secondary);
+
+  &__label {
+    width: 100%;
+    color: var(--primary-main);
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 133%;
+  }
+  &__button {
+    display: flex;
+    width: 12px;
+    height: 12px;
+
+    & svg {
+      max-width: 12px;
+      * {
+        stroke-width: 2;
+        stroke: var(--primary-main);
+      }
+    }
+
+    &:hover {
+      background: var(--gray-02---80);
+      border-radius: 50%;
+
+      svg * {
+        stroke: var(--primary---hover);
+      }
+    }
+
+    &:active {
+      background: var(--gray-02---60);
+      border-radius: 4px;
+
+      svg * {
+        stroke: var(--primary---pressed);
+      }
+    }
+
+    &:focus {
+      outline: 2px solid var(--primary---focus);
+      border-radius: 4px;
+    }
+  }
+}

@@ -1,0 +1,49 @@
+.IconButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  max-width: 32px;
+  height: auto;
+  transition: outline 0.2s;
+
+  &.big {
+    width: 32px;
+    height: 32px;
+  }
+
+  &.small {
+    padding: 4px;
+    width: 24px;
+    height: 24px;
+  }
+  svg * {
+    transition: all 0.2s;
+    fill: var(--gray-800);
+    // stroke-width: 1;
+    // stroke: var(--gray-800);
+  }
+  &:hover svg * {
+    transition: all 0.2s;
+    fill: var(--primary---hover);
+    // stroke: var(--primary---hover);
+  }
+
+  &:active svg * {
+    transition: all 0.2s;
+    fill: var(--primary---pressed);
+    // stroke: var(--primary---pressed);
+  }
+
+  &:focus {
+    transition: all 0.2s;
+    outline: 2px solid var(--primary---focus);
+    border-radius: 4px;
+  }
+  &[active="true"] svg * {
+    transition: all 0.2s;
+    fill: var(--primary-main);
+    // stroke: var(--primary-main);
+  }
+}

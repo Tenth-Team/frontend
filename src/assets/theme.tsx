@@ -20,7 +20,9 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: 'Inter, sans-serif',
+    fontSize: 14,
   },
+  
   components: {
     MuiCssBaseline: {
       styleOverrides: `
