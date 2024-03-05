@@ -1,51 +1,25 @@
 import { useState, type FC } from "react"
-import { Input } from "../../../modules/ModalAddUser/FormAddUser/components/Input"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import style from "./LoginForm.module.scss"
-import { InputPassword } from "./InputPassword/InputPassword"
 import { Box, Popover } from "@mui/material"
 import { AlertTtriangleIconSVG } from "../../../ui-kit"
-import React from "react"
 import { Button } from "../../../modules/ModalAddUser/FormAddUser/components/Button"
-
-/* type TypeFormProps = {
-  onClick: () => void
-} */
+import { useAppDispatch } from "../../../store/hooks"
+import { login } from "../../../store/actions"
+import { InputLogin } from "./InputLogin"
+import { LOGIN_FORM } from "../../../utils/formInputsData"
+import { unwrapResult } from "@reduxjs/toolkit"
+import { useNavigate } from "react-router-dom"
+import type { LoginData } from "../../../@types/api"
 
 export const LoginForm: FC = () => {
   const [open, setOpen] = useState<boolean>(false)
-  const [isValid, setIsValid] = useState<boolean>(true)
-  React.useEffect(() => {
-    console.log(isValid)
-  })
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
-  const formInputsData: Record<
-    string,
-    {
-      label: string
-      name: string
-      type: string
-      placeholder: string
-      schema: yup.StringSchema | yup.MixedSchema
-    }
-  > = {
-    login: {
-      label: "Логин",
-      name: "login",
-      type: "text",
-      placeholder: "Введите логин",
-      schema: yup.string().min(3).max(15).required(),
-    },
-    password: {
-      label: "Пароль",
-      name: "password",
-      type: "password",
-      placeholder: "Введите пароль",
-      schema: yup.string().min(4).required(),
-    },
-  }
+  const formInputsData = LOGIN_FORM
 
   const schema = yup
     .object(
@@ -59,104 +33,62 @@ export const LoginForm: FC = () => {
   const {
     register,
     handleSubmit,
-    formState: {
-      errors,
-      //    isValid
-    },
+    formState: { errors, isValid },
     reset,
-  } = useForm<typeof formInputsData>({
+  } = useForm<typeof formInputsData, any, LoginData>({
     mode: "onBlur",
     resolver: yupResolver(schema),
   })
-
-  //  поменять на !isValid
-  const handleClickOpen = () => {
-    if (isValid) {
-      setOpen(true)
-    } else {
-      setOpen(false)
-    }
-  }
 
   const handleClose = () => {
     setOpen(false)
   }
 
-  const onSubmit = (data: any) => {
-    console.log(data)
-    handleClickOpen()
-    reset()
+  const onSubmit = async (data: LoginData) => {
+    try {
+      const res = await dispatch(login(data))
+      const originalPromiseResult = unwrapResult(res)
+      if (originalPromiseResult) {
+        navigate("/")
+        reset()
+      }
+    } catch (err) {
+      setOpen(true)
+      console.log(err)
+    }
   }
 
   const styleButton = {
     width: "100%",
-    justifyContent: "center"
+    justifyContent: "center",
   }
 
   return (
     <>
       <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={style.form__inputs}>
-          <div className={style.form__input}>
-            <Input
-              label="Логин"
-              name="login"
-              error={errors.login?.message}
-              register={{
-                ...register("login"),
-                type: "text",
-                placeholder: "Введите логин",
-                defaultValue: "",
-              }}
-            />
+          {Object.keys(formInputsData).map((item, idx, arr) => {
+            const { label, type, placeholder } = formInputsData[item]
 
-            {!isValid ? (
-              <AlertTtriangleIconSVG className={style.form__errorIcon} />
-            ) : null}
-            {!isValid ? (
-              <p className={style.form__errorText}>Неправильный логин</p>
-            ) : null}
-          </div>
-
-          <div className={style.form__input}>
-            {isValid ? (
-              <InputPassword
-                label="Пароль"
-                name="password"
-                error={errors.password?.message}
-                register={{
-                  ...register("password"),
-                  defaultValue: "",
-                }}
-              />
-            ) : (
-              <Input
-                label="Пароль"
-                name="password"
-                error={errors.password?.message}
-                register={{
-                  ...register("password"),
-                  defaultValue: "",
-                  placeholder: "Введите пароль",
-                }}
-              />
-            )}
-            {!isValid ? (
-              <AlertTtriangleIconSVG className={style.form__errorIcon} />
-            ) : null}
-            {!isValid ? (
-              <p className={style.form__errorText}>Неправильный пароль</p>
-            ) : null}
-          </div>
+            return (
+              <div key={item} className={style.form__input}>
+                <InputLogin
+                  label={label}
+                  name={item}
+                  error={errors[item]?.message}
+                  type={type}
+                  placeholder={placeholder}
+                  register={{
+                    ...register(item),
+                    isValid,
+                  }}
+                />
+              </div>
+            )
+          })}
         </div>
 
-        <Button
-          primary
-          type="submit"
-          style={styleButton}
-          disabled={!isValid}
-          onClick={handleClickOpen}
-        >
+        <Button primary type="submit" style={styleButton} disabled={!isValid}>
           Войти
         </Button>
       </form>
