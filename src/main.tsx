@@ -1,10 +1,10 @@
-import React from "react"
+import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
-// import { Provider } from "react-redux"
+import { Provider } from "react-redux"
+import store from "./store"
 import "./assets/styles/index.scss"
 
 import App from "./components/app"
-// import { store } from "./resux/store"
 
 const container = document.getElementById("root")
 
@@ -12,11 +12,11 @@ if (container) {
   const root = createRoot(container)
 
   root.render(
-    <React.StrictMode>
-      {/* <Provider store={store}>*/}
-      <App />
-      {/* </Provider>*/}
-    </React.StrictMode>,
+    <StrictMode>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </StrictMode>,
   )
 } else {
   throw new Error(
