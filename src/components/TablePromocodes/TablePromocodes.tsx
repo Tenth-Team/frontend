@@ -19,6 +19,7 @@ import { Input } from "../../modules/ModalAddUser/FormAddUser/components/Input"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
+import { ModalAddPromocode } from "../../modules/ModalAddPromocode/ModalAddPromocode"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -291,6 +292,10 @@ const TablePromocodes = () => {
     resolver: yupResolver(schema),
   })
 
+  const handleModalOpen = () => {
+
+  }
+
   return (
     <section className={style.tableBlock}>
       <TableContainer
@@ -368,7 +373,7 @@ const TablePromocodes = () => {
                   </StyledTableCell>
                   <StyledTableCell align="right">
                     
-                    <Input
+                    {/* <Input
                       label=""
                       name="promo"
                       //setValue={{`${row.promo}`,}} 
@@ -378,8 +383,11 @@ const TablePromocodes = () => {
                         defaultValue: `1`,
                        
                        // placeholder: `${row.promo}`,
-                      }}
+                      }} 
                     />
+
+                    <button type="button" onClick={handleModalOpen}></button>*/}
+                    <ModalAddPromocode />
                
                   </StyledTableCell>
                   <StyledTableCell align="right">
