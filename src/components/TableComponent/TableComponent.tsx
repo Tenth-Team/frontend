@@ -15,6 +15,8 @@ import style from "./TableComponent.module.scss"
 import theme from "../../assets/theme"
 import ambassadors from "./ambassadors.json"
 import { Link } from "react-router-dom"
+import { Select } from "../../modules/Search/DropdownBoxes/Select"
+import { filters } from "../../modules/Search/Filters/constants"
 
 // TODO - убрать моки, когда будет готова апишка
 // FIXME - пока непонятно откуда брать публикации. Возможно это контент, надо добавать
@@ -199,6 +201,19 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   )
 }
 
+const checkboxStatus = () => 
+  filters.map(filter => {
+    if (filter.name === "statusAmb") {
+      return (
+        <Select
+          key={filter.id}
+          data={filter}
+          onSelect={() => console.log("click")}
+        />
+      )
+    }
+})
+
 const TableComponent = () => {
   const [order, setOrder] = React.useState<Order>("asc")
   const [orderBy, setOrderBy] = React.useState<keyof Data>("name")
@@ -350,7 +365,11 @@ const TableComponent = () => {
                         style.status + " " + style[getStatusClass(row.status)]
                       }
                     >
+                     {/*  {checkboxStatus()} */}
+                     <button type="button" 
+                     >
                       {row.status}
+                      </button>
                     </div>
                   </StyledTableCell>
                   <StyledTableCell align="right">
