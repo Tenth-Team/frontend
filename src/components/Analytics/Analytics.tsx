@@ -23,7 +23,7 @@ const Analytics: FC = () => {
 
   const merchItem = MERCH.map((item: MerchValue) => {
     return (
-      <li className={style.container__merch}>
+      <li key={item.id} className={style.container__merch}>
         <p
           className={`${style.container__text} ${style.container__text_name} `}
         >
@@ -38,7 +38,7 @@ const Analytics: FC = () => {
 
   const cardItem = CARDS.map((item: CardValue) => {
     return (
-      <li className={style.container__card}>
+      <li key={item.id} className={style.container__card}>
         <h3
           className={` ${style.container__name} ${style.container__name_left}`}
         >
@@ -57,7 +57,7 @@ const Analytics: FC = () => {
 
   const authorItem = AUTHORS.map((item: CardValue) => {
     return (
-      <li className={style.container__author}>
+      <li  key={item.id}  className={style.container__author}>
         <p
           className={`${style.container__id} ${style.container__authorText} ${style.container__authorText_colored} ${style.container__authorText_bold}`}
         >
@@ -82,7 +82,7 @@ const Analytics: FC = () => {
     <Content className={style.container}>
       <div className={style.container__calendarsArea}>
         <HeaderContent>Аналитика</HeaderContent>
-       
+
         <form>
           <div className={style.container__date}>
             <TextField
@@ -102,57 +102,57 @@ const Analytics: FC = () => {
         </form>
       </div>
       <div className={style.container__content}>
-      <ul className={style.container__cards}>{cardItem}</ul>
-      <div className={style.container__publicationsArea}>
-        <div className={style.container__publicationsTop}>
-          <h3 className={style.container__name}>
-            Топ-10 амбассадоров по количеству публикаций
-          </h3>
-          <ul className={style.container__publicationsList}>{authorItem}</ul>
-        </div>
+        <ul className={style.container__cards}>{cardItem}</ul>
+        <div className={style.container__publicationsArea}>
+          <div className={style.container__publicationsTop}>
+            <h3 className={style.container__name}>
+              Топ-10 амбассадоров по количеству публикаций
+            </h3>
+            <ul className={style.container__publicationsList}>{authorItem}</ul>
+          </div>
 
-        <div
-          className={`${style.container__publicationsTop} ${style.container__publicationsTop_center}`}
-        >
-          <h3 className={style.container__name}>
-            Количество публикаций по платформам
-          </h3>
-          <BarChart
-            xAxis={[
-              {
-                scaleType: "band",
-                data: ["VC", "ВК", "Хабр", "Inst", "Medium"],
-              },
-            ]}
-            series={[{ data: [10, 21, 20, 36, 21] }]}
-            width={419}
-            height={267}
-            className={style.container__bar}
-            sx={{ "& rect": { fill: "#ac9ff0", outline: `5px` } }}
-          />
-        </div>
-      </div>
-      <div className={style.container__budgetArea}>
-        <h3 className={style.container__name}>Бюджет на мерч</h3>
-        <ul className={style.container__merchList}>{merchItem}</ul>
-
-        <li
-          className={`${style.container__merch} ${style.container__merch_total}`}
-        >
-          <p className={style.container__text}>Клуб учащихся ночью</p>
-          <p
-            className={`${style.container__text}  ${style.container__text_sum}`}
+          <div
+            className={`${style.container__publicationsTop} ${style.container__publicationsTop_center}`}
           >
-            {clubSum} &#8381;
-          </p>
-        </li>
-        <li
-          className={`${style.container__merch} ${style.container__merch_total}`}
-        >
-          <p className={style.container__text}>ВСЕГО</p>
-          <p className={style.container__text}>{total + clubSum} &#8381;</p>
-        </li>
-      </div>
+            <h3 className={style.container__name}>
+              Количество публикаций по платформам
+            </h3>
+            <BarChart
+              xAxis={[
+                {
+                  scaleType: "band",
+                  data: ["VC", "ВК", "Хабр", "Inst", "Medium"],
+                },
+              ]}
+              series={[{ data: [10, 21, 20, 36, 21] }]}
+              width={419}
+              height={267}
+              className={style.container__bar}
+              sx={{ "& rect": { fill: "#ac9ff0", outline: `5px` } }}
+            />
+          </div>
+        </div>
+        <div className={style.container__budgetArea}>
+          <h3 className={style.container__name}>Бюджет на мерч</h3>
+          <ul className={style.container__merchList}>{merchItem}</ul>
+
+          <li
+            className={`${style.container__merch} ${style.container__merch_total}`}
+          >
+            <p className={style.container__text}>Клуб учащихся ночью</p>
+            <p
+              className={`${style.container__text}  ${style.container__text_sum}`}
+            >
+              {clubSum} &#8381;
+            </p>
+          </li>
+          <li
+            className={`${style.container__merch} ${style.container__merch_total}`}
+          >
+            <p className={style.container__text}>ВСЕГО</p>
+            <p className={style.container__text}>{total + clubSum} &#8381;</p>
+          </li>
+        </div>
       </div>
     </Content>
   )

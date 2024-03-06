@@ -1,10 +1,10 @@
 import { Search as SearchIcon, Tune as TuneIcon } from "@mui/icons-material"
 import { Filters } from "./Filters"
-import { IconButton } from "./IconButton"
+import { IconButton } from "../../components/formElements/IconButton"
 
 import s from "./styles.module.scss"
 import { TrashIconSVG } from "../../ui-kit"
-import { Chip } from "./Chip"
+import { Chip } from "../../components/formElements/Chip"
 import { useState } from "react"
 
 export const Search = () => {

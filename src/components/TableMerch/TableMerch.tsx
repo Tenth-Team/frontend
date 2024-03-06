@@ -15,10 +15,10 @@ import style from "../../components/TableComponent/TableComponent.module.scss"
 import theme from "../../assets/theme"
 import ambassadors from "./ambassadors.json"
 import { Link } from "react-router-dom"
-import { Input } from "../../modules/ModalAddUser/FormAddUser/components/Input"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
+import { Input } from "../formElements"
 
 // TODO - убрать моки, когда будет готова апишка
 // FIXME - пока непонятно откуда брать публикации. Возможно это контент, надо добавать
