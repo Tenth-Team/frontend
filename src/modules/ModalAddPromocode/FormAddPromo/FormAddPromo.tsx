@@ -1,4 +1,4 @@
-import type { FC } from "react"
+import { useState, type FC } from "react"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
@@ -8,9 +8,22 @@ import { Input, Button } from "../../../components/formElements"
 
 type TypeFormProps = {
   onClick: () => void
+  //onUpdate:({promo}) => void,
+  row: {
+    id: number
+    name: string
+    tg: string
+    promo: string
+    status: string | number
+    ya_edu: string
+  }
 }
 
-export const FormAddPromo: FC<TypeFormProps> = ({ onClick }) => {
+export const FormAddPromo: FC<TypeFormProps> = ({
+  onClick,
+  //onUpdate,
+  row,
+}) => {
   const formInputsData: Record<
     string,
     {
@@ -20,6 +33,12 @@ export const FormAddPromo: FC<TypeFormProps> = ({ onClick }) => {
       schema: yup.StringSchema | yup.MixedSchema
     }
   > = {
+    name: {
+      label: "ФИО",
+      name: "name",
+      type: "text",
+      schema: yup.string(),
+    },
     promo: {
       label: "Название промо-кода",
       name: "promo",
@@ -51,33 +70,28 @@ export const FormAddPromo: FC<TypeFormProps> = ({ onClick }) => {
     console.log(data)
     onClick()
     reset()
+    return data
   }
 
   return (
-    <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
+    <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
       <div className={s.form__inputs}>
-        {Object.keys(formInputsData).map((item, idx, arr) => {
-          const firstColumn = Math.round(arr.length / 2) > idx
-          const style = {
-            gridColumnStart: firstColumn ? 1 : 2,
-            gridRowStart:
-              idx + 1 - (!firstColumn ? Math.round(arr.length / 2) : 0),
-          }
-          return (
-            <Input
-              key={item}
-              label={formInputsData[item].label}
-              name={item}
-              error={errors[item]?.message}
-              style={style}
-              register={{
-                ...register(item),
-                type: "promo",
-                defaultValue: "",
-              }}
-            />
-          )
-        })}
+        <div className={style.form__userName}>
+          <h3>ФИО</h3>
+          <p>{row.name}</p>
+        </div>
+
+        <Input
+          label={"Название промо-кода"}
+          name={"promo"}
+          error={errors["promo"]?.message}
+          style={style}
+          register={{
+            ...register("promo"),
+            type: "promo",
+            defaultValue: "",
+          }}
+        />
       </div>
 
       <div className={`${s.form__footer} ${style.form__footer}`}>

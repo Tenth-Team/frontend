@@ -1,14 +1,27 @@
-import Button from "@mui/material/Button"
+import { Button } from "../../components/formElements/Button"
 import { Box, Modal } from "@mui/material/"
 import type { FC } from "react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import s from "../ModalAddUser/styles.module.scss"
 import style from "./ModalAddPromocode.module.scss"
 import { BarcodeIconSVG, XIconSVG } from "../../ui-kit"
 import { FormAddPromo } from "./FormAddPromo/FormAddPromo"
 
-export const ModalAddPromocode: FC = () => {
+interface Data {
+  row: {
+    id: number
+    name: string
+    tg: string
+    promo: string
+    status: string | number
+    ya_edu: string
+  }
+}
+
+export const ModalAddPromocode: FC<Data> = ({ row }) => {
   const [open, setOpen] = useState<boolean>(false)
+  const [isValid, setIsValid] = useState<boolean>(true)
+  const [newRow, setNewRow] = useState("")
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -16,12 +29,40 @@ export const ModalAddPromocode: FC = () => {
   const handleClose = () => {
     setOpen(false)
   }
+
+  useEffect(() => {
+    if (row.promo.length !== 0) {
+      setIsValid(false)
+    } else {
+      setIsValid(true)
+    }
+  }, [])
+
   return (
     <>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open dialog
-      </Button>
-
+      {" "}
+      {!isValid ? (
+        <button type="button" disabled={true} className={style.modal__button}>
+          {" "}
+          {row.promo}
+        </button>
+      ) : (
+        <Button
+          secondary
+          type="button"
+          onClick={handleClickOpen}
+          // disabled={!isValid}
+          style={{
+            borderRadius: `4px`,
+            padding: `14px 0px 14px 16px`,
+            width: `178px`,
+            height: `48px`,
+            border: `1px solid var(--gray-100)`,
+          }}
+        >
+          {row.promo}
+        </Button>
+      )}
       <Modal
         sx={{
           display: "flex",
@@ -46,9 +87,12 @@ export const ModalAddPromocode: FC = () => {
             >
               <XIconSVG />
             </button>
-            
           </div>
-          <FormAddPromo onClick={handleClose}/>
+          <FormAddPromo
+            onClick={handleClose}
+            //onUpdate={handleUpdate}
+            row={row}
+          />
         </Box>
       </Modal>
     </>
