@@ -4,8 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import s from "../../ModalAddUser/FormAddUser/styles.module.scss"
 import style from "./FormAddPromo.module.scss"
-import { Input } from "../../ModalAddUser/FormAddUser/components/Input"
-import { Button } from "../../ModalAddUser/FormAddUser/components/Button"
+import { Input, Button } from "../../../components/formElements"
 
 type TypeFormProps = {
   onClick: () => void

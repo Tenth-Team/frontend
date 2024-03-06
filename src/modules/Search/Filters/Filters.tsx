@@ -1,5 +1,5 @@
-import { Select } from "../DropdownBoxes/Select"
-import { SelectCheckbox } from "../DropdownBoxes/SelectCheckbox"
+import { Select } from "../../../components/formElements/DropdownBoxes/Select"
+import { SelectCheckbox } from "../../../components/formElements/DropdownBoxes/SelectCheckbox"
 import { filters } from "./constants"
 import s from "./styles.module.scss"
 

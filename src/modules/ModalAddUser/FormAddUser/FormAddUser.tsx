@@ -3,8 +3,7 @@ import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import s from "./styles.module.scss"
-import { Input } from "./components/Input"
-import { Button } from "./components/Button"
+import { Button, Input } from "../../../components/formElements"
 import { ADD_USER_FORM } from "../../../utils/formInputsData"
 
 type TypeFormProps = {

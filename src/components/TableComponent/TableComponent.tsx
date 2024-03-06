@@ -15,7 +15,7 @@ import style from "./TableComponent.module.scss"
 import theme from "../../assets/theme"
 import ambassadors from "./ambassadors.json"
 import { Link } from "react-router-dom"
-import { Select } from "../../modules/Search/DropdownBoxes/Select"
+import { Select } from "../formElements/DropdownBoxes/Select"
 import { filters } from "../../modules/Search/Filters/constants"
 
 // TODO - убрать моки, когда будет готова апишка
@@ -201,7 +201,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   )
 }
 
-const checkboxStatus = () => 
+const checkboxStatus = () =>
   filters.map(filter => {
     if (filter.name === "statusAmb") {
       return (
@@ -366,7 +366,7 @@ const TableComponent = () => {
                       }
                     >
                      {/*  {checkboxStatus()} */}
-                     <button type="button" 
+                     <button type="button"
                      >
                       {row.status}
                       </button>
