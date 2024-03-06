@@ -40,9 +40,10 @@ import UserCheckIconSVG from "../assets/images/icons/user-check.svg?react"
 import UserMinusIconSVG from "../assets/images/icons/user-minus.svg?react"
 import UserPlusIconSVG from "../assets/images/icons/user-plus.svg?react"
 import UserIconSVG from "../assets/images/icons/user.svg?react"
+import XIconSVG from "../assets/images/icons/X.svg?react"
 import UsersIconSVG from "../assets/images/icons/Users.svg?react"
 import XCircleIconSVG from "../assets/images/icons/XCircle.svg?react"
-import XIconSVG from "../assets/images/icons/X.svg?react"
+
 import HomeIconSVG from "../assets/images/icons/home.svg?react"
 import ChatIconSVG from "../assets/images/icons/Chat.svg?react"
 import EyeIconSVG from "../assets/images/icons/Eye.svg?react"
@@ -93,9 +94,9 @@ export {
   UserMinusIconSVG,
   UserPlusIconSVG,
   UserIconSVG,
+  XIconSVG,
   UsersIconSVG,
   XCircleIconSVG,
-  XIconSVG,
   HomeIconSVG,
   ChatIconSVG,
   CheckboxOffSVG,

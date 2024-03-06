@@ -2,11 +2,12 @@ import Button from "@mui/material/Button"
 import { Box, Modal } from "@mui/material/"
 import type { FC } from "react"
 import { useState } from "react"
-import s from "./styles.module.scss"
-import { UserIconSVG, XIconSVG } from "../../ui-kit"
-import { FormAddUser } from "./FormAddUser"
+import s from "../ModalAddUser/styles.module.scss"
+import style from "./ModalAddPromocode.module.scss"
+import { BarcodeIconSVG, XIconSVG } from "../../ui-kit"
+import { FormAddPromo } from "./FormAddPromo/FormAddPromo"
 
-export const ModalAddUser: FC = () => {
+export const ModalAddPromocode: FC = () => {
   const [open, setOpen] = useState<boolean>(false)
 
   const handleClickOpen = () => {
@@ -21,23 +22,6 @@ export const ModalAddUser: FC = () => {
         Open dialog
       </Button>
 
-      {/*
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        PaperProps={{
-          component: 'form',
-          onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
-            event.preventDefault();
-            const formData = new FormData(event.currentTarget);
-            const formJson = Object.fromEntries((formData as any).entries());
-            const email = formJson.email;
-            console.log(email);
-            handleClose();
-          },
-        }}
-      > */}
-
       <Modal
         sx={{
           display: "flex",
@@ -49,22 +33,22 @@ export const ModalAddUser: FC = () => {
         aria-describedby="modal-modal-description"
         open={open}
       >
-        <Box className={s.modal__contaner}>
+        <Box className={`${style.modal__contaner} ${s.modal__contaner}`}>
           <div className={s.modal__header}>
             <h2 id="customized-dialog-title" className={s.modal__title}>
-              <UserIconSVG className={s.modal__titleIcon} />
-              Добавление нового Амбасадора
+              <BarcodeIconSVG className={s.modal__titleIcon} />
+              Новый промо-код
             </h2>
             <button
               className={s.modal__close}
               aria-label="close"
               onClick={handleClose}
             >
-{/*               <XIconSVG /> */}
+              <XIconSVG />
             </button>
+            
           </div>
-
-          <FormAddUser onClick={handleClose} />
+          <FormAddPromo onClick={handleClose}/>
         </Box>
       </Modal>
     </>

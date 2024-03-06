@@ -15,9 +15,11 @@ import style from "../../components/TableComponent/TableComponent.module.scss"
 import theme from "../../assets/theme"
 import ambassadors from "./ambassadors.json"
 import { Link } from "react-router-dom"
-
-// TODO - убрать моки, когда будет готова апишка
-// FIXME - пока непонятно откуда брать публикации. Возможно это контент, надо добавать
+import { Input } from "../../modules/ModalAddUser/FormAddUser/components/Input"
+import { useForm } from "react-hook-form"
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from "yup"
+import { ModalAddPromocode } from "../../modules/ModalAddPromocode/ModalAddPromocode"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -255,6 +257,45 @@ const TablePromocodes = () => {
     return statusClass
   }
 
+  const formInputsData: Record<
+    string,
+    {
+      label: string
+      name: string
+      type: string
+      placeholder: string
+      schema: yup.StringSchema | yup.MixedSchema
+    }
+  > = {
+    promo: {
+      label: "Промокод",
+      name: "promo",
+      type: "text",
+      placeholder: "",
+      schema: yup.string().min(1).max(100),
+    },
+  }
+  const schema = yup
+    .object(
+      Object.keys(formInputsData).reduce(
+        (prev, cur) => ({ ...prev, [cur]: formInputsData[cur].schema }),
+        {},
+      ),
+    )
+    .required()
+
+  const {
+    register,
+    setValue,
+  } = useForm<typeof formInputsData>({
+    mode: "onBlur",
+    resolver: yupResolver(schema),
+  })
+
+  const handleModalOpen = () => {
+
+  }
+
   return (
     <section className={style.tableBlock}>
       <TableContainer
@@ -276,7 +317,9 @@ const TablePromocodes = () => {
             onRequestSort={handleRequestSort}
             rowCount={ambassadors.length}
           />
+          
           <TableBody>
+            {/* row - амбассадор */}
             {visibleRows.map((row, index) => {
               const isItemSelected = isSelected(row.id)
               const labelId = `enhanced-table-checkbox-${index}`
@@ -284,6 +327,7 @@ const TablePromocodes = () => {
               const newTg = row.tg.replace("@", "")
 
               return (
+                
                 <TableRow
                   hover
                   onClick={event => handleClick(event, row.id)}
@@ -297,7 +341,7 @@ const TablePromocodes = () => {
                   <StyledTableCell padding="checkbox">
                     <Checkbox
                       color="primary"
-                      checked={isItemSelected}
+                    //  checked={isItemSelected}
                       sx={{ color: theme.palette.secondary.light }}
                       inputProps={{
                         "aria-labelledby": labelId,
@@ -327,7 +371,25 @@ const TablePromocodes = () => {
                       </a>
                     )}
                   </StyledTableCell>
-                  <StyledTableCell align="right">{row.promo}</StyledTableCell>
+                  <StyledTableCell align="right">
+                    
+                    {/* <Input
+                      label=""
+                      name="promo"
+                      //setValue={{`${row.promo}`,}} 
+                      register={{
+                        ...register("promo"),
+                        type: "text",
+                        defaultValue: `1`,
+                       
+                       // placeholder: `${row.promo}`,
+                      }} 
+                    />
+
+                    <button type="button" onClick={handleModalOpen}></button>*/}
+                    <ModalAddPromocode />
+               
+                  </StyledTableCell>
                   <StyledTableCell align="right">
                     <div
                       className={

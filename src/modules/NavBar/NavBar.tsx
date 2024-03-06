@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom"
 import s from "./styles.module.scss"
 import {
-  UsersIconSVG,
+ // UsersIconSVG,
   BarcodeIconSVG,
-  ChatIconSVG,
+  //ChatIconSVG,
   ClipboardTextIconSVG,
   CommandIconSVG,
   CubeIconSVG,
@@ -19,7 +19,8 @@ export const NavBar = () => {
         <ul className={s.nav__list}>
           <li>
             <NavLink to="/" className={s.nav__item}>
-              <UsersIconSVG /> Амбассадоры
+             {/*  <UsersIconSVG />  */}
+              Амбассадоры
             </NavLink>
           </li>
           <li>
@@ -30,7 +31,8 @@ export const NavBar = () => {
 
           <li>
             <NavLink to="/mailing-management" className={s.nav__item}>
-              <ChatIconSVG /> Управление рассылками
+              {/* <ChatIconSVG />  */}
+              Управление рассылками
             </NavLink>
           </li>
 

@@ -23,7 +23,7 @@ export const filters = [
       {
         id: 4,
         name: "by-publications-count",
-        label: "По колтчеству публикаций",
+        label: "По количеству публикаций",
       },
     ],
     type: "select",
@@ -743,6 +743,36 @@ export const filters = [
       { id: 1, label: "Любой", name: "other" },
       { id: 2, label: "Женский", name: "female" },
       { id: 3, label: "Мужской", name: "male" },
+    ],
+    type: "select",
+  },
+
+  {
+    id: 7,
+    label: "",
+    name: "statusAmb",
+    list: [
+      {
+        id: 1,
+        name: "status-active",
+        label: "Активный",
+      },
+      {
+        id: 2,
+        name: "status-pause",
+        label: "На паузе",
+      },
+      {
+        id: 3,
+        name: "status-not",
+        label: "Не амбассадор",
+      },
+
+      {
+        id: 4,
+        name: "status-refine",
+        label: "Уточняется",
+      },
     ],
     type: "select",
   },
