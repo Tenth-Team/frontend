@@ -1,16 +1,6 @@
 import { CircularProgress as Spinner } from "@mui/material"
 import { LinearProgress, Box } from "@mui/material"
 
-import UsersIcon from "../assets/images/UsersIconDark.svg?react"
-import ExitIcon from "../assets/images/right.svg?react"
-import ChatIcon from "../assets/images/chatIcon.svg?react"
-import AmbassadorContentIcon from "../assets/images/clipboardTextIcon.svg?react"
-import ProgrammLoyalityIcon from "../assets/images/commandIcon.svg?react"
-import SettingIcon from "../assets/images/settingIcon.svg?react"
-import SendingMerchIcon from "../assets/images/cubeIcon.svg?react"
-import PromocodeIcon from "../assets/images/barcodeIcon.svg?react"
-import StatisticsIcon from "../assets/images/chartPieIcon.svg?react"
-
 import AlertTtriangleIconSVG from "../assets/images/icons/alert-triangle.svg?react"
 import ArchiveBoxIconSVG from "../assets/images/icons/archive-box.svg?react"
 import ArrowLeftIconSVG from "../assets/images/icons/arrow-left.svg?react"
@@ -43,7 +33,6 @@ import UserIconSVG from "../assets/images/icons/user.svg?react"
 import XIconSVG from "../assets/images/icons/X.svg?react"
 import UsersIconSVG from "../assets/images/icons/Users.svg?react"
 import XCircleIconSVG from "../assets/images/icons/XCircle.svg?react"
-
 import HomeIconSVG from "../assets/images/icons/home.svg?react"
 import ChatIconSVG from "../assets/images/icons/Chat.svg?react"
 import EyeIconSVG from "../assets/images/icons/Eye.svg?react"
@@ -51,19 +40,10 @@ import EyeIconSVG from "../assets/images/icons/Eye.svg?react"
 
 import CheckboxOffSVG from "../assets/images/chekbox_off.svg?react"
 import CheckboxOnSVG from "../assets/images/chekbox_on.svg?react"
+import SelectOffSVG from "../assets/images/select_off.svg?react"
+import SelectOnSVG from "../assets/images/select_on.svg?react"
 
 export {
-  // Icon components
-  UsersIcon,
-  ExitIcon,
-  ChatIcon,
-  AmbassadorContentIcon,
-  ProgrammLoyalityIcon,
-  SettingIcon,
-  SendingMerchIcon,
-  PromocodeIcon,
-  StatisticsIcon,
-
   // Icon svg components
   AlertTtriangleIconSVG,
   ArchiveBoxIconSVG,
@@ -102,6 +82,9 @@ export {
   CheckboxOffSVG,
   CheckboxOnSVG,
   EyeIconSVG,
+  SelectOffSVG,
+  SelectOnSVG,
+
   // UI-Kit components
   Spinner,
   LinearProgress,
