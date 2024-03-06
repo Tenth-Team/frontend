@@ -26,7 +26,7 @@ const Promocodes = () => {
       >Сохранить изменения</Button>
       </div>
       </div>
-      
+
 
       <TablePromocodes />
     </Content>
