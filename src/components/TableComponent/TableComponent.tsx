@@ -13,16 +13,16 @@ import Checkbox from "@mui/material/Checkbox"
 import { visuallyHidden } from "@mui/utils"
 import style from "./TableComponent.module.scss"
 import theme from "../../assets/theme"
-import ambassadors from "./ambassadors.json"
 import { Link } from "react-router-dom"
 import { Select } from "../formElements/DropdownBoxes/Select"
 import { filters } from "../../modules/Search/Filters/constants"
-import { useAppDispatch, useAppSelector } from "../../store/hooks"
-import { getAmbassadors } from "../../store/api"
-import { unwrapResult } from "@reduxjs/toolkit"
-import commentsSlice from "../../store/ambassadors/ambasadors.slice"
+import { useAppSelector } from "../../store/hooks"
 import { getAmbassadorsData } from "../../store/selectors"
-import type { AmbassadorsRoot } from "../../store/ambassadors/types"
+import type {
+  AmbGoal,
+  AmbassadorsRoot,
+  YaEdu,
+} from "../../store/ambassadors/types"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -54,20 +54,15 @@ function getComparator<Key extends keyof any>(
   order: Order,
   orderBy: Key,
 ): (
-  a: { [key in Key]: number | string },
-  b: { [key in Key]: number | string },
+  a: { [key in Key]: string | number | YaEdu | AmbGoal[] },
+  b: { [key in Key]: string | number | YaEdu | AmbGoal[] },
 ) => number {
   return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy)
 }
 
-// Since 2020 all major browsers ensure sort stability with Array.prototype.sort().
-// stableSort() brings sort stability to non-modern browsers (notably IE11). If you
-// only support modern browsers you can replace stableSort(exampleArray, exampleComparator)
-// with exampleArray.slice().sort(exampleComparator)
-
-/* function stableSort<T>(
+function stableSort<T>(
   array: readonly T[],
   comparator: (a: T, b: T) => number,
 ) {
@@ -80,7 +75,7 @@ function getComparator<Key extends keyof any>(
     return a[1] - b[1]
   })
   return stabilizedThis.map(el => el[0])
-} */
+}
 
 interface HeadCell {
   disablePadding: boolean
@@ -209,26 +204,6 @@ const checkboxStatus = () =>
   })
 
 const TableComponent = () => {
-  //const dispatch = useAppDispatch();
-
-  /*  React.useEffect(() => {
-    (async () => {
-try {
-  const res = await dispatch(getAmbassadors())
-    const originalPromiseResult = unwrapResult(res)
-    if (originalPromiseResult) {
-const ambassadors = res;
-console.log(`res: ${res}`)
-    }
-  }
-   catch (err) {
-    console.log(err)
-  }
-}
-  )()
-
-}, [dispatch]) */
-
   const [order, setOrder] = React.useState<Order>("asc")
   const [orderBy, setOrderBy] =
     React.useState<keyof AmbassadorsRoot>("full_name")
@@ -258,7 +233,7 @@ console.log(`res: ${res}`)
 
   const handleClick = (event: React.MouseEvent<unknown>, id: number) => {
     const selectedIndex = selected.indexOf(id)
-    let newSelected: readonly number[] = []
+    let newSelected: number[] = []
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, id)
@@ -275,10 +250,12 @@ console.log(`res: ${res}`)
     setSelected(newSelected)
   }
 
-  /*   const visibleRows = React.useMemo(
+  const visibleRows = React.useMemo(
     () => stableSort(results, getComparator(order, orderBy)),
     [order, orderBy],
-  ) */
+  )
+
+  console.log(visibleRows)
 
   const getStatusClass = (status: string) => {
     let statusClass: string
@@ -344,8 +321,7 @@ console.log(`res: ${res}`)
             rowCount={results.length}
           />
           <TableBody>
-            {/*  //visibleRows */}
-            {results.map((row, index) => {
+            {visibleRows.map((row, index) => {
               const isItemSelected = isSelected(row.id)
               const labelId = `enhanced-table-checkbox-${index}`
 
