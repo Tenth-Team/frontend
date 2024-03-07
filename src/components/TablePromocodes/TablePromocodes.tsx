@@ -15,7 +15,6 @@ import style from "../../components/TableComponent/TableComponent.module.scss"
 import theme from "../../assets/theme"
 import ambassadors from "./ambassadors.json"
 import { Link } from "react-router-dom"
-import { Input } from "../../modules/ModalAddUser/FormAddUser/components/Input"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
@@ -284,17 +283,10 @@ const TablePromocodes = () => {
     )
     .required()
 
-  const {
-    register,
-    setValue,
-  } = useForm<typeof formInputsData>({
+  const { register } = useForm<typeof formInputsData>({
     mode: "onBlur",
     resolver: yupResolver(schema),
   })
-
-  const handleModalOpen = () => {
-
-  }
 
   return (
     <section className={style.tableBlock}>
@@ -317,7 +309,7 @@ const TablePromocodes = () => {
             onRequestSort={handleRequestSort}
             rowCount={ambassadors.length}
           />
-          
+
           <TableBody>
             {/* row - амбассадор */}
             {visibleRows.map((row, index) => {
@@ -327,7 +319,6 @@ const TablePromocodes = () => {
               const newTg = row.tg.replace("@", "")
 
               return (
-                
                 <TableRow
                   hover
                   onClick={event => handleClick(event, row.id)}
@@ -341,7 +332,7 @@ const TablePromocodes = () => {
                   <StyledTableCell padding="checkbox">
                     <Checkbox
                       color="primary"
-                    //  checked={isItemSelected}
+                      //  checked={isItemSelected}
                       sx={{ color: theme.palette.secondary.light }}
                       inputProps={{
                         "aria-labelledby": labelId,
@@ -372,23 +363,7 @@ const TablePromocodes = () => {
                     )}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    
-                    {/* <Input
-                      label=""
-                      name="promo"
-                      //setValue={{`${row.promo}`,}} 
-                      register={{
-                        ...register("promo"),
-                        type: "text",
-                        defaultValue: `1`,
-                       
-                       // placeholder: `${row.promo}`,
-                      }} 
-                    />
-
-                    <button type="button" onClick={handleModalOpen}></button>*/}
-                    <ModalAddPromocode />
-               
+                    <ModalAddPromocode row={row} />
                   </StyledTableCell>
                   <StyledTableCell align="right">
                     <div
