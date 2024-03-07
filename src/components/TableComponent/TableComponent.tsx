@@ -17,9 +17,12 @@ import ambassadors from "./ambassadors.json"
 import { Link } from "react-router-dom"
 import { Select } from "../formElements/DropdownBoxes/Select"
 import { filters } from "../../modules/Search/Filters/constants"
-
-// TODO - убрать моки, когда будет готова апишка
-// FIXME - пока непонятно откуда брать публикации. Возможно это контент, надо добавать
+import { useAppDispatch, useAppSelector } from "../../store/hooks"
+import { getAmbassadors } from "../../store/api"
+import { unwrapResult } from "@reduxjs/toolkit"
+import commentsSlice from "../../store/ambassadors/ambasadors.slice"
+import { getAmbassadorsData } from "../../store/selectors"
+import type { AmbassadorsRoot } from "../../store/ambassadors/types"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -34,16 +37,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     textAlign: "left",
   },
 }))
-
-interface Data {
-  id: number
-  name: string
-  tg: string
-  ya_edu: string
-  city: string
-  status: string
-  publications: number
-}
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -73,7 +66,8 @@ function getComparator<Key extends keyof any>(
 // stableSort() brings sort stability to non-modern browsers (notably IE11). If you
 // only support modern browsers you can replace stableSort(exampleArray, exampleComparator)
 // with exampleArray.slice().sort(exampleComparator)
-function stableSort<T>(
+
+/* function stableSort<T>(
   array: readonly T[],
   comparator: (a: T, b: T) => number,
 ) {
@@ -86,24 +80,24 @@ function stableSort<T>(
     return a[1] - b[1]
   })
   return stabilizedThis.map(el => el[0])
-}
+} */
 
 interface HeadCell {
   disablePadding: boolean
-  id: keyof Data
+  id: keyof AmbassadorsRoot
   label: string
   numeric: boolean
 }
 
 const headCells: readonly HeadCell[] = [
   {
-    id: "name",
+    id: "full_name",
     numeric: false,
     disablePadding: true,
     label: "ФИО",
   },
   {
-    id: "tg",
+    id: "telegram",
     numeric: false,
     disablePadding: false,
     label: "Телеграмм",
@@ -127,7 +121,7 @@ const headCells: readonly HeadCell[] = [
     label: "Статус",
   },
   {
-    id: "publications",
+    id: "content_count",
     numeric: false,
     disablePadding: false,
     label: "Публикации",
@@ -138,7 +132,7 @@ interface EnhancedTableProps {
   numSelected: number
   onRequestSort: (
     event: React.MouseEvent<unknown>,
-    property: keyof Data,
+    property: keyof AmbassadorsRoot,
   ) => void
   onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void
   order: Order
@@ -156,7 +150,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     onRequestSort,
   } = props
   const createSortHandler =
-    (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
+    (property: keyof AmbassadorsRoot) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property)
     }
 
@@ -212,18 +206,41 @@ const checkboxStatus = () =>
         />
       )
     }
-})
+  })
 
 const TableComponent = () => {
+  //const dispatch = useAppDispatch();
+
+  /*  React.useEffect(() => {
+    (async () => {
+try {
+  const res = await dispatch(getAmbassadors())
+    const originalPromiseResult = unwrapResult(res)
+    if (originalPromiseResult) {
+const ambassadors = res;
+console.log(`res: ${res}`)
+    }
+  }
+   catch (err) {
+    console.log(err)
+  }
+}
+  )()
+
+}, [dispatch]) */
+
   const [order, setOrder] = React.useState<Order>("asc")
-  const [orderBy, setOrderBy] = React.useState<keyof Data>("name")
+  const [orderBy, setOrderBy] =
+    React.useState<keyof AmbassadorsRoot>("full_name")
   const [selected, setSelected] = React.useState<readonly number[]>([])
 
   const isSelected = (id: number) => selected.indexOf(id) !== -1
 
+  const { results } = useAppSelector(getAmbassadorsData)
+
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
-    property: keyof Data,
+    property: keyof AmbassadorsRoot,
   ) => {
     const isAsc = orderBy === property && order === "asc"
     setOrder(isAsc ? "desc" : "asc")
@@ -232,7 +249,7 @@ const TableComponent = () => {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = ambassadors.map(n => n.id)
+      const newSelected = results.map(n => n.id)
       setSelected(newSelected)
       return
     }
@@ -258,30 +275,51 @@ const TableComponent = () => {
     setSelected(newSelected)
   }
 
-  const visibleRows = React.useMemo(
-    () => stableSort(ambassadors, getComparator(order, orderBy)),
+  /*   const visibleRows = React.useMemo(
+    () => stableSort(results, getComparator(order, orderBy)),
     [order, orderBy],
-  )
+  ) */
 
   const getStatusClass = (status: string) => {
     let statusClass: string
     switch (status) {
-      case "Активный":
-        statusClass = "status-active"
+      case "active":
+        statusClass = "active"
         break
-      case "На паузе":
-        statusClass = "status-pause"
+      case "paused":
+        statusClass = "paused"
         break
-      case "Не амбассадор":
-        statusClass = "status-not"
+      case "not_ambassador":
+        statusClass = "not_ambassador"
         break
-      case "Уточняется":
-        statusClass = "status-refine"
+      case "pending":
+        statusClass = "pending"
         break
       default:
-        statusClass = "status-refine"
+        statusClass = "pending"
     }
     return statusClass
+  }
+
+  const getStatusName = (status: string) => {
+    let statusName: string
+    switch (status) {
+      case "active":
+        statusName = "Активный"
+        break
+      case "paused":
+        statusName = "На паузе"
+        break
+      case "not_ambassador":
+        statusName = "Не амбассадор"
+        break
+      case "pending":
+        statusName = "Уточняется"
+        break
+      default:
+        statusName = "Уточняется"
+    }
+    return statusName
   }
 
   return (
@@ -303,14 +341,15 @@ const TableComponent = () => {
             orderBy={orderBy}
             onSelectAllClick={handleSelectAllClick}
             onRequestSort={handleRequestSort}
-            rowCount={ambassadors.length}
+            rowCount={results.length}
           />
           <TableBody>
-            {visibleRows.map((row, index) => {
+            {/*  //visibleRows */}
+            {results.map((row, index) => {
               const isItemSelected = isSelected(row.id)
               const labelId = `enhanced-table-checkbox-${index}`
 
-              const newTg = row.tg.replace("@", "")
+              const newtelegram = row.telegram.replace("@", "")
 
               return (
                 <TableRow
@@ -340,24 +379,34 @@ const TableComponent = () => {
                     sx={{ color: theme.palette.primary.main }}
                     padding="none"
                   >
-                    <Link to="/">{row.name}</Link>
+                    <Link to="/">{row.full_name}</Link>
                   </StyledTableCell>
 
                   <StyledTableCell
                     align="right"
                     sx={{ color: theme.palette.primary.main }}
                   >
-                    {!row.tg.includes("@") ? (
-                      <a href={`https://t.me/${row.tg}`} target="_blank">
-                        {row.tg}
+                    {!row.telegram.includes("@") ? (
+                      <a
+                        href={`https://t.me/${row.telegram}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {row.telegram}
                       </a>
                     ) : (
-                      <a href={`https://t.me/${newTg}`} target="_blank">
-                        {newTg}
+                      <a
+                        href={`https://t.me/${newtelegram}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {newtelegram}
                       </a>
                     )}
                   </StyledTableCell>
-                  <StyledTableCell align="right">{row.ya_edu}</StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.ya_edu.name}
+                  </StyledTableCell>
                   <StyledTableCell align="right">{row.city}</StyledTableCell>
                   <StyledTableCell align="right">
                     <div
@@ -365,15 +414,12 @@ const TableComponent = () => {
                         style.status + " " + style[getStatusClass(row.status)]
                       }
                     >
-                     {/*  {checkboxStatus()} */}
-                     <button type="button"
-                     >
-                      {row.status}
-                      </button>
+                      {/*  {checkboxStatus()} */}
+                      <button type="button">{getStatusName(row.status)}</button>
                     </div>
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    {row.publications}
+                    {row.content_count}
                   </StyledTableCell>
                 </TableRow>
               )

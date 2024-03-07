@@ -12,12 +12,13 @@ export const Ambassadors = () => {
   useEffect(() => {
     dispatch(getAmbassadorsFilters())
     dispatch(getAmbassadors())
+    console.log(getAmbassadors());
   }, [dispatch])
 
   return (
     <Content>
       <HeaderContent>Список амбассадоров</HeaderContent>
-      <Search />
+     {/*  <Search /> */}
       <TableComponent />
     </Content>
   )

@@ -9,6 +9,7 @@ export interface AmbassadorsRoot {
   id: number
   ya_edu: YaEdu
   amb_goals: AmbGoal[]
+  content_count: string
   promo_code: string
   full_name: string
   gender: string

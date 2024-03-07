@@ -15,25 +15,25 @@
   text-align: center;
 }
 
-.status-active {
+.active {
   background-color: #d3dfce;
   border: 1px solid #b6caae;
   color: #255f0b;
 }
 
-.status-pause {
+.paused {
   background-color: #f3ead1;
   border: 1px solid #ebdcb3;
   color: #c4951b;
 }
 
-.status-not {
+.not_ambassador {
   background-color: #eed3d3;
   border: 1px solid #e2b6b6;
   color: #a92525;
 }
 
-.status-refine {
+.pending {
   background-color: #cddaee;
   border: 1px solid #acc2e2;
   color: #0647a9;
