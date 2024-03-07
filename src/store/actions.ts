@@ -1,2 +1,1 @@
-export * from "./ambassadors/ambasadors.actions"
-export * from "./auth/auth.actions"
+export * as actions from "./ambassadorsFilters/ambassadorsFilters.slice"

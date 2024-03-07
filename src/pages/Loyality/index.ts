@@ -1,0 +1,1 @@
+export { Loyality } from "./Loyality"

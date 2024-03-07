@@ -1,11 +1,11 @@
-export interface AmbassadorsRoot {
+export interface AmbassadorsRequest {
   count: number
   next: string
   previous: string
-  results: Result[]
+  results: AmbassadorsRoot[]
 }
 
-export interface Result {
+export interface AmbassadorsRoot {
   id: number
   ya_edu: YaEdu
   amb_goals: AmbGoal[]
@@ -31,11 +31,11 @@ export interface Result {
 }
 
 export interface YaEdu {
-  id: number
+  id: number | string
   name: string
 }
 
 export interface AmbGoal {
-  id: number
+  id: number | string
   name: string
 }

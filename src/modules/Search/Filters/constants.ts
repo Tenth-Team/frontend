@@ -746,7 +746,6 @@ export const filters = [
     ],
     type: "select",
   },
-
   {
     id: 7,
     label: "",

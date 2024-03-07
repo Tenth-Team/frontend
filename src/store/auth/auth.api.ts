@@ -1,31 +1,30 @@
-// import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-// import { CONFIG_API } from "../../utils/data"
-// import type { AuthToken, LoginData } from "../../@types/api"
-// import { setToken } from "../../utils/tokenStorage"
+import { createAsyncThunk } from "@reduxjs/toolkit"
+import type { AuthToken, LoginData } from "../../@types/api"
+import axiosInstance from "../../api/axiosInstance"
 
-// export const auth = createApi({
-//   reducerPath: "auth/api",
-//   baseQuery: fetchBaseQuery(CONFIG_API),
-//   endpoints: builder => ({
-//     login: builder.query<AuthToken, LoginData>({
-//       query: data => ({
-//         url: "/api/v1/auth/token/login/",
-//         method: "POST",
-//         body: data,
-//       }),
-//       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-//         try {
-//           const response = await queryFulfilled
-//           if (response.data.auth_token) {
-//             setToken(response.data.auth_token)
-//           }
-//         } catch (error) {
-//           console.error("Login request failed:", error)
-//           throw error
-//         }
-//       },
-//     }),
-//   }),
-// })
+export const login = createAsyncThunk<
+  AuthToken,
+  LoginData,
+  { rejectValue: any }
+>("auth/login", async (userData, { rejectWithValue }) => {
+  try {
+    console.log(userData)
+    const res = await axiosInstance.post("/api/v1/auth/token/login/", userData)
+    return res.data
+  } catch (err) {
+    return rejectWithValue(err)
+  }
+})
 
-// export const { useLazyLoginQuery } = auth
+export const logout = createAsyncThunk<
+  undefined,
+  undefined,
+  { rejectValue: any }
+>("auth/logout", async (_, { rejectWithValue }) => {
+  try {
+    const res = await axiosInstance.post("/api/v1/auth/token/logout/")
+    return res.data
+  } catch (err) {
+    return rejectWithValue(err)
+  }
+})
