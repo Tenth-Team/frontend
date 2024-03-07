@@ -1,7 +1,6 @@
 import type { AxiosError, AxiosInstance } from "axios"
 import axios from "axios"
 import { getToken, removeToken } from "../utils/tokenStorage"
-import { Navigate } from "react-router-dom"
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: "https://crm.ragimov700.ru", // Указываем базовый URL вашего API

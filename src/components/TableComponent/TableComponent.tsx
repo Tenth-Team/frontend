@@ -20,9 +20,9 @@ import { useAppSelector } from "../../store/hooks"
 import { getAmbassadorsData } from "../../store/selectors"
 import type {
   AmbGoal,
-  AmbassadorsRoot,
+  AmbassadorRoot,
   YaEdu,
-} from "../../store/ambassadors/types"
+} from "../../store/ambassador/types"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -79,7 +79,7 @@ function stableSort<T>(
 
 interface HeadCell {
   disablePadding: boolean
-  id: keyof AmbassadorsRoot
+  id: keyof AmbassadorRoot
   label: string
   numeric: boolean
 }
@@ -127,7 +127,7 @@ interface EnhancedTableProps {
   numSelected: number
   onRequestSort: (
     event: React.MouseEvent<unknown>,
-    property: keyof AmbassadorsRoot,
+    property: keyof AmbassadorRoot,
   ) => void
   onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void
   order: Order
@@ -145,7 +145,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     onRequestSort,
   } = props
   const createSortHandler =
-    (property: keyof AmbassadorsRoot) => (event: React.MouseEvent<unknown>) => {
+    (property: keyof AmbassadorRoot) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property)
     }
 
@@ -206,7 +206,7 @@ const checkboxStatus = () =>
 const TableComponent = () => {
   const [order, setOrder] = React.useState<Order>("asc")
   const [orderBy, setOrderBy] =
-    React.useState<keyof AmbassadorsRoot>("full_name")
+    React.useState<keyof AmbassadorRoot>("full_name")
   const [selected, setSelected] = React.useState<readonly number[]>([])
 
   const isSelected = (id: number) => selected.indexOf(id) !== -1
@@ -215,7 +215,7 @@ const TableComponent = () => {
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
-    property: keyof AmbassadorsRoot,
+    property: keyof AmbassadorRoot,
   ) => {
     const isAsc = orderBy === property && order === "asc"
     setOrder(isAsc ? "desc" : "asc")
