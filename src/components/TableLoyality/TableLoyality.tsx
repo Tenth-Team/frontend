@@ -11,7 +11,9 @@ import TableSortLabel from "@mui/material/TableSortLabel"
 import Paper from "@mui/material/Paper"
 import Checkbox from "@mui/material/Checkbox"
 import { visuallyHidden } from "@mui/utils"
+
 import style from "./TableLoyality.module.scss"
+import s from '../TableComponent/TableComponent.module.scss'
 import theme from "../../assets/theme"
 import ambassadors from "./ambassadors.json"
 import { Link } from "react-router-dom"
@@ -295,7 +297,7 @@ const TableLoyality = () => {
   )
 
   return (
-    <section className={style.tableBlock}>
+    <section className={s.tableBlock}>
       <TableContainer
         component={Paper}
         sx={{ maxHeight: 700, border: "none", boxShadow: "none" }}
