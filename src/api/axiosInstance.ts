@@ -3,7 +3,7 @@ import axios from "axios"
 import { getToken, removeToken } from "../utils/tokenStorage"
 
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: "https://crm.ragimov700.ru", // Указываем базовый URL вашего API
+  baseURL: "https://crm.ragimov700.ru", // Указываем базовый URL нашего API
 })
 
 // Добавляем обработчик перехвата для добавления токена авторизации к каждому запросу

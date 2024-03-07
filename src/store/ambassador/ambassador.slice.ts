@@ -41,8 +41,8 @@ const initialState: TypeInitialState = {
   error: null,
 }
 
-const commentsSlice = createSlice({
-  name: "ambassadors",
+const ambassadorSlice = createSlice({
+  name: "ambassador",
   initialState,
   reducers: {},
   extraReducers: builder => {
@@ -86,4 +86,4 @@ const commentsSlice = createSlice({
   },
 })
 
-export default commentsSlice.reducer
+export default ambassadorSlice.reducer

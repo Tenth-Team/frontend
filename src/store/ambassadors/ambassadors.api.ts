@@ -5,7 +5,7 @@ import axiosInstance from "../../api/axiosInstance"
 export const getAmbassadors = createAsyncThunk<
   AmbassadorsRequest,
   void,
-  { rejectValue: {} | unknown }
+  { rejectValue: unknown }
 >("ambassadors/getAmbassadors", async (_, { rejectWithValue }) => {
   try {
     const response = await axiosInstance.get("/api/v1/ambassadors/")

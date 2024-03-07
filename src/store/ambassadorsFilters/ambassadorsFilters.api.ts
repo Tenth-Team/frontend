@@ -6,7 +6,7 @@ import type { AmbassadorsFiltersRequest } from "./types"
 export const getAmbassadorsFilters = createAsyncThunk<
   AmbassadorsFiltersRequest,
   void,
-  { rejectValue: {} | unknown }
+  { rejectValue: unknown }
 >("filters/getAmbassadorsFilters", async (_, { rejectWithValue }) => {
   try {
     const response = await axiosInstance.get("/api/v1/ambassadors/filters")

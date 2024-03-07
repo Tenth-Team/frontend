@@ -15,7 +15,7 @@ const initialState: TypeInitialState = {
   error: null,
 }
 
-const commentsSlice = createSlice({
+const ambassadorsSlice = createSlice({
   name: "ambassadors",
   initialState,
   reducers: {},
@@ -36,4 +36,4 @@ const commentsSlice = createSlice({
   },
 })
 
-export default commentsSlice.reducer
+export default ambassadorsSlice.reducer
