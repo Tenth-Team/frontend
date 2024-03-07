@@ -3,7 +3,7 @@ import {
   deleteAmbassador,
   getAmbassador,
   patchAmbassador,
-} from "./ambasador.api"
+} from "./ambassador.api"
 import { setError, setPending } from "../utils"
 import type { TypeRequest } from "../types"
 import type { AmbassadorRoot } from "./types"

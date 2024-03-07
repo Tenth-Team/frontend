@@ -1,5 +1,5 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit"
-import { getAmbassadors } from "./ambasadors.api"
+import { getAmbassadors } from "./ambassadors.api"
 import { setError, setPending } from "../utils"
 import type { AmbassadorsRequest } from "./types"
 import type { TypeRequest } from "../types"

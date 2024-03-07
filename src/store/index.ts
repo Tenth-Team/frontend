@@ -1,13 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit"
 import authReduce from "./auth/auth.slice"
-import ambasadorsReduce from "./ambassadors/ambasadors.slice"
-import ambasadorsFiltersReduce from "./ambassadorsFilters/ambassadorsFilters.slice"
+import ambassadorsReduce from "./ambassadors/ambassadors.slice"
+import ambassadorsFiltersReduce from "./ambassadorsFilters/ambassadorsFilters.slice"
+import ambassadorReduce from "./ambassador/ambassador.slice"
 
 const store = configureStore({
   reducer: {
     authSlice: authReduce,
-    ambasadorsFiltersSlice: ambasadorsFiltersReduce,
-    ambasadorsSlice: ambasadorsReduce,
+    ambassadorsFiltersSlice: ambassadorsFiltersReduce,
+    ambassadorsSlice: ambassadorsReduce,
+    ambassadorSlice: ambassadorReduce,
   },
 })
 
