@@ -1,6 +1,6 @@
 import { useState, type FC } from "react"
 import s from "./styles.module.scss"
-import { AlertTtriangleIconSVG, EyeIconSVG } from "../../../../ui-kit"
+import { AlertTtriangleIconSVG, EyeIconSVG } from "../../../ui-kit"
 
 type TypeInputProps = {
   label: string

@@ -1,14 +1,16 @@
-// import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-// import { CONFIG_API } from "../../utils/data"
+import { createAsyncThunk } from "@reduxjs/toolkit"
+import type { AmbassadorsRequest } from "./types"
+import axiosInstance from "../../api/axiosInstance"
 
-// export const ambassadorsApi = createApi({
-//   reducerPath: "ambassadors/api",
-//   baseQuery: fetchBaseQuery(CONFIG_API),
-//   endpoints: builder => ({
-//     getAmbassadors: builder.query({
-//       query: () => "/api/v1/ambassadors/",
-//     }),
-//   }),
-// })
-
-// export const { useGetAmbassadorsQuery } = ambassadorsApi
+export const getAmbassadors = createAsyncThunk<
+  AmbassadorsRequest,
+  void,
+  { rejectValue: {} | unknown }
+>("ambassadors/getAmbassadors", async (_, { rejectWithValue }) => {
+  try {
+    const response = await axiosInstance.get("/api/v1/ambassadors/")
+    return response.data
+  } catch (err) {
+    return rejectWithValue(err)
+  }
+})

@@ -1,10 +1,9 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit"
-import { login, logout } from "./auth.actions"
+import { login, logout } from "./auth.api"
 import { setError, setPending } from "../utils"
 import { removeToken, setToken } from "../../utils/tokenStorage"
 import type { TypeRequest } from "../types"
 
-// import { setError, setPending } from "../utils";
 type TypeInitialState = {
   isAuthorized: boolean
 }
