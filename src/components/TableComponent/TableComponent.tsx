@@ -54,8 +54,8 @@ function getComparator<Key extends keyof any>(
   order: Order,
   orderBy: Key,
 ): (
-  a: { [key in Key]: string | number | YaEdu | AmbGoal[] },
-  b: { [key in Key]: string | number | YaEdu | AmbGoal[] },
+  a: { [key in Key]: number | string | YaEdu | AmbGoal[] },
+  b: { [key in Key]: number | string | YaEdu | AmbGoal[] },
 ) => number {
   return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
@@ -233,7 +233,7 @@ const TableComponent = () => {
 
   const handleClick = (event: React.MouseEvent<unknown>, id: number) => {
     const selectedIndex = selected.indexOf(id)
-    let newSelected: number[] = []
+    let newSelected: readonly number[] = []
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, id)
