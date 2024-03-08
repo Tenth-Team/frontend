@@ -5,7 +5,7 @@ import axiosInstance from "../../api/axiosInstance"
 export const login = createAsyncThunk<
   AuthToken,
   LoginData,
-  { rejectValue: any }
+  { rejectValue: unknown }
 >("auth/login", async (userData, { rejectWithValue }) => {
   try {
     console.log(userData)
@@ -17,9 +17,9 @@ export const login = createAsyncThunk<
 })
 
 export const logout = createAsyncThunk<
-  undefined,
-  undefined,
-  { rejectValue: any }
+  void,
+  void,
+  { rejectValue: unknown }
 >("auth/logout", async (_, { rejectWithValue }) => {
   try {
     const res = await axiosInstance.post("/api/v1/auth/token/logout/")

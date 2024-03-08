@@ -1,5 +1,5 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit"
-import { getAmbassadors } from "./ambasadors.api"
+import { getAmbassadors } from "./ambassadors.api"
 import { setError, setPending } from "../utils"
 import type { AmbassadorsRequest } from "./types"
 import type { TypeRequest } from "../types"
@@ -15,7 +15,7 @@ const initialState: TypeInitialState = {
   error: null,
 }
 
-const commentsSlice = createSlice({
+const ambassadorsSlice = createSlice({
   name: "ambassadors",
   initialState,
   reducers: {},
@@ -36,4 +36,4 @@ const commentsSlice = createSlice({
   },
 })
 
-export default commentsSlice.reducer
+export default ambassadorsSlice.reducer
