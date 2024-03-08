@@ -2,7 +2,7 @@ import type { FC, ReactNode } from "react"
 import s from "./styles.module.scss"
 
 type CommonButtonProps = {
-  children: string
+  children: string | ReactNode
   type: "button" | "submit" | "reset" | undefined
   disabled?: boolean
   icon?: ReactNode
