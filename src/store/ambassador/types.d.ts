@@ -21,7 +21,7 @@ export type AmbassadorRoot = {
   reg_date: string
   country: string
   city: string
-  content_count: string
+  content_count: number
 }
 
 export interface YaEdu {
