@@ -5,11 +5,7 @@ import style from "./Login.module.scss"
 import { LoginForm } from "../../modules/LoginForm/LoginForm"
 
 const Login = () => {
-  // const [loggedIn, setLogin] = useState(false)
 
-  // return loggedIn ? (
-  //   <Navigate to="/" replace />
-  // ) : (
   return (
     <section className={style.container}>
       <h2 className={style.container__title}>
