@@ -14,9 +14,7 @@ const Promocodes = () => {
   useEffect(() => {
     dispatch(getAmbassadorsFilters())
     dispatch(getAmbassadors())
-    dispatch(getPromocodes())
-    //console.log(getAmbassadors())
-    console.log(getPromocodes())
+    console.log(getAmbassadors())
   }, [dispatch])
 
   

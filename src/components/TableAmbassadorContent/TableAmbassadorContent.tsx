@@ -13,18 +13,11 @@ import Checkbox from "@mui/material/Checkbox"
 import { visuallyHidden } from "@mui/utils"
 import style from "../../components/TableComponent/TableComponent.module.scss"
 import theme from "../../assets/theme"
-import ambassadors from "./ambassadors.json"
 import { Link } from "react-router-dom"
-import type {
-  AmbGoal,
-  AmbassadorRoot,
-  YaEdu,
-} from "../../store/ambassador/types"
 import { useAppSelector } from "../../store/hooks"
-import { getAmbassadorsData } from "../../store/selectors"
-
-// TODO - убрать моки, когда будет готова апишка
-// FIXME - пока непонятно откуда брать публикации. Возможно это контент, надо добавать
+import { getContentData } from "../../store/selectors"
+import type { СontentType } from "../../store/content/type"
+import { useEffect } from "react"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -56,8 +49,8 @@ function getComparator<Key extends keyof any>(
   order: Order,
   orderBy: Key,
 ): (
-  a: { [key in Key]: number | string | YaEdu | AmbGoal[] },
-  b: { [key in Key]: number | string | YaEdu | AmbGoal[] },
+  a: { [key in Key]: number | string | boolean },
+  b: { [key in Key]: number | string | boolean },
 ) => number {
   return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
@@ -81,7 +74,7 @@ function stableSort<T>(
 
 interface HeadCell {
   disablePadding: boolean
-  id: keyof AmbassadorRoot
+  id: keyof СontentType
   label: string
   numeric: boolean
 }
@@ -100,13 +93,12 @@ const headCells: readonly HeadCell[] = [
     label: "Телеграмм",
   },
   {
-    id: "blog_url",
+    id: "link",
     numeric: false,
     disablePadding: false,
     label: "Ссылка на контент",
   },
-  // из типа content:
-  /*   {
+  {
     id: "created_date",
     numeric: false,
     disablePadding: false,
@@ -117,20 +109,20 @@ const headCells: readonly HeadCell[] = [
     numeric: false,
     disablePadding: false,
     label: "Статус публикации",
-  }, */
-  {
+  },
+  /*   {
     id: "additional_comments",
     numeric: false,
     disablePadding: false,
     label: "Комментарий менеджера",
-  },
+  }, */
 ]
 
 interface EnhancedTableProps {
   numSelected: number
   onRequestSort: (
     event: React.MouseEvent<unknown>,
-    property: keyof AmbassadorRoot,
+    property: keyof СontentType,
   ) => void
   onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void
   order: Order
@@ -148,7 +140,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     onRequestSort,
   } = props
   const createSortHandler =
-    (property: keyof AmbassadorRoot) => (event: React.MouseEvent<unknown>) => {
+    (property: keyof СontentType) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property)
     }
 
@@ -195,17 +187,20 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 
 const TableAmbassadorContent = () => {
   const [order, setOrder] = React.useState<Order>("asc")
-  const [orderBy, setOrderBy] =
-    React.useState<keyof AmbassadorRoot>("full_name")
+  const [orderBy, setOrderBy] = React.useState<keyof СontentType>("full_name")
   const [selected, setSelected] = React.useState<readonly number[]>([])
 
   const isSelected = (id: number) => selected.indexOf(id) !== -1
 
-  const { results } = useAppSelector(getAmbassadorsData)
+  const { results } = useAppSelector(getContentData)
+
+  useEffect(() => {
+    console.log(results)
+  }, [])
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
-    property: keyof AmbassadorRoot,
+    property: keyof СontentType,
   ) => {
     const isAsc = orderBy === property && order === "asc"
     setOrder(isAsc ? "desc" : "asc")
@@ -362,24 +357,26 @@ const TableAmbassadorContent = () => {
                     )}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    <a target="_blank" href={row.blog_url} rel="noreferrer">
-                      {row.blog_url}
+                    <a target="_blank" href={row.link} rel="noreferrer">
+                      {row.link}
                     </a>
                   </StyledTableCell>
-                  {/* Из типа content !!! */}
-                  {/*  <StyledTableCell align="right">{row.created_date}</StyledTableCell>
+
+                  <StyledTableCell align="right">
+                    {row.created_date}
+                  </StyledTableCell>
                   <StyledTableCell align="right">
                     <div
                       className={
                         style.status + " " + style[getStatusClass(row.status)]
                       }
                     >
-                     <button type="button">{getStatusName(row.status)}</button>
+                      <button type="button">{getStatusName(row.status)}</button>
                     </div>
-                  </StyledTableCell> */}
-                  <StyledTableCell align="right">
-                    {row.additional_comments}
                   </StyledTableCell>
+                  {/* <StyledTableCell align="right">
+                    {row.} 
+                  </StyledTableCell>*/}
                 </TableRow>
               )
             })}
@@ -390,4 +387,4 @@ const TableAmbassadorContent = () => {
   )
 }
 
-export default TableAmbassadorContent
+export { TableAmbassadorContent }

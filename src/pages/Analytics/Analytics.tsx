@@ -5,8 +5,8 @@ import { BarChart } from "@mui/x-charts/BarChart"
 import { MinusIconSVG } from "../../ui-kit"
 import { TextField } from "@mui/material"
 import { AUTHORS, CARDS, MERCH } from "../../assets/constants/analytics"
-import { HeaderContent } from "../HeaderContent/HeaderContent"
-import { Content } from "../Content/Content"
+import { HeaderContent } from "../../components/HeaderContent/HeaderContent"
+import { Content } from "../../components/Content/Content"
 
 const Analytics: FC = () => {
   type CardValue = {

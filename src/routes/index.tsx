@@ -7,11 +7,6 @@ import * as page from "../pages"
 import Layout from "../layouts/Layout"
 import { Spinner } from "../ui-kit"
 import { ModalAddUser } from "../modules/ModalAddUser"
-import { Analytics } from "../components/Analytics"
-import Settings from "../components/Settings/Settings"
-import Promocodes from "../pages/Promocodes/Promocodes"
-import AmbassadorContent from "../pages/AmbassadorContent/AmbassadorContent"
-import SendingMerch from "../components/SendingMerch/SendingMerch"
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,7 +21,7 @@ export const router = createBrowserRouter(
       >
         <Route index element={<page.Ambassadors />} />
 
-        <Route path="/promo-codes" element={<Promocodes />} />
+        <Route path="/promo-codes" element={<page.Promocodes />} />
 
         <Route
           path="/mailing-management"
@@ -38,10 +33,10 @@ export const router = createBrowserRouter(
         />
 
         <Route path="/loyalty-program" element={<page.Loyality />} />
-        <Route path="/ambassador-content" element={<AmbassadorContent />} />
-        <Route path="/sending-merch" element={<SendingMerch />} />
-        <Route path="/analytics" element={<Analytics />} />
-        <Route path="/setting" element={<Settings />} />
+        <Route path="/ambassador-content" element={<page.AmbassadorContent />} />
+        <Route path="/sending-merch" element={<page.SendingMerch />} />
+        <Route path="/analytics" element={<page.Analytics />} />
+        <Route path="/setting" element={<page.Settings />} />
         {/* Временно для Кодинга. */}
         <Route path="/modal" element={<ModalAddUser />} />
       </Route>

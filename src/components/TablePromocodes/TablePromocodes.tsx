@@ -21,7 +21,7 @@ import { ModalAddPromocode } from "../../modules/ModalAddPromocode/ModalAddPromo
 import { Select } from "../formElements/DropdownBoxes/Select"
 import { filters } from "../../modules/Search/Filters/constants"
 import { useAppSelector } from "../../store/hooks"
-import { getAmbassadorsData, getPromocodesData } from "../../store/selectors"
+import { getAmbassadorsData } from "../../store/selectors"
 import type {
   AmbGoal,
   AmbassadorRoot,
@@ -85,7 +85,6 @@ function stableSort<T>(
 interface HeadCell {
   disablePadding: boolean
   id: keyof AmbassadorRoot
-  //| keyof Promocode
   label: string
   numeric: boolean
 }
@@ -199,9 +198,6 @@ const TablePromocodes = () => {
   const isSelected = (id: number) => selected.indexOf(id) !== -1
 
   const { results } = useAppSelector(getAmbassadorsData)
-  /* const {name, id, status, ambassador} = useAppSelector(getPromocodesData) */
-
-  //console.log(results)
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -388,8 +384,8 @@ const TablePromocodes = () => {
                     )}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    {row.promo_code}
-                    {/*  <ModalAddPromocode row={row} /> */}
+                    {/*  {row.promo_code} */}
+                    <ModalAddPromocode row={row} />
                   </StyledTableCell>
                   <StyledTableCell align="right">
                     <div
