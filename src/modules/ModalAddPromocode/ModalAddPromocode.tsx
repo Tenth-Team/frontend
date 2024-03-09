@@ -6,19 +6,11 @@ import s from "../ModalAddUser/styles.module.scss"
 import style from "./ModalAddPromocode.module.scss"
 import { BarcodeIconSVG, XIconSVG } from "../../ui-kit"
 import { FormAddPromo } from "./FormAddPromo/FormAddPromo"
+import type { AmbassadorRoot } from "../../store/ambassador/types"
 
-interface Data {
-  row: {
-    id: number
-    name: string
-    tg: string
-    promo: string
-    status: string | number
-    ya_edu: string
-  }
-}
-
-export const ModalAddPromocode: FC<Data> = ({ row }) => {
+export const ModalAddPromocode: FC<AmbassadorRoot> = (
+  { row }
+  ) => {
   const [open, setOpen] = useState<boolean>(false)
   const [isValid, setIsValid] = useState<boolean>(true)
   const [newRow, setNewRow] = useState("")

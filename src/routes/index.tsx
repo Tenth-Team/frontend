@@ -9,8 +9,8 @@ import { Spinner } from "../ui-kit"
 import { ModalAddUser } from "../modules/ModalAddUser"
 import { Analytics } from "../components/Analytics"
 import Settings from "../components/Settings/Settings"
-import Promocodes from "../components/Promocodes/Promocodes"
-import AmbassadorContent from "../components/AmbassadorContent/AmbassadorContent"
+import Promocodes from "../pages/Promocodes/Promocodes"
+import AmbassadorContent from "../pages/AmbassadorContent/AmbassadorContent"
 import SendingMerch from "../components/SendingMerch/SendingMerch"
 
 export const router = createBrowserRouter(

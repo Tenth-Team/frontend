@@ -13,12 +13,21 @@ import Checkbox from "@mui/material/Checkbox"
 import { visuallyHidden } from "@mui/utils"
 import style from "../../components/TableComponent/TableComponent.module.scss"
 import theme from "../../assets/theme"
-import ambassadors from "./ambassadors.json"
 import { Link } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { ModalAddPromocode } from "../../modules/ModalAddPromocode/ModalAddPromocode"
+import { Select } from "../formElements/DropdownBoxes/Select"
+import { filters } from "../../modules/Search/Filters/constants"
+import { useAppSelector } from "../../store/hooks"
+import { getAmbassadorsData, getPromocodesData } from "../../store/selectors"
+import type {
+  AmbGoal,
+  AmbassadorRoot,
+  YaEdu,
+} from "../../store/ambassador/types"
+import { Promocode } from "../../store/promocodes/type"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -33,15 +42,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     textAlign: "left",
   },
 }))
-
-interface Data {
-  id: number
-  name: string
-  tg: string
-  promo: string
-  status: string | number
-  ya_edu: string
-}
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -59,8 +59,8 @@ function getComparator<Key extends keyof any>(
   order: Order,
   orderBy: Key,
 ): (
-  a: { [key in Key]: number | string },
-  b: { [key in Key]: number | string },
+  a: { [key in Key]: number | string | YaEdu | AmbGoal[] },
+  b: { [key in Key]: number | string | YaEdu | AmbGoal[] },
 ) => number {
   return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
@@ -84,26 +84,27 @@ function stableSort<T>(
 
 interface HeadCell {
   disablePadding: boolean
-  id: keyof Data
+  id: keyof AmbassadorRoot
+  //| keyof Promocode
   label: string
   numeric: boolean
 }
 
 const headCells: readonly HeadCell[] = [
   {
-    id: "name",
+    id: "full_name",
     numeric: false,
     disablePadding: true,
     label: "ФИО",
   },
   {
-    id: "tg",
+    id: "telegram",
     numeric: false,
     disablePadding: false,
     label: "Телеграмм",
   },
   {
-    id: "promo",
+    id: "promo_code",
     numeric: false,
     disablePadding: false,
     label: "Промо-код",
@@ -126,7 +127,7 @@ interface EnhancedTableProps {
   numSelected: number
   onRequestSort: (
     event: React.MouseEvent<unknown>,
-    property: keyof Data,
+    property: keyof AmbassadorRoot,
   ) => void
   onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void
   order: Order
@@ -144,7 +145,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     onRequestSort,
   } = props
   const createSortHandler =
-    (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
+    (property: keyof AmbassadorRoot) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property)
     }
 
@@ -191,14 +192,20 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 
 const TablePromocodes = () => {
   const [order, setOrder] = React.useState<Order>("asc")
-  const [orderBy, setOrderBy] = React.useState<keyof Data>("name")
+  const [orderBy, setOrderBy] =
+    React.useState<keyof AmbassadorRoot>("full_name")
   const [selected, setSelected] = React.useState<readonly number[]>([])
 
   const isSelected = (id: number) => selected.indexOf(id) !== -1
 
+  const { results } = useAppSelector(getAmbassadorsData)
+  /* const {name, id, status, ambassador} = useAppSelector(getPromocodesData) */
+
+  //console.log(results)
+
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
-    property: keyof Data,
+    property: keyof AmbassadorRoot,
   ) => {
     const isAsc = orderBy === property && order === "asc"
     setOrder(isAsc ? "desc" : "asc")
@@ -207,7 +214,7 @@ const TablePromocodes = () => {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = ambassadors.map(n => n.id)
+      const newSelected = results.map(n => n.id)
       setSelected(newSelected)
       return
     }
@@ -234,26 +241,44 @@ const TablePromocodes = () => {
   }
 
   const visibleRows = React.useMemo(
-    () => stableSort(ambassadors, getComparator(order, orderBy)),
+    () => stableSort(results, getComparator(order, orderBy)),
     [order, orderBy],
   )
 
   const getStatusClass = (status: string | number) => {
     let statusClass: string
     switch (status) {
-      case "Активный":
-        statusClass = "status-active"
+      case "active":
+        statusClass = "active"
         break
-      case "Не активный":
-        statusClass = "status-not"
+      case "inactive":
+        statusClass = "not_ambassador"
         break
-      case "Отсутствует":
-        statusClass = "status-refine"
-        break
+      /* case "none":
+        statusClass = "pending"
+        break */
       default:
-        statusClass = "status-refine"
+        statusClass = "pending"
     }
     return statusClass
+  }
+
+  const getStatusName = (status: string) => {
+    let statusName: string
+    switch (status) {
+      case "active":
+        statusName = "Активный"
+        break
+      case "inactive":
+        statusName = "Не активный"
+        break
+      /*       case "none":
+        statusName = "Отсутствует"
+        break */
+      default:
+        statusName = "Отсутствует"
+    }
+    return statusName
   }
 
   const formInputsData: Record<
@@ -266,9 +291,9 @@ const TablePromocodes = () => {
       schema: yup.StringSchema | yup.MixedSchema
     }
   > = {
-    promo: {
+    promo_code: {
       label: "Промокод",
-      name: "promo",
+      name: "promo_code",
       type: "text",
       placeholder: "",
       schema: yup.string().min(1).max(100),
@@ -307,7 +332,7 @@ const TablePromocodes = () => {
             orderBy={orderBy}
             onSelectAllClick={handleSelectAllClick}
             onRequestSort={handleRequestSort}
-            rowCount={ambassadors.length}
+            rowCount={results.length}
           />
 
           <TableBody>
@@ -316,7 +341,7 @@ const TablePromocodes = () => {
               const isItemSelected = isSelected(row.id)
               const labelId = `enhanced-table-checkbox-${index}`
 
-              const newTg = row.tg.replace("@", "")
+              const newtelegram = row.telegram.replace("@", "")
 
               return (
                 <TableRow
@@ -346,24 +371,25 @@ const TablePromocodes = () => {
                     sx={{ color: theme.palette.primary.main }}
                     padding="none"
                   >
-                    <Link to="/">{row.name}</Link>
+                    <Link to="/">{row.full_name}</Link>
                   </StyledTableCell>
                   <StyledTableCell
                     align="right"
                     sx={{ color: theme.palette.primary.main }}
                   >
-                    {!row.tg.includes("@") ? (
-                      <a href={`https://t.me/${row.tg}`} target="_blank">
-                        {row.tg}
+                    {!row.telegram.includes("@") ? (
+                      <a href={`https://t.me/${row.telegram}`} target="_blank">
+                        {row.telegram}
                       </a>
                     ) : (
-                      <a href={`https://t.me/${newTg}`} target="_blank">
-                        {newTg}
+                      <a href={`https://t.me/${newtelegram}`} target="_blank">
+                        {newtelegram}
                       </a>
                     )}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    <ModalAddPromocode row={row} />
+                    {row.promo_code}
+                    {/*  <ModalAddPromocode row={row} /> */}
                   </StyledTableCell>
                   <StyledTableCell align="right">
                     <div
@@ -371,10 +397,12 @@ const TablePromocodes = () => {
                         style.status + " " + style[getStatusClass(row.status)]
                       }
                     >
-                      {row.status}
+                      <button type="button">{getStatusName(row.status)}</button>
                     </div>
                   </StyledTableCell>
-                  <StyledTableCell align="right">{row.ya_edu}</StyledTableCell>
+                  <StyledTableCell align="right">
+                    {row.ya_edu.name}
+                  </StyledTableCell>
                 </TableRow>
               )
             })}

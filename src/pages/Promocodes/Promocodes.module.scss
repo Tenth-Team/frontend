@@ -1,9 +1,10 @@
 .container {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 
-&__area {
+  &__area {
     display: flex;
     flex-direction: column;
     gap: 22px;
-}}
+  }
+}
