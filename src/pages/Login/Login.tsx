@@ -18,6 +18,7 @@ export const Login = () => {
     <section className={style.container}>
       <h2 className={style.container__title}>
         CRM-система комьюнити-менеджера
+        <br />
         <span className={style.container__title_colored}>
           амбассадоров Яндекс Практикума
         </span>
