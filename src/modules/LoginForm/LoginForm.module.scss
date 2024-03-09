@@ -1,0 +1,108 @@
+.form {
+  width: 256px;
+  display: flex;
+  flex-direction: column;
+  max-height: 244px;
+  min-height: 204px;
+  gap: 32px;
+
+
+
+  &__errorIcon {
+    position: absolute;
+    top: 28px;
+    right: 8px;
+    display: inline-block;
+    size: 16px 16px;
+        }
+
+
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__input {
+    position: relative;
+  }
+
+  &__button_primary {
+    border-radius: 4px;
+    padding: 8px 16px;
+    width: 100%;
+    height: 36px;
+    background: var(--primary-main);
+
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 143%;
+    color: var(--gray-02-100);
+  }
+
+  &__errorText {
+    margin-top: 4px;
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 133%;
+    color: var(--danger---main);
+  }
+}
+
+.modal {
+  &__contaner {
+    border-radius: 4px;
+    padding: 24px;
+    width: 451px;
+    height: fit-content;
+    box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.1);
+    background: var(--gray-02-100);
+  }
+
+  &__titleArea {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 8px;
+
+    & svg {
+      & * {
+        stroke: var(--danger---main);
+      }
+    }
+  }
+
+  &__textArea {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  &__title {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 90%;
+    color: var(--gray-02---20);
+  }
+
+  &__text {
+    margin: 0;
+    padding: 0;
+    padding-left: 40px;
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    color: var(--gray-02---40);
+    white-space: pre-wrap;
+
+    &_colored {
+      color: var(--danger---main);
+    }
+  }
+
+}

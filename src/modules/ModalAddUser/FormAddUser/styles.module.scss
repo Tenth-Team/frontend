@@ -1,0 +1,25 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+
+  &__inputs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 64px;
+    min-width: 664px;
+    width: 100%;
+    min-width: fit-content;
+  }
+
+  &__footer {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    align-self: flex-end;
+  }
+
+  &__button {
+    max-width: 100%;
+  }
+}

@@ -1,0 +1,42 @@
+.tableBlock {
+  padding: 16px 0;
+  width: 100%;
+  height: 748px;
+  margin-bottom: 46px;
+}
+
+.status {
+  display: inline;
+
+  border-radius: 50px;
+  padding: 2px 8px 2px;
+
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33333;
+  text-align: center;
+}
+
+.active {
+  background-color: #d3dfce;
+  border: 1px solid #b6caae;
+  color: #255f0b;
+}
+
+.paused {
+  background-color: #f3ead1;
+  border: 1px solid #ebdcb3;
+  color: #c4951b;
+}
+
+.not_ambassador {
+  background-color: #eed3d3;
+  border: 1px solid #e2b6b6;
+  color: #a92525;
+}
+
+.pending {
+  background-color: #cddaee;
+  border: 1px solid #acc2e2;
+  color: #0647a9;
+}

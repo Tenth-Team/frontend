@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+
+    &__button {
+    & svg {
+        max-width: 17px;
+        * {
+          stroke-width: 3;
+          stroke:var(--gray-02-100);
+        }
+      }}
+}

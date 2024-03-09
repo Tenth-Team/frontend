@@ -1,0 +1,17 @@
+.modal {
+  &__contaner {
+    width: 792px;
+    height: 428px;
+    border-radius: 8px;
+    padding: 64px;
+  }
+
+  &__button {
+    border-radius: 4px;
+    padding: 14px 0px 14px 16px;
+    width: 178px;
+    height: 48px;
+    border: 1px solid var(--gray-100);
+    text-align: start;
+  }
+}
