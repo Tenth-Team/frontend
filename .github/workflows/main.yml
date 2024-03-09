@@ -8,7 +8,6 @@ on:
 jobs:
   build_and_push_to_docker_hub:
     name: Push Docker image to DockerHub
-    environment: Docker
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
@@ -30,7 +29,6 @@ jobs:
     name: Deploy project
     needs:
       - build_and_push_to_docker_hub
-    environment: Docker
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
