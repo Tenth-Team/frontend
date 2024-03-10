@@ -36,6 +36,7 @@ const initialState: TypeInitialState = {
     reg_date: "",
     country: "",
     city: "",
+    content_count: 0,
   },
   loading: false,
   error: null,

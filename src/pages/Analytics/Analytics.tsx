@@ -57,7 +57,7 @@ const Analytics: FC = () => {
 
   const authorItem = AUTHORS.map((item: CardValue) => {
     return (
-      <li  key={item.id}  className={style.container__author}>
+      <li key={item.id} className={style.container__author}>
         <p
           className={`${style.container__id} ${style.container__authorText} ${style.container__authorText_colored} ${style.container__authorText_bold}`}
         >

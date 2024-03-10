@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import s from "./styles.module.scss"
 import {
   UsersIconSVG,
@@ -11,14 +11,17 @@ import {
   GearSixIconSVG,
   ArrowRightIconSVG,
 } from "../../ui-kit"
+import { removeToken } from "../../utils/tokenStorage"
 
 export const NavBar = () => {
+  const navigate = useNavigate()
+
   return (
     <div className={s.side}>
       <nav className={s.nav}>
         <ul className={s.nav__list}>
           <li>
-            <NavLink to="/" className={s.nav__item}>
+            <NavLink to="/ambassadors" className={s.nav__item}>
               <UsersIconSVG />
               Амбассадоры
             </NavLink>
@@ -37,7 +40,7 @@ export const NavBar = () => {
           </li>
 
           <li>
-            <NavLink to="/ambassador-content" className={s.nav__item}>
+            <NavLink to="/ambassadors-content" className={s.nav__item}>
               <ClipboardTextIconSVG />
               Контент амбассадоров
             </NavLink>
@@ -76,10 +79,17 @@ export const NavBar = () => {
           </li>
 
           <li>
-            <NavLink to="/logout" className={s.nav__item}>
+            <button
+              type="button"
+              onClick={() => {
+                removeToken()
+                navigate("/signin")
+              }}
+              className={s.nav__item}
+            >
               <ArrowRightIconSVG />
               Выход
-            </NavLink>
+            </button>
           </li>
         </ul>
       </div>
