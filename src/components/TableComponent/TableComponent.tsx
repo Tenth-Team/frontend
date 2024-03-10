@@ -14,8 +14,8 @@ import { visuallyHidden } from "@mui/utils"
 import style from "./TableComponent.module.scss"
 import theme from "../../assets/theme"
 import { Link } from "react-router-dom"
-import { Select } from "../formElements/DropdownBoxes/Select"
-import { filters } from "../../modules/Search/Filters/constants"
+// import { Select } from "../formElements/DropdownBoxes/Select"
+// import { filters } from "../../modules/Search/Filters/constants"
 import { useAppSelector } from "../../store/hooks"
 import { getAmbassadorsData } from "../../store/selectors"
 import type {
@@ -23,6 +23,7 @@ import type {
   AmbassadorRoot,
   YaEdu,
 } from "../../store/ambassador/types"
+// import { Option } from "../formElements/DropdownBoxes/Select/types"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -190,17 +191,20 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   )
 }
 
-const checkboxStatus = () =>
-  filters.map(filter => {
-    if (filter.name === "statusAmb") {
-      return (
-        <Select
-          key={filter.id}
-          data={filter}
-        />
-      )
-    }
-  })
+// const checkboxStatus = () =>
+//   filters.map(filter => {
+//     if (filter.name === "statusAmb") {
+//       return (
+//         <Select
+//           key={filter.id}
+//           data={filter}
+//           onSelect={function (option: Option): void {
+//             throw new Error("Function not implemented.")
+//           }}
+//         />
+//       )
+//     }
+//   })
 
 const TableComponent = () => {
   const [order, setOrder] = React.useState<Order>("asc")

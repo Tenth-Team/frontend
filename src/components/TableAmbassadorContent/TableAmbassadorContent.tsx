@@ -17,7 +17,6 @@ import { Link } from "react-router-dom"
 import { useAppSelector } from "../../store/hooks"
 import { getContentData } from "../../store/selectors"
 import type { СontentType } from "../../store/content/type"
-import { useEffect } from "react"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {

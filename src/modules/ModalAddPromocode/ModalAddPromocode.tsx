@@ -35,7 +35,7 @@ export const ModalAddPromocode: FC<Props> = ({ row }) => {
     } else {
       setIsValid(true)
     }
-  }, [])
+  }, [row.promo_code])
 
   return (
     <>
@@ -85,11 +85,7 @@ export const ModalAddPromocode: FC<Props> = ({ row }) => {
               <XIconSVG />
             </button>
           </div>
-          <FormAddPromo
-            onClick={handleClose}
-            //onUpdate={handleUpdate}
-            row={row}
-          />
+          <FormAddPromo onClick={handleClose} row={row} />
         </Box>
       </Modal>
     </>

@@ -6,16 +6,15 @@ import style from "./Promocodes.module.scss"
 import { Search } from "../../modules/Search"
 import { useEffect } from "react"
 import { useAppDispatch } from "../../store/hooks"
-import { getAmbassadors, getAmbassadorsFilters, getPromocodes } from "../../store/api"
+import { getAmbassadors, getAmbassadorsFilters } from "../../store/api"
 
 const Promocodes = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(getAmbassadorsFilters())
     dispatch(getAmbassadors())
   }, [dispatch])
-
 
   return (
     <Content>
