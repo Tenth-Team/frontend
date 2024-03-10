@@ -14,9 +14,9 @@ import { visuallyHidden } from "@mui/utils"
 import style from "../../components/TableComponent/TableComponent.module.scss"
 import theme from "../../assets/theme"
 import { Link } from "react-router-dom"
-import { useForm } from "react-hook-form"
-import { yupResolver } from "@hookform/resolvers/yup"
-import * as yup from "yup"
+// import { useForm } from "react-hook-form"
+// import { yupResolver } from "@hookform/resolvers/yup"
+// import * as yup from "yup"
 import { ModalAddPromocode } from "../../modules/ModalAddPromocode/ModalAddPromocode"
 import { useAppSelector } from "../../store/hooks"
 import { getAmbassadorsData } from "../../store/selectors"
@@ -275,37 +275,37 @@ const TablePromocodes = () => {
     return statusName
   }
 
-  const formInputsData: Record<
-    string,
-    {
-      label: string
-      name: string
-      type: string
-      placeholder: string
-      schema: yup.StringSchema | yup.MixedSchema
-    }
-  > = {
-    promo_code: {
-      label: "Промокод",
-      name: "promo_code",
-      type: "text",
-      placeholder: "",
-      schema: yup.string().min(1).max(100),
-    },
-  }
-  const schema = yup
-    .object(
-      Object.keys(formInputsData).reduce(
-        (prev, cur) => ({ ...prev, [cur]: formInputsData[cur].schema }),
-        {},
-      ),
-    )
-    .required()
+  // const formInputsData: Record<
+  //   string,
+  //   {
+  //     label: string
+  //     name: string
+  //     type: string
+  //     placeholder: string
+  //     schema: yup.StringSchema | yup.MixedSchema
+  //   }
+  // > = {
+  //   promo_code: {
+  //     label: "Промокод",
+  //     name: "promo_code",
+  //     type: "text",
+  //     placeholder: "",
+  //     schema: yup.string().min(1).max(100),
+  //   },
+  // }
+  // const schema = yup
+  //   .object(
+  //     Object.keys(formInputsData).reduce(
+  //       (prev, cur) => ({ ...prev, [cur]: formInputsData[cur].schema }),
+  //       {},
+  //     ),
+  //   )
+  //   .required()
 
-  const { register } = useForm<typeof formInputsData>({
-    mode: "onBlur",
-    resolver: yupResolver(schema),
-  })
+  // const { register } = useForm<typeof formInputsData>({
+  //   mode: "onBlur",
+  //   resolver: yupResolver(schema),
+  // })
 
   return (
     <section className={style.tableBlock}>

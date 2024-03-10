@@ -17,7 +17,7 @@ const initialState: TypeInitialState = {
     id: 0,
     ya_edu: { id: 0, name: "" },
     amb_goals: [],
-    promo_code: "",
+    promo_code: [],
     full_name: "",
     gender: "",
     address: "",

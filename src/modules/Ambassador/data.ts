@@ -35,7 +35,7 @@ export const FORM_DATA: TypeFieldsForm = {
         schema: yup
           .string()
           .matches(
-            /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/,
+            /^((8|\+7)[- ]?)?(\(?\d{3}\)?[- ]?)?[\d\- ]{7,10}$/,
             "Phone number is not valid",
           ),
       },

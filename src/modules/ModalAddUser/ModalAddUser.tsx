@@ -3,7 +3,7 @@ import { Box, Modal } from "@mui/material/"
 import type { FC } from "react"
 import { useState } from "react"
 import s from "./styles.module.scss"
-import { UserIconSVG, XIconSVG } from "../../ui-kit"
+import { UserIconSVG } from "../../ui-kit"
 import { FormAddUser } from "./FormAddUser"
 
 export const ModalAddUser: FC = () => {
@@ -43,7 +43,7 @@ export const ModalAddUser: FC = () => {
               aria-label="close"
               onClick={handleClose}
             >
-{/*               <XIconSVG /> */}
+              {/*               <XIconSVG /> */}
             </button>
           </div>
 
