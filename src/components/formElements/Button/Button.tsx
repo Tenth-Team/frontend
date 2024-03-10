@@ -1,4 +1,4 @@
-import type { FC, ReactNode } from "react"
+import type { FC, ReactNode, MouseEvent } from "react"
 import s from "./styles.module.scss"
 
 type CommonButtonProps = {
@@ -6,9 +6,10 @@ type CommonButtonProps = {
   type: "button" | "submit" | "reset" | undefined
   disabled?: boolean
   icon?: ReactNode
-  onClick?: () => void
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void
   style?: object
   parentClass?: string | CSSModuleClasses
+  form?: string
 }
 
 type PrimaryButtonProps = CommonButtonProps & {
@@ -32,9 +33,12 @@ export const Button: FC<TypeButtonProps> = ({
   onClick,
   style,
   parentClass,
+  form,
 }) => {
+  console.log(disabled)
   return (
     <button
+      form={form}
       style={style}
       onClick={onClick}
       className={`${s.button} ${(primary && s.primary) || (secondary && s.secondary)} ${parentClass ? parentClass : ""} `}

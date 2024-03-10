@@ -9,7 +9,7 @@ import type { TypeRequest } from "../types"
 import type { AmbassadorRoot } from "./types"
 
 type TypeInitialState = TypeRequest & {
-  ambassadorCard: AmbassadorRoot
+  ambassadorCard: AmbassadorRoot & Record<string, {}>
 }
 
 const initialState: TypeInitialState = {
@@ -49,7 +49,10 @@ const ambassadorSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(getAmbassador.fulfilled, (state, action) => {
-        state.ambassadorCard = action.payload
+        state.ambassadorCard = {
+          ...action.payload,
+          reg_date: action.payload.reg_date.slice(0, 16),
+        }
         state.loading = false
         state.error = null
         // Удалить

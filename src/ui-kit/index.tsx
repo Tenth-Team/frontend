@@ -36,6 +36,12 @@ import XCircleIconSVG from "../assets/images/icons/XCircle.svg?react"
 import HomeIconSVG from "../assets/images/icons/home.svg?react"
 import ChatIconSVG from "../assets/images/icons/Chat.svg?react"
 import EyeIconSVG from "../assets/images/icons/Eye.svg?react"
+import ChevronDownIconSVG from "../assets/images/icons/chevron-down.svg?react"
+import ChevronLeftIconSVG from "../assets/images/icons/chevron-left.svg?react"
+import ChevronRightIconSVG from "../assets/images/icons/chevron-right.svg?react"
+import ChevronUpIconSVG from "../assets/images/icons/chevron-up.svg?react"
+import CheckSquareIconSVG from "../assets/images/icons/check-square.svg?react"
+import CheckIconSVG from "../assets/images/icons/check.svg?react"
 // import IconSVG from "../assets/images/icons/"
 
 import CheckboxOffSVG from "../assets/images/chekbox_off.svg?react"
@@ -84,7 +90,12 @@ export {
   EyeIconSVG,
   SelectOffSVG,
   SelectOnSVG,
-
+  ChevronDownIconSVG,
+  ChevronLeftIconSVG,
+  ChevronRightIconSVG,
+  ChevronUpIconSVG,
+  CheckSquareIconSVG,
+  CheckIconSVG,
   // UI-Kit components
   Spinner,
   LinearProgress,
