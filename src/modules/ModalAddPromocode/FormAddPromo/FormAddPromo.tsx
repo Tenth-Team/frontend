@@ -76,12 +76,12 @@ export const FormAddPromo: FC<TypeFormProps> = ({
 
         <Input
           label={"Название промо-кода"}
-          name={"promo"}
-          error={errors["promo"]?.message}
+          name={"promo_code"}
+          error={errors["promo_code"]?.message}
           style={style}
           register={{
-            ...register("promo"),
-            type: "promo",
+            ...register("promo_code"),
+            type: "promo_code",
             defaultValue: "",
           }}
         />
