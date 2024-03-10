@@ -7,6 +7,7 @@ import * as page from "../pages"
 import Layout from "../layouts/Layout"
 import { Spinner } from "../ui-kit"
 import { ModalAddUser } from "../modules/ModalAddUser"
+import { Mailing } from "../pages/Mailing"
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,9 +27,7 @@ export const router = createBrowserRouter(
         <Route
           path="/mailing-management"
           element={
-            <div>
-              <h1>Управление рассылками</h1>
-            </div>
+            <Mailing />
           }
         />
 

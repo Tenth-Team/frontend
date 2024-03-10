@@ -1,10 +1,10 @@
-import { HeaderContent } from "../../components/HeaderContent/HeaderContent"
 import { Content } from "../../components/Content/Content"
+import style from './Settings.module.scss'
 
 const Settings = () => {
   return (
     <Content>
-      <HeaderContent>Настройки</HeaderContent>
+      <div className={style.settings}></div>
     </Content>
   )
 }
