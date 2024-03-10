@@ -14,8 +14,8 @@ import { visuallyHidden } from "@mui/utils"
 import style from "./TableComponent.module.scss"
 import theme from "../../assets/theme"
 import { Link } from "react-router-dom"
-import { Select } from "../formElements/DropdownBoxes/Select"
-import { filters } from "../../modules/Search/Filters/constants"
+// import { Select } from "../formElements/DropdownBoxes/Select"
+// import { filters } from "../../modules/Search/Filters/constants"
 import { useAppSelector } from "../../store/hooks"
 import { getAmbassadorsData } from "../../store/selectors"
 import type {
@@ -23,6 +23,7 @@ import type {
   AmbassadorRoot,
   YaEdu,
 } from "../../store/ambassador/types"
+// import { Option } from "../formElements/DropdownBoxes/Select/types"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -190,18 +191,20 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   )
 }
 
-const checkboxStatus = () =>
-  filters.map(filter => {
-    if (filter.name === "statusAmb") {
-      return (
-        <Select
-          key={filter.id}
-          data={filter}
-          onSelect={() => console.log("click")}
-        />
-      )
-    }
-  })
+// const checkboxStatus = () =>
+//   filters.map(filter => {
+//     if (filter.name === "statusAmb") {
+//       return (
+//         <Select
+//           key={filter.id}
+//           data={filter}
+//           onSelect={function (option: Option): void {
+//             throw new Error("Function not implemented.")
+//           }}
+//         />
+//       )
+//     }
+//   })
 
 const TableComponent = () => {
   const [order, setOrder] = React.useState<Order>("asc")
@@ -251,11 +254,9 @@ const TableComponent = () => {
   }
 
   const visibleRows = React.useMemo(
-    () => stableSort(results, getComparator(order, orderBy)),
-    [order, orderBy],
+    () => (results ? stableSort(results, getComparator(order, orderBy)) : []),
+    [order, orderBy, results],
   )
-
-  console.log(visibleRows)
 
   const getStatusClass = (status: string) => {
     let statusClass: string
@@ -303,7 +304,8 @@ const TableComponent = () => {
     <section className={style.tableBlock}>
       <TableContainer
         component={Paper}
-        sx={{ maxHeight: 700, border: "none", boxShadow: "none" }}
+        sx={{ border: "none", boxShadow: "none" }}
+        className={style.tableContainer}
       >
         <Table
           sx={{ minWidth: 750 }}
@@ -355,7 +357,7 @@ const TableComponent = () => {
                     sx={{ color: theme.palette.primary.main }}
                     padding="none"
                   >
-                    <Link to="/">{row.full_name}</Link>
+                    <Link to={`/ambassadors/${row.id}`}>{row.full_name}</Link>
                   </StyledTableCell>
 
                   <StyledTableCell

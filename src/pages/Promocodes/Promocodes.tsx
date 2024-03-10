@@ -1,18 +1,27 @@
-import { HeaderContent } from "../HeaderContent/HeaderContent"
-import { Content } from "../Content/Content"
-import TablePromocodes from "../TablePromocodes/TablePromocodes"
-import { Button } from "../formElements"
+import { HeaderContent } from "../../components/HeaderContent/HeaderContent"
+import { Content } from "../../components/Content/Content"
+import TablePromocodes from "../../components/TablePromocodes/TablePromocodes"
+import { Button } from "../../components/formElements"
 import style from "./Promocodes.module.scss"
-import { ModalAddPromocode } from "../../modules/ModalAddPromocode/ModalAddPromocode"
 import { Search } from "../../modules/Search"
+import { useEffect } from "react"
+import { useAppDispatch } from "../../store/hooks"
+import { getAmbassadors, getAmbassadorsFilters } from "../../store/api"
 
 const Promocodes = () => {
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(getAmbassadorsFilters())
+    dispatch(getAmbassadors())
+  }, [dispatch])
+
   return (
     <Content>
       <div className={style.container}>
         <div className={style.container__area}>
           <HeaderContent>Промо-коды</HeaderContent>
-          {/* <Search /> */}
+          <Search />
         </div>
         <div className={style.container__area}>
           <Button primary type="button">
@@ -33,4 +42,4 @@ const Promocodes = () => {
   )
 }
 
-export default Promocodes
+export { Promocodes }

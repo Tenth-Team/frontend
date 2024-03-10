@@ -11,6 +11,11 @@
   &.big {
     width: 32px;
     height: 32px;
+
+    & svg {
+      width: 32px;
+      height: 32px;
+    }
   }
 
   &.small {
@@ -20,20 +25,31 @@
   }
   svg * {
     transition: all 0.2s;
-    fill: var(--gray-800);
-    // stroke-width: 1;
-    // stroke: var(--gray-800);
+    &[fill] {
+      fill: var(--gray-800);
+    }
+    &[stroke] {
+      stroke: var(--gray-800);
+    }
   }
   &:hover svg * {
     transition: all 0.2s;
-    fill: var(--primary---hover);
-    // stroke: var(--primary---hover);
+    &[fill] {
+      fill: var(--primary---hover);
+    }
+    &[stroke] {
+      stroke: var(--primary---hover);
+    }
   }
 
-  &:active svg * {
+  &:active svg path {
     transition: all 0.2s;
-    fill: var(--primary---pressed);
-    // stroke: var(--primary---pressed);
+    &[fill] {
+      fill: var(--primary---pressed);
+    }
+    &[stroke] {
+      stroke: var(--primary---pressed);
+    }
   }
 
   &:focus {
@@ -41,9 +57,13 @@
     outline: 2px solid var(--primary---focus);
     border-radius: 4px;
   }
-  &[active="true"] svg * {
+  &[active="true"] svg path {
     transition: all 0.2s;
-    fill: var(--primary-main);
-    // stroke: var(--primary-main);
+    &[fill] {
+      fill: var(--primary-main);
+    }
+    &[stroke] {
+      stroke: var(--primary-main);
+    }
   }
 }

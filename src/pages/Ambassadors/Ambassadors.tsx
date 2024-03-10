@@ -16,7 +16,6 @@ export const Ambassadors = () => {
   useEffect(() => {
     dispatch(getAmbassadorsFilters())
     dispatch(getAmbassadors())
-    console.log(getAmbassadors())
   }, [dispatch])
 
   const styleButton = {
@@ -47,11 +46,11 @@ export const Ambassadors = () => {
         <div className={style.container__button}>
           <Button primary type="button" style={styleButton} onClick={() => {}}>
             <UserPlusIconSVG className={style.container__button} />
-            Добавить{" "}
+            Добавить
           </Button>
         </div>
       </div>
-      {/* <Search /> */}
+      <Search />
       <TableComponent />
     </Content>
   )

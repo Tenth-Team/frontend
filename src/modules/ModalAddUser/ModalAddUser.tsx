@@ -3,7 +3,7 @@ import { Box, Modal } from "@mui/material/"
 import type { FC } from "react"
 import { useState } from "react"
 import s from "./styles.module.scss"
-import { UserIconSVG, XIconSVG } from "../../ui-kit"
+import { UserIconSVG } from "../../ui-kit"
 import { FormAddUser } from "./FormAddUser"
 
 export const ModalAddUser: FC = () => {
@@ -20,23 +20,6 @@ export const ModalAddUser: FC = () => {
       <Button variant="outlined" onClick={handleClickOpen}>
         Open dialog
       </Button>
-
-      {/*
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        PaperProps={{
-          component: 'form',
-          onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
-            event.preventDefault();
-            const formData = new FormData(event.currentTarget);
-            const formJson = Object.fromEntries((formData as any).entries());
-            const email = formJson.email;
-            console.log(email);
-            handleClose();
-          },
-        }}
-      > */}
 
       <Modal
         sx={{
@@ -60,7 +43,7 @@ export const ModalAddUser: FC = () => {
               aria-label="close"
               onClick={handleClose}
             >
-{/*               <XIconSVG /> */}
+              {/*               <XIconSVG /> */}
             </button>
           </div>
 

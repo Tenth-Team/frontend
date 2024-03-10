@@ -15,10 +15,9 @@ import style from "../../components/TableComponent/TableComponent.module.scss"
 import theme from "../../assets/theme"
 import ambassadors from "./ambassadors.json"
 import { Link } from "react-router-dom"
-import { useForm } from "react-hook-form"
-import { yupResolver } from "@hookform/resolvers/yup"
-import * as yup from "yup"
-import { Input } from "../formElements"
+// import { useForm } from "react-hook-form"
+// import { yupResolver } from "@hookform/resolvers/yup"
+// import * as yup from "yup"
 
 // TODO - убрать моки, когда будет готова апишка
 // FIXME - пока непонятно откуда брать публикации. Возможно это контент, надо добавать
@@ -283,40 +282,37 @@ const TableMerch = () => {
     return statusClass
   }
 
-  const formInputsData: Record<
-    string,
-    {
-      label: string
-      name: string
-      type: string
-      placeholder: string
-      schema: yup.StringSchema | yup.MixedSchema
-    }
-  > = {
-    comment: {
-      label: "Комментарий менеджера",
-      name: "comment",
-      type: "text",
-      placeholder: "",
-      schema: yup.string().min(1).max(100),
-    },
-  }
-  const schema = yup
-    .object(
-      Object.keys(formInputsData).reduce(
-        (prev, cur) => ({ ...prev, [cur]: formInputsData[cur].schema }),
-        {},
-      ),
-    )
-    .required()
+  // const formInputsData: Record<
+  //   string,
+  //   {
+  //     label: string
+  //     name: string
+  //     type: string
+  //     placeholder: string
+  //     schema: yup.StringSchema | yup.MixedSchema
+  //   }
+  // > = {
+  //   comment: {
+  //     label: "Комментарий менеджера",
+  //     name: "comment",
+  //     type: "text",
+  //     placeholder: "",
+  //     schema: yup.string().min(1).max(100),
+  //   },
+  // }
+  // const schema = yup
+  //   .object(
+  //     Object.keys(formInputsData).reduce(
+  //       (prev, cur) => ({ ...prev, [cur]: formInputsData[cur].schema }),
+  //       {},
+  //     ),
+  //   )
+  //   .required()
 
-  const {
-    register,
-  } = useForm<typeof formInputsData>({
-    mode: "onBlur",
-    resolver: yupResolver(schema),
-  })
-
+  // const { register } = useForm<typeof formInputsData>({
+  //   mode: "onBlur",
+  //   resolver: yupResolver(schema),
+  // })
 
   return (
     <section className={style.tableBlock}>
@@ -392,27 +388,24 @@ const TableMerch = () => {
                     sx={{ color: theme.palette.primary.main }}
                   >
                     {!row.tg.includes("@") ? (
-                      <a href={`https://t.me/${row.tg}`} target="_blank">
+                      <a
+                        href={`https://t.me/${row.tg}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         {row.tg}
                       </a>
                     ) : (
-                      <a href={`https://t.me/${newTg}`} target="_blank">
+                      <a
+                        href={`https://t.me/${newTg}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         {newTg}
                       </a>
                     )}
                   </StyledTableCell>
-                  <StyledTableCell align="right">
-                    <Input
-                      label=""
-                      name="comment"
-                      register={{
-                        ...register("comment"),
-                        type: "text",
-                        //defaultValue: `${row.comment}`,
-                        placeholder: `${row.comment}`,
-                      }}
-                    />
-                  </StyledTableCell>
+                  <StyledTableCell align="right">{row.comment}</StyledTableCell>
                   <StyledTableCell align="right">{row.date}</StyledTableCell>
                 </TableRow>
               )

@@ -1,22 +1,16 @@
-import { useState, type FC } from "react"
+import type { FC } from "react"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import s from "../../ModalAddUser/FormAddUser/styles.module.scss"
 import style from "./FormAddPromo.module.scss"
 import { Input, Button } from "../../../components/formElements"
+import type { AmbassadorRoot } from "../../../store/ambassador/types"
 
 type TypeFormProps = {
   onClick: () => void
   //onUpdate:({promo}) => void,
-  row: {
-    id: number
-    name: string
-    tg: string
-    promo: string
-    status: string | number
-    ya_edu: string
-  }
+  row: AmbassadorRoot
 }
 
 export const FormAddPromo: FC<TypeFormProps> = ({
@@ -35,13 +29,13 @@ export const FormAddPromo: FC<TypeFormProps> = ({
   > = {
     name: {
       label: "ФИО",
-      name: "name",
+      name: "full_name",
       type: "text",
       schema: yup.string(),
     },
     promo: {
       label: "Название промо-кода",
-      name: "promo",
+      name: "promo_code",
       type: "text",
       schema: yup.string().min(1).required(),
     },
@@ -67,7 +61,6 @@ export const FormAddPromo: FC<TypeFormProps> = ({
   })
 
   const onSubmit = (data: any) => {
-    console.log(data)
     onClick()
     reset()
     return data
@@ -78,7 +71,7 @@ export const FormAddPromo: FC<TypeFormProps> = ({
       <div className={s.form__inputs}>
         <div className={style.form__userName}>
           <h3>ФИО</h3>
-          <p>{row.name}</p>
+          <p>{row.full_name}</p>
         </div>
 
         <Input

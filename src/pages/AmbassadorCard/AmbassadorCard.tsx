@@ -1,18 +1,10 @@
-import { useEffect } from "react"
-import { useParams } from "react-router-dom"
-import { useAppDispatch } from "../../store/hooks"
-import { getAmbassador } from "../../store/api"
+import { Content } from "../../components/Content"
+import { Ambassador } from "../../modules/Ambassador"
 
 export const AmbassadorCard = () => {
-  const { id } = useParams()
-  console.log(id)
-  const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    if (id) {
-      dispatch(getAmbassador({ id }))
-    }
-  }, [id, dispatch])
-
-  return <div>{id}</div>
+  return (
+    <Content>
+      <Ambassador />
+    </Content>
+  )
 }

@@ -81,7 +81,6 @@ export const SelectCheckbox: FC<Props> = ({ data, onSelect }) => {
           className={styles.select__box}
           onClick={e => {
             e.stopPropagation()
-            console.log("handleChildClick")
           }}
         >
           <>
@@ -123,7 +122,6 @@ export const SelectCheckbox: FC<Props> = ({ data, onSelect }) => {
                 className={styles.select__optionsList}
                 onClick={e => {
                   e.stopPropagation()
-                  console.log("handleChildClick")
                 }}
               >
                 {filteredList.length ? (
