@@ -255,7 +255,8 @@ const TableComponent = () => {
     [order, orderBy],
   )
 
-  console.log(visibleRows)
+  //console.log(visibleRows)
+  console.log(results.length)
 
   const getStatusClass = (status: string) => {
     let statusClass: string

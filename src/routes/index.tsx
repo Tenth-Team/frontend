@@ -6,8 +6,8 @@ import {
 import * as page from "../pages"
 import Layout from "../layouts/Layout"
 import { ModalAddUser } from "../modules/ModalAddUser"
-import Promocodes from "../components/Promocodes/Promocodes"
 import { ProtectedRoute } from "./ProtectedReute"
+import { Mailing } from "../pages/Mailing"
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -21,20 +21,13 @@ export const router = createBrowserRouter(
             <Route path="/ambassadors/:id" element={<page.AmbassadorCard />} />
           </Route>
 
-          <Route path="/promo-codes" element={<Promocodes />} />
+          <Route path="/promo-codes" element={<page.Promocodes />} />
 
-          <Route
-            path="/mailing-management"
-            element={
-              <div>
-                <h1>Управление рассылками</h1>
-              </div>
-            }
-          />
+          <Route path="/mailing-management" element={<Mailing />} />
 
           <Route path="/loyalty-program" element={<page.Loyality />} />
           <Route
-            path="/ambassadors-content"
+            path="/ambassador-content"
             element={<page.AmbassadorsContent />}
           />
           <Route path="/sending-merch" element={<page.SendingMerch />} />

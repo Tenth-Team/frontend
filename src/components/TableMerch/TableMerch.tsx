@@ -310,13 +310,10 @@ const TableMerch = () => {
     )
     .required()
 
-  const {
-    register,
-  } = useForm<typeof formInputsData>({
+  const { register } = useForm<typeof formInputsData>({
     mode: "onBlur",
     resolver: yupResolver(schema),
   })
-
 
   return (
     <section className={style.tableBlock}>
@@ -401,18 +398,7 @@ const TableMerch = () => {
                       </a>
                     )}
                   </StyledTableCell>
-                  <StyledTableCell align="right">
-                    <Input
-                      label=""
-                      name="comment"
-                      register={{
-                        ...register("comment"),
-                        type: "text",
-                        //defaultValue: `${row.comment}`,
-                        placeholder: `${row.comment}`,
-                      }}
-                    />
-                  </StyledTableCell>
+                  <StyledTableCell align="right">{row.comment}</StyledTableCell>
                   <StyledTableCell align="right">{row.date}</StyledTableCell>
                 </TableRow>
               )

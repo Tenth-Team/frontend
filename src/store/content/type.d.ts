@@ -5,7 +5,7 @@ export interface ContentPage {
   results: СontentType[]
 }
 
-export interface СontentType {
+export type СontentType = {
   id: number
   status: string
   full_name: string

@@ -6,22 +6,14 @@ import s from "../ModalAddUser/styles.module.scss"
 import style from "./ModalAddPromocode.module.scss"
 import { BarcodeIconSVG, XIconSVG } from "../../ui-kit"
 import { FormAddPromo } from "./FormAddPromo/FormAddPromo"
+import type { AmbassadorRoot } from "../../store/ambassador/types"
 
-interface Data {
-  row: {
-    id: number
-    name: string
-    tg: string
-    promo: string
-    status: string | number
-    ya_edu: string
-  }
+type Props = {
+  row: AmbassadorRoot
 }
-
-export const ModalAddPromocode: FC<Data> = ({ row }) => {
+export const ModalAddPromocode: FC<Props> = ({ row }) => {
   const [open, setOpen] = useState<boolean>(false)
   const [isValid, setIsValid] = useState<boolean>(true)
-  const [newRow, setNewRow] = useState("")
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -31,7 +23,7 @@ export const ModalAddPromocode: FC<Data> = ({ row }) => {
   }
 
   useEffect(() => {
-    if (row.promo.length !== 0) {
+    if (row.promo_code !== null) {
       setIsValid(false)
     } else {
       setIsValid(true)
@@ -44,7 +36,7 @@ export const ModalAddPromocode: FC<Data> = ({ row }) => {
       {!isValid ? (
         <button type="button" disabled={true} className={style.modal__button}>
           {" "}
-          {row.promo}
+          {row.promo_code}
         </button>
       ) : (
         <Button
@@ -60,7 +52,7 @@ export const ModalAddPromocode: FC<Data> = ({ row }) => {
             border: `1px solid var(--gray-100)`,
           }}
         >
-          {row.promo}
+          {row.promo_code}
         </Button>
       )}
       <Modal

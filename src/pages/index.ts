@@ -6,6 +6,7 @@ import { AmbassadorCard } from "./AmbassadorCard"
 import { SendingMerch } from "./SendingMerch"
 import { Settings } from "./Settings"
 import { Analytics } from "./Analytics"
+import { Promocodes } from './Promocodes'
 
 export {
   Ambassadors,
@@ -16,4 +17,5 @@ export {
   SendingMerch,
   Settings,
   Analytics,
+  Promocodes,
 }

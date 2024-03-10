@@ -74,7 +74,7 @@ export const NavBar = () => {
           <li>
             <NavLink to="/setting" className={s.nav__item}>
               <GearSixIconSVG />
-              Настройка
+              Настройки
             </NavLink>
           </li>
 

@@ -6,6 +6,7 @@ export const Loyality = () => {
   return (
     <Content>
       <HeaderContent>Программа лояльности</HeaderContent>
+      {/* <Search /> */}
       <TableLoyality />
     </Content>
   )

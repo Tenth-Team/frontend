@@ -13,11 +13,11 @@ import Checkbox from "@mui/material/Checkbox"
 import { visuallyHidden } from "@mui/utils"
 import style from "../../components/TableComponent/TableComponent.module.scss"
 import theme from "../../assets/theme"
-import ambassadors from "./ambassadors.json"
 import { Link } from "react-router-dom"
-
-// TODO - убрать моки, когда будет готова апишка
-// FIXME - пока непонятно откуда брать публикации. Возможно это контент, надо добавать
+import { useAppSelector } from "../../store/hooks"
+import { getContentData } from "../../store/selectors"
+import type { СontentType } from "../../store/content/type"
+import { useEffect } from "react"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -32,16 +32,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     textAlign: "left",
   },
 }))
-
-interface Data {
-  id: number
-  name: string
-  tg: string
-  link: string
-  date: Date
-  status: string | number
-  comment: string
-}
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -59,8 +49,8 @@ function getComparator<Key extends keyof any>(
   order: Order,
   orderBy: Key,
 ): (
-  a: { [key in Key]: number | string },
-  b: { [key in Key]: number | string },
+  a: { [key in Key]: number | string | boolean },
+  b: { [key in Key]: number | string | boolean },
 ) => number {
   return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
@@ -84,20 +74,20 @@ function stableSort<T>(
 
 interface HeadCell {
   disablePadding: boolean
-  id: keyof Data
+  id: keyof СontentType
   label: string
   numeric: boolean
 }
 
 const headCells: readonly HeadCell[] = [
   {
-    id: "name",
+    id: "full_name",
     numeric: false,
     disablePadding: true,
     label: "ФИО",
   },
   {
-    id: "tg",
+    id: "telegram",
     numeric: false,
     disablePadding: false,
     label: "Телеграмм",
@@ -109,7 +99,7 @@ const headCells: readonly HeadCell[] = [
     label: "Ссылка на контент",
   },
   {
-    id: "date",
+    id: "created_date",
     numeric: false,
     disablePadding: false,
     label: "Дата публикации",
@@ -120,19 +110,19 @@ const headCells: readonly HeadCell[] = [
     disablePadding: false,
     label: "Статус публикации",
   },
-  {
-    id: "comment",
+  /*   {
+    id: "additional_comments",
     numeric: false,
     disablePadding: false,
     label: "Комментарий менеджера",
-  },
+  }, */
 ]
 
 interface EnhancedTableProps {
   numSelected: number
   onRequestSort: (
     event: React.MouseEvent<unknown>,
-    property: keyof Data,
+    property: keyof СontentType,
   ) => void
   onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void
   order: Order
@@ -150,7 +140,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     onRequestSort,
   } = props
   const createSortHandler =
-    (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
+    (property: keyof СontentType) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property)
     }
 
@@ -197,14 +187,20 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 
 const TableAmbassadorContent = () => {
   const [order, setOrder] = React.useState<Order>("asc")
-  const [orderBy, setOrderBy] = React.useState<keyof Data>("name")
+  const [orderBy, setOrderBy] = React.useState<keyof СontentType>("full_name")
   const [selected, setSelected] = React.useState<readonly number[]>([])
 
   const isSelected = (id: number) => selected.indexOf(id) !== -1
 
+  const { results } = useAppSelector(getContentData)
+
+  useEffect(() => {
+    console.log(results)
+  }, [])
+
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
-    property: keyof Data,
+    property: keyof СontentType,
   ) => {
     const isAsc = orderBy === property && order === "asc"
     setOrder(isAsc ? "desc" : "asc")
@@ -213,7 +209,7 @@ const TableAmbassadorContent = () => {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = ambassadors.map(n => n.id)
+      const newSelected = results.map(n => n.id)
       setSelected(newSelected)
       return
     }
@@ -240,26 +236,44 @@ const TableAmbassadorContent = () => {
   }
 
   const visibleRows = React.useMemo(
-    () => stableSort(ambassadors, getComparator(order, orderBy)),
+    () => stableSort(results, getComparator(order, orderBy)),
     [order, orderBy],
   )
 
   const getStatusClass = (status: string | number) => {
     let statusClass: string
     switch (status) {
-      case "Одобрено":
-        statusClass = "status-active"
+      case "approved":
+        statusClass = "active"
         break
-      case "Не одобрено":
-        statusClass = "status-not"
+      case "rejected":
+        statusClass = "not_ambassador"
         break
-      case "Новая публикация":
-        statusClass = "status-pause"
+      case "new":
+        statusClass = "paused"
         break
       default:
-        statusClass = "status-pause"
+        statusClass = "paused"
     }
     return statusClass
+  }
+
+  const getStatusName = (status: string) => {
+    let statusName: string
+    switch (status) {
+      case "approved":
+        statusName = "Активный"
+        break
+      case "rejected":
+        statusName = "Не активный"
+        break
+      case "new":
+        statusName = "Новая публикация"
+        break
+      default:
+        statusName = "Новая публикация"
+    }
+    return statusName
   }
 
   return (
@@ -281,14 +295,14 @@ const TableAmbassadorContent = () => {
             orderBy={orderBy}
             onSelectAllClick={handleSelectAllClick}
             onRequestSort={handleRequestSort}
-            rowCount={ambassadors.length}
+            rowCount={results.length}
           />
           <TableBody>
             {visibleRows.map((row, index) => {
               const isItemSelected = isSelected(row.id)
               const labelId = `enhanced-table-checkbox-${index}`
 
-              const newTg = row.tg.replace("@", "")
+              const newtelegram = row.telegram.replace("@", "")
 
               return (
                 <TableRow
@@ -318,38 +332,51 @@ const TableAmbassadorContent = () => {
                     sx={{ color: theme.palette.primary.main }}
                     padding="none"
                   >
-                    <Link to="/">{row.name}</Link>
+                    <Link to="/">{row.full_name}</Link>
                   </StyledTableCell>
                   <StyledTableCell
                     align="right"
                     sx={{ color: theme.palette.primary.main }}
                   >
-                    {!row.tg.includes("@") ? (
-                      <a href={`https://t.me/${row.tg}`} target="_blank">
-                        {row.tg}
+                    {!row.telegram.includes("@") ? (
+                      <a
+                        href={`https://t.me/${row.telegram}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {row.telegram}
                       </a>
                     ) : (
-                      <a href={`https://t.me/${newTg}`} target="_blank">
-                        {newTg}
+                      <a
+                        href={`https://t.me/${newtelegram}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {newtelegram}
                       </a>
                     )}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    <a target="_blank" href={row.link}>
+                    <a target="_blank" href={row.link} rel="noreferrer">
                       {row.link}
                     </a>
                   </StyledTableCell>
-                  <StyledTableCell align="right">{row.date}</StyledTableCell>
+
+                  <StyledTableCell align="right">
+                    {row.created_date}
+                  </StyledTableCell>
                   <StyledTableCell align="right">
                     <div
                       className={
                         style.status + " " + style[getStatusClass(row.status)]
                       }
                     >
-                      {row.status}
+                      <button type="button">{getStatusName(row.status)}</button>
                     </div>
                   </StyledTableCell>
-                  <StyledTableCell align="right">{row.comment}</StyledTableCell>
+                  {/* <StyledTableCell align="right">
+                    {row.} 
+                  </StyledTableCell>*/}
                 </TableRow>
               )
             })}
@@ -360,4 +387,4 @@ const TableAmbassadorContent = () => {
   )
 }
 
-export default TableAmbassadorContent
+export { TableAmbassadorContent }
