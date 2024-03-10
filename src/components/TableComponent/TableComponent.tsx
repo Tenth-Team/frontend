@@ -251,8 +251,8 @@ const TableComponent = () => {
   }
 
   const visibleRows = React.useMemo(
-    () => stableSort(results, getComparator(order, orderBy)),
-    [order, orderBy],
+    () => (results ? stableSort(results, getComparator(order, orderBy)) : []),
+    [order, orderBy, results],
   )
 
   //console.log(visibleRows)
@@ -304,7 +304,8 @@ const TableComponent = () => {
     <section className={style.tableBlock}>
       <TableContainer
         component={Paper}
-        sx={{ maxHeight: 700, border: "none", boxShadow: "none" }}
+        sx={{ border: "none", boxShadow: "none" }}
+        className={style.tableContainer}
       >
         <Table
           sx={{ minWidth: 750 }}
@@ -356,7 +357,7 @@ const TableComponent = () => {
                     sx={{ color: theme.palette.primary.main }}
                     padding="none"
                   >
-                    <Link to="/">{row.full_name}</Link>
+                    <Link to={`/ambassadors/${row.id}`}>{row.full_name}</Link>
                   </StyledTableCell>
 
                   <StyledTableCell

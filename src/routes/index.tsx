@@ -27,7 +27,7 @@ export const router = createBrowserRouter(
 
           <Route path="/loyalty-program" element={<page.Loyality />} />
           <Route
-            path="/ambassador-content"
+            path="/ambassadors-content"
             element={<page.AmbassadorsContent />}
           />
           <Route path="/sending-merch" element={<page.SendingMerch />} />

@@ -1,8 +1,14 @@
 .tableBlock {
-  padding: 16px 0;
+  padding: 0;
   width: 100%;
-  height: 748px;
+  height: 100%;
   margin-bottom: 46px;
+  overflow: auto;
+}
+
+.tableContainer {
+  height: 100%;
+  width: 100%;
 }
 
 .status {

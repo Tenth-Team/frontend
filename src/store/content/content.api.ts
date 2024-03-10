@@ -1,14 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import axiosInstance from "../../api/axiosInstance"
-import type {
-  ContentPage,
-  ContentStatus,
-  СontentRequest,
-  СontentType,
-} from "./type"
+import type { ContentStatus, СontentRequest, СontentType } from "./type"
 
 export const getСontent = createAsyncThunk<
-  ContentPage,
+  СontentType[],
   void,
   { rejectValue: unknown }
 >("content/getСontent", async (_, { rejectWithValue }) => {

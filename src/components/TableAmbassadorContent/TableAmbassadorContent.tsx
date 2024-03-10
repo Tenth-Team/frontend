@@ -49,8 +49,8 @@ function getComparator<Key extends keyof any>(
   order: Order,
   orderBy: Key,
 ): (
-  a: { [key in Key]: number | string | boolean },
-  b: { [key in Key]: number | string | boolean },
+  a: { [key in Key]: number | string | boolean | null },
+  b: { [key in Key]: number | string | boolean | null },
 ) => number {
   return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
@@ -69,6 +69,8 @@ function stableSort<T>(
     }
     return a[1] - b[1]
   })
+
+  console.log(stabilizedThis)
   return stabilizedThis.map(el => el[0])
 }
 
@@ -110,12 +112,12 @@ const headCells: readonly HeadCell[] = [
     disablePadding: false,
     label: "Статус публикации",
   },
-  /*   {
-    id: "additional_comments",
+  {
+    id: "comment",
     numeric: false,
     disablePadding: false,
     label: "Комментарий менеджера",
-  }, */
+  },
 ]
 
 interface EnhancedTableProps {
@@ -192,11 +194,11 @@ const TableAmbassadorContent = () => {
 
   const isSelected = (id: number) => selected.indexOf(id) !== -1
 
-  const { results } = useAppSelector(getContentData)
+  const { results, loading } = useAppSelector(getContentData)
 
   useEffect(() => {
     console.log(results)
-  }, [])
+  }, [results])
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -235,10 +237,16 @@ const TableAmbassadorContent = () => {
     setSelected(newSelected)
   }
 
-  const visibleRows = React.useMemo(
-    () => stableSort(results, getComparator(order, orderBy)),
-    [order, orderBy],
-  )
+  const visibleRows = React.useMemo(() => {
+    if (results) {
+      return stableSort(results, getComparator(order, orderBy))
+    }
+    return []
+  }, [order, orderBy, results])
+
+  useEffect(() => {
+    console.log(visibleRows)
+  }, [visibleRows])
 
   const getStatusClass = (status: string | number) => {
     let statusClass: string
@@ -280,7 +288,8 @@ const TableAmbassadorContent = () => {
     <section className={style.tableBlock}>
       <TableContainer
         component={Paper}
-        sx={{ maxHeight: 700, border: "none", boxShadow: "none" }}
+        sx={{ border: "none", boxShadow: "none" }}
+        className={style.tableContainer}
       >
         <Table
           sx={{ minWidth: 750 }}
@@ -295,92 +304,96 @@ const TableAmbassadorContent = () => {
             orderBy={orderBy}
             onSelectAllClick={handleSelectAllClick}
             onRequestSort={handleRequestSort}
-            rowCount={results.length}
+            rowCount={results?.length}
           />
-          <TableBody>
-            {visibleRows.map((row, index) => {
-              const isItemSelected = isSelected(row.id)
-              const labelId = `enhanced-table-checkbox-${index}`
+          {!loading ? (
+            <TableBody>
+              {visibleRows.map((row, index) => {
+                const isItemSelected = isSelected(row.id)
+                const labelId = `enhanced-table-checkbox-${index}`
 
-              const newtelegram = row.telegram.replace("@", "")
+                const newtelegram = row.telegram.replace("@", "")
 
-              return (
-                <TableRow
-                  hover
-                  onClick={event => handleClick(event, row.id)}
-                  role="checkbox"
-                  aria-checked={isItemSelected}
-                  tabIndex={-1}
-                  key={row.id}
-                  selected={isItemSelected}
-                  sx={{ cursor: "pointer" }}
-                >
-                  <StyledTableCell padding="checkbox">
-                    <Checkbox
-                      color="primary"
-                      checked={isItemSelected}
-                      sx={{ color: theme.palette.secondary.light }}
-                      inputProps={{
-                        "aria-labelledby": labelId,
-                      }}
-                    />
-                  </StyledTableCell>
-                  <StyledTableCell
-                    component="th"
-                    id={labelId}
-                    scope="row"
-                    sx={{ color: theme.palette.primary.main }}
-                    padding="none"
+                return (
+                  <TableRow
+                    hover
+                    onClick={event => handleClick(event, row.id)}
+                    role="checkbox"
+                    aria-checked={isItemSelected}
+                    tabIndex={-1}
+                    key={row.id}
+                    selected={isItemSelected}
+                    sx={{ cursor: "pointer" }}
                   >
-                    <Link to="/">{row.full_name}</Link>
-                  </StyledTableCell>
-                  <StyledTableCell
-                    align="right"
-                    sx={{ color: theme.palette.primary.main }}
-                  >
-                    {!row.telegram.includes("@") ? (
-                      <a
-                        href={`https://t.me/${row.telegram}`}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        {row.telegram}
-                      </a>
-                    ) : (
-                      <a
-                        href={`https://t.me/${newtelegram}`}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        {newtelegram}
-                      </a>
-                    )}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    <a target="_blank" href={row.link} rel="noreferrer">
-                      {row.link}
-                    </a>
-                  </StyledTableCell>
-
-                  <StyledTableCell align="right">
-                    {row.created_date}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    <div
-                      className={
-                        style.status + " " + style[getStatusClass(row.status)]
-                      }
+                    <StyledTableCell padding="checkbox">
+                      <Checkbox
+                        color="primary"
+                        checked={isItemSelected}
+                        sx={{ color: theme.palette.secondary.light }}
+                        inputProps={{
+                          "aria-labelledby": labelId,
+                        }}
+                      />
+                    </StyledTableCell>
+                    <StyledTableCell
+                      component="th"
+                      id={labelId}
+                      scope="row"
+                      sx={{ color: theme.palette.primary.main }}
+                      padding="none"
                     >
-                      <button type="button">{getStatusName(row.status)}</button>
-                    </div>
-                  </StyledTableCell>
-                  {/* <StyledTableCell align="right">
-                    {row.} 
-                  </StyledTableCell>*/}
-                </TableRow>
-              )
-            })}
-          </TableBody>
+                      <Link to={`/ambassadors/${row.id}`}>{row.full_name}</Link>
+                    </StyledTableCell>
+                    <StyledTableCell
+                      align="right"
+                      sx={{ color: theme.palette.primary.main }}
+                    >
+                      {!row.telegram.includes("@") ? (
+                        <a
+                          href={`https://t.me/${row.telegram}`}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {row.telegram}
+                        </a>
+                      ) : (
+                        <a
+                          href={`https://t.me/${newtelegram}`}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {newtelegram}
+                        </a>
+                      )}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      <a target="_blank" href={row.link} rel="noreferrer">
+                        {row.link}
+                      </a>
+                    </StyledTableCell>
+
+                    <StyledTableCell align="right">
+                      {row.created_date}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      <div
+                        className={
+                          style.status + " " + style[getStatusClass(row.status)]
+                        }
+                      >
+                        <button type="button">
+                          {getStatusName(row.status)}
+                        </button>
+                      </div>
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {row.comment || ""}
+                    </StyledTableCell>
+                  </TableRow>
+                )
+              })}
+            </TableBody>
+          ) : null}
         </Table>
       </TableContainer>
     </section>

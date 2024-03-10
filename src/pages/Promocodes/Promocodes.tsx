@@ -17,13 +17,13 @@ const Promocodes = () => {
     console.log(getAmbassadors())
   }, [dispatch])
 
-  
+
   return (
     <Content>
       <div className={style.container}>
         <div className={style.container__area}>
           <HeaderContent>Промо-коды</HeaderContent>
-          {/* <Search /> */}
+          <Search />
         </div>
         <div className={style.container__area}>
           <Button primary type="button">
