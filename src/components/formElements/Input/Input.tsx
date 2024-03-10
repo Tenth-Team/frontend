@@ -11,12 +11,12 @@ type TypeInputProps = {
 
 export const Input: FC<TypeInputProps> = props => {
   return (
-    <fieldset className={s.input} style={props.style}>
+    <div className={s.input} style={props.style}>
       <label className={s.input__label}>{props.label}</label>
       <input className={s.input__inner} {...props.register} />
       {props.error ? (
         <span className={s.input__error}>{props.error}</span>
       ) : null}
-    </fieldset>
+    </div>
   )
 }

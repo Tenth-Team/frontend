@@ -1,5 +1,57 @@
-[{"id":1,"merch": "Толстовка","status":"Адрес проверен", "name":"Tallie Blackater", "size":"L", "adress": "Манежная улица, 2","tg":"tblackater0","comment":"Требуются доработки контента","date":"12.12.2023"},
-{"id":2,"merch": "Стикеры","status":"Новая", "name":"Galina Slinn","size":"", "adress": "", "tg":"gslinn1","comment":"Требуются доработки контента","date":"01.03.2024"},
-{"id":3,"merch": "Кофе","status":"Отправлено логистам", "name":"Sawyer McConnulty","size":"M", "adress": "Манежная улица, 2","tg":"smcconnulty2","comment":"Все ok","date":"17.02.2024"},
-{"id":4,"merch": "Шоппер","status":"Отмененная", "name":"Chloris Eary","size":"", "adress": "Манежная улица, 2","tg":"ceary3","comment":"","date":"11.01.2024"},
-{"id":5,"merch": "Шоппер","status":"Отмененная", "name":"Cordie Renyard","size":"L", "adress": "","tg":"crenyard4","comment":"","date":"15.02.2024"}]
+[
+  {
+    "id": 1,
+    "merch": "Толстовка",
+    "status": "Адрес проверен",
+    "name": "Tallie Blackater",
+    "size": "L",
+    "adress": "Манежная улица, 2",
+    "tg": "tblackater0",
+    "comment": "Требуются доработки контента",
+    "date": "12.12.2023"
+  },
+  {
+    "id": 2,
+    "merch": "Стикеры",
+    "status": "Новая",
+    "name": "Galina Slinn",
+    "size": "",
+    "adress": "",
+    "tg": "gslinn1",
+    "comment": "Требуются доработки контента",
+    "date": "01.03.2024"
+  },
+  {
+    "id": 3,
+    "merch": "Кофе",
+    "status": "Отправлено логистам",
+    "name": "Sawyer McConnulty",
+    "size": "M",
+    "adress": "Манежная улица, 2",
+    "tg": "smcconnulty2",
+    "comment": "Все ok",
+    "date": "17.02.2024"
+  },
+  {
+    "id": 4,
+    "merch": "Шоппер",
+    "status": "Отмененная",
+    "name": "Chloris Eary",
+    "size": "",
+    "adress": "Манежная улица, 2",
+    "tg": "ceary3",
+    "comment": "",
+    "date": "11.01.2024"
+  },
+  {
+    "id": 5,
+    "merch": "Шоппер",
+    "status": "Отмененная",
+    "name": "Cordie Renyard",
+    "size": "L",
+    "adress": "",
+    "tg": "crenyard4",
+    "comment": "",
+    "date": "15.02.2024"
+  }
+]

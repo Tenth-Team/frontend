@@ -1,0 +1,42 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  &__wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  &__titleWrapper {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 16px;
+  }
+
+  &__title {
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 90%;
+    color: var(--gray-02---10);
+  }
+
+  &__subtitle {
+    color: var(--gray-600);
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 143%;
+  }
+}
