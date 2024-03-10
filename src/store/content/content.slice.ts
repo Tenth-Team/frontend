@@ -41,7 +41,6 @@ const contentSlice = createSlice({
         state.results = action.payload
         state.loading = false
         state.error = null
-        console.log(action.payload)
       })
       .addCase(patchСontentByID.fulfilled, (state, action) => {
         const updatedContentIndex = state.results.findIndex(
@@ -55,7 +54,6 @@ const contentSlice = createSlice({
         state.currentContent = action.payload
         state.loading = false
         state.error = null
-        console.log(action.payload)
       })
       .addMatcher(
         isAnyOf(postСontent.fulfilled, getСontentByID.fulfilled),
@@ -64,7 +62,6 @@ const contentSlice = createSlice({
           state.currentContent = action.payload
           state.loading = false
           state.error = null
-          console.log(action.payload)
         },
       )
 

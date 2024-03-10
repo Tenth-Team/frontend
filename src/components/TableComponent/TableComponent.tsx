@@ -197,7 +197,6 @@ const checkboxStatus = () =>
         <Select
           key={filter.id}
           data={filter}
-          onSelect={() => console.log("click")}
         />
       )
     }
@@ -254,9 +253,6 @@ const TableComponent = () => {
     () => (results ? stableSort(results, getComparator(order, orderBy)) : []),
     [order, orderBy, results],
   )
-
-  //console.log(visibleRows)
-  console.log(results.length)
 
   const getStatusClass = (status: string) => {
     let statusClass: string

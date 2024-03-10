@@ -16,7 +16,6 @@ export const Ambassadors = () => {
   useEffect(() => {
     dispatch(getAmbassadorsFilters())
     dispatch(getAmbassadors())
-    console.log(getAmbassadors())
   }, [dispatch])
 
   const styleButton = {

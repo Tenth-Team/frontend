@@ -74,8 +74,6 @@ export const AmbassadorForm: FC<{
       }),
       {},
     )
-    console.log("Form data updated:", dirtyFields, updatesValue)
-
     dispatch(patchAmbassador({ id: ambassadorCard.id, data: updatesValue }))
   }
 

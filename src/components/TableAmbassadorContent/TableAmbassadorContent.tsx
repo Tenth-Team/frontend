@@ -70,7 +70,6 @@ function stableSort<T>(
     return a[1] - b[1]
   })
 
-  console.log(stabilizedThis)
   return stabilizedThis.map(el => el[0])
 }
 
@@ -196,10 +195,6 @@ const TableAmbassadorContent = () => {
 
   const { results, loading } = useAppSelector(getContentData)
 
-  useEffect(() => {
-    console.log(results)
-  }, [results])
-
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
     property: keyof СontentType,
@@ -243,10 +238,6 @@ const TableAmbassadorContent = () => {
     }
     return []
   }, [order, orderBy, results])
-
-  useEffect(() => {
-    console.log(visibleRows)
-  }, [visibleRows])
 
   const getStatusClass = (status: string | number) => {
     let statusClass: string
