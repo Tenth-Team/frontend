@@ -15,9 +15,6 @@ import style from "../../components/TableComponent/TableComponent.module.scss"
 import theme from "../../assets/theme"
 import ambassadors from "./ambassadors.json"
 import { Link } from "react-router-dom"
-// import { useForm } from "react-hook-form"
-// import { yupResolver } from "@hookform/resolvers/yup"
-// import * as yup from "yup"
 
 // TODO - убрать моки, когда будет готова апишка
 // FIXME - пока непонятно откуда брать публикации. Возможно это контент, надо добавать
@@ -265,54 +262,22 @@ const TableMerch = () => {
     let statusClass: string
     switch (status) {
       case "Адрес проверен":
-        statusClass = "status-active"
+        statusClass = "active"
         break
       case "Отмененная":
-        statusClass = "status-not"
+        statusClass = "not_ambassador"
         break
       case "Отправлено логистам":
-        statusClass = "status-refine"
+        statusClass = "pending"
         break
       case "Новая":
-        statusClass = "status-pause"
+        statusClass = "paused"
         break
       default:
-        statusClass = "status-pause"
+        statusClass = "paused"
     }
     return statusClass
   }
-
-  // const formInputsData: Record<
-  //   string,
-  //   {
-  //     label: string
-  //     name: string
-  //     type: string
-  //     placeholder: string
-  //     schema: yup.StringSchema | yup.MixedSchema
-  //   }
-  // > = {
-  //   comment: {
-  //     label: "Комментарий менеджера",
-  //     name: "comment",
-  //     type: "text",
-  //     placeholder: "",
-  //     schema: yup.string().min(1).max(100),
-  //   },
-  // }
-  // const schema = yup
-  //   .object(
-  //     Object.keys(formInputsData).reduce(
-  //       (prev, cur) => ({ ...prev, [cur]: formInputsData[cur].schema }),
-  //       {},
-  //     ),
-  //   )
-  //   .required()
-
-  // const { register } = useForm<typeof formInputsData>({
-  //   mode: "onBlur",
-  //   resolver: yupResolver(schema),
-  // })
 
   return (
     <section className={style.tableBlock}>

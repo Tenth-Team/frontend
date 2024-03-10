@@ -22,6 +22,10 @@ export const ModalAddPromocode: FC<Props> = ({ row }) => {
     setOpen(false)
   }
 
+  const handleUpdate = () => {
+    
+  }
+
   const promoCode = useMemo(() => {
     // const promoMap = new Map(row.promo_code.map(item => [item.id, item]))
     return row.promo_code.reduce((prev, curr) => {
