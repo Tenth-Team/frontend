@@ -28,8 +28,6 @@ const ambassadorsSlice = createSlice({
         state.results = action.payload.results
         state.loading = false
         state.error = null
-        // Удалить
-        console.log(action.payload)
       })
       .addMatcher(isAnyOf(getAmbassadors.pending), setPending)
       .addMatcher(isAnyOf(getAmbassadors.rejected), setError)

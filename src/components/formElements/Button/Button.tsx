@@ -35,7 +35,6 @@ export const Button: FC<TypeButtonProps> = ({
   parentClass,
   form,
 }) => {
-  console.log(disabled)
   return (
     <button
       form={form}

@@ -377,11 +377,11 @@ const TablePromocodes = () => {
                     sx={{ color: theme.palette.primary.main }}
                   >
                     {!row.telegram.includes("@") ? (
-                      <a href={`https://t.me/${row.telegram}`} target="_blank">
+                      <a href={`https://t.me/${row.telegram}`} target="_blank" rel="noreferrer">
                         {row.telegram}
                       </a>
                     ) : (
-                      <a href={`https://t.me/${newtelegram}`} target="_blank">
+                      <a href={`https://t.me/${newtelegram}`} target="_blank" rel="noreferrer">
                         {newtelegram}
                       </a>
                     )}

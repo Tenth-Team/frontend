@@ -61,7 +61,6 @@ export const FormAddPromo: FC<TypeFormProps> = ({
   })
 
   const onSubmit = (data: any) => {
-    console.log(data)
     onClick()
     reset()
     return data
