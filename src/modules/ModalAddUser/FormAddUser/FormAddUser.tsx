@@ -33,7 +33,6 @@ export const FormAddUser: FC<TypeFormProps> = ({ onClick }) => {
   })
 
   const onSubmit = (data: any) => {
-    console.log(data)
     onClick()
     reset()
   }

@@ -5,18 +5,33 @@ import { IconButton } from "../../components/formElements/IconButton"
 import s from "./styles.module.scss"
 import { TrashIconSVG } from "../../ui-kit"
 import { Chip } from "../../components/formElements/Chip"
-import { useState } from "react"
+import { useCallback, useState } from "react"
 
 export const Search = () => {
-  const [chipsList, setChipsList] = useState(() =>
-    Array.from({ length: 5 }, (_, i) => ({
-      id: i + 1,
-      title: `Фильтр ${i + 1} ${Array.from(
-        { length: i + 1 },
-        (_, i) => i * i,
-      ).join("")}`,
-    })),
-  )
+  const [chipsList, setChipsList] = useState<
+    {
+      id: number
+      title: string
+    }[]
+  >([])
+  const [isOpen, setIsOpen] = useState(false)
+  // const chips = useMemo(() => {
+  //   return Array.from({ length: 5 }, (_, i) => ({
+  //     id: i + 1,
+  //     title: `Фильтр ${i + 1} ${Array.from(
+  //       { length: i + 1 },
+  //       (_, i) => i * i,
+  //     ).join("")}`,
+  //   }))
+  // }, [])
+
+  const openFilters = useCallback(() => {
+    setIsOpen(prev => !prev)
+  }, [setIsOpen])
+
+  const handleCleanChips = useCallback(() => {
+    setChipsList([])
+  }, [setChipsList])
 
   return (
     <div className={s.search}>
@@ -33,9 +48,7 @@ export const Search = () => {
         />
         <IconButton
           small
-          onClick={() => {
-            console.log("onClick")
-          }}
+          onClick={openFilters}
           icon={<TuneIcon />}
           type="button"
         ></IconButton>
@@ -53,7 +66,7 @@ export const Search = () => {
             <li>
               <IconButton
                 small
-                onClick={() => setChipsList([])}
+                onClick={handleCleanChips}
                 icon={<TrashIconSVG />}
                 type="button"
               ></IconButton>
@@ -61,7 +74,7 @@ export const Search = () => {
           </ul>
         </div>
       ) : null}
-      <Filters />
+      {isOpen ? <Filters /> : null}
     </div>
   )
 }

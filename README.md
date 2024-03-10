@@ -4,9 +4,10 @@
 
 ## Команда Frontend
 
-- [Natalya Plyusnina](https://github.com/TashaSlon)
-- [Nastya Tulupova](https://github.com/NastyaTulupova)
 - [TokmakDA](https://github.com/TokmakDA)
+- [Nastya Tulupova](https://github.com/NastyaTulupova)
+- [Natalya Plyusnina](https://github.com/TashaSlon)
+- [Elizaveta-Parada](https://github.com/Elizaveta-Parada)
 
 ## Стек
 
@@ -19,6 +20,7 @@
 - [Vite](https://vitejs.dev/)
 - [Yup](https://github.com/jquense/yup?tab=readme-ov-file)
 - [React Hook Form](https://react-hook-form.com/)
+- [AXIOS](https://axios-http.com)
 
 ## Быстрая настройка
 

@@ -1,5 +1,3 @@
-import { Ambassadors } from "../../pages"
-
 interface ValueItem {
   id: number | string
   name: string

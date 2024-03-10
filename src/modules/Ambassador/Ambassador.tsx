@@ -3,8 +3,9 @@ import { useParams } from "react-router-dom"
 import { useAppDispatch } from "../../store/hooks"
 import { getAmbassador } from "../../store/api"
 import { HeaderCard } from "./HeaderCard"
-
 import { AmbassadorForm } from "./AmbassadorForm"
+
+import s from "./Ambassador.module.scss"
 
 export const Ambassador = () => {
   const { id } = useParams()
@@ -26,7 +27,7 @@ export const Ambassador = () => {
         onToggleEditMode={() => setEditMode(prev => !prev)}
         isDisabledSubmit={isDisabledSubmit}
       />
-      <div>
+      <div className={s.contant}>
         <AmbassadorForm
           setDisabledSubmit={setDisabledSubmit}
           isEditMode={!isEditMode}

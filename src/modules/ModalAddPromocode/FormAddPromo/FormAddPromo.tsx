@@ -1,4 +1,4 @@
-import { useState, type FC } from "react"
+import type { FC } from "react"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
@@ -61,7 +61,6 @@ export const FormAddPromo: FC<TypeFormProps> = ({
   })
 
   const onSubmit = (data: any) => {
-    console.log(data)
     onClick()
     reset()
     return data

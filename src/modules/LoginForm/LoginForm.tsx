@@ -80,7 +80,6 @@ export const LoginForm: FC = () => {
                   placeholder={placeholder}
                   register={{
                     ...register(item),
-                    isValid,
                   }}
                 />
               </div>

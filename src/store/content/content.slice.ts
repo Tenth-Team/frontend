@@ -7,17 +7,14 @@ import {
   patchСontentByID,
   postСontent,
 } from "./content.api"
-import type { ContentPage, СontentType } from "./type"
+import type { СontentType } from "./type"
 
-type TypeInitialState = TypeRequest &
-  ContentPage & {
-    currentContent: СontentType
-  }
+type TypeInitialState = TypeRequest & {
+  results: СontentType[]
+  currentContent: СontentType
+}
 
 const initialState: TypeInitialState = {
-  count: 0,
-  next: "",
-  previous: "",
   results: [],
   currentContent: {
     id: 0,
@@ -28,6 +25,7 @@ const initialState: TypeInitialState = {
     guide: true,
     created_date: "",
     ambassador: 0,
+    comment: null,
   },
   loading: false,
   error: null,
@@ -40,13 +38,9 @@ const contentSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(getСontent.fulfilled, (state, action) => {
-        state.count = action.payload.count
-        state.next = action.payload.next
-        state.previous = action.payload.previous
-        state.results = action.payload.results
+        state.results = action.payload
         state.loading = false
         state.error = null
-        console.log(action.payload)
       })
       .addCase(patchСontentByID.fulfilled, (state, action) => {
         const updatedContentIndex = state.results.findIndex(
@@ -60,7 +54,6 @@ const contentSlice = createSlice({
         state.currentContent = action.payload
         state.loading = false
         state.error = null
-        console.log(action.payload)
       })
       .addMatcher(
         isAnyOf(postСontent.fulfilled, getСontentByID.fulfilled),
@@ -69,7 +62,6 @@ const contentSlice = createSlice({
           state.currentContent = action.payload
           state.loading = false
           state.error = null
-          console.log(action.payload)
         },
       )
 

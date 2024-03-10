@@ -55,16 +55,12 @@ const ambassadorsFiltersSlice = createSlice({
   initialState,
   reducers: {
     setSearch(state, action) {
-      // Удалить консоль
-      console.log(action.payload)
       state.inputs.search = action.payload
     },
   },
   extraReducers: builder => {
     builder
       .addCase(getAmbassadorsFilters.fulfilled, (state, action) => {
-        // Удалить консоль
-        console.log(action.payload)
         state.ambassadorsFilters = action.payload
         state.loading = false
         state.error = null

@@ -1,4 +1,4 @@
-import { CircularProgress as Spinner } from "@mui/material"
+import { Skeleton, CircularProgress as Spinner } from "@mui/material"
 import { LinearProgress, Box } from "@mui/material"
 
 import AlertTtriangleIconSVG from "../assets/images/icons/alert-triangle.svg?react"
@@ -100,4 +100,5 @@ export {
   Spinner,
   LinearProgress,
   Box,
+  Skeleton,
 }

@@ -2,7 +2,7 @@ export type AmbassadorRoot = {
   id: number
   ya_edu: YaEdu
   amb_goals: AmbGoal[]
-  promo_code: string
+  promo_code: Promocodes[]
   full_name: string
   gender: string
   address: string
@@ -32,6 +32,13 @@ export interface YaEdu {
 export interface AmbGoal {
   id: number
   name: string
+}
+
+export interface Promocodes {
+  ambassador: number
+  id: number
+  name: string
+  status: string
 }
 
 export type AmbassadorRequest = Omit<AmbassadorRoot, "id">

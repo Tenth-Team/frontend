@@ -1,12 +1,12 @@
 import { Button } from "../../components/formElements/Button"
 import { Box, Modal } from "@mui/material/"
 import type { FC } from "react"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import s from "../ModalAddUser/styles.module.scss"
 import style from "./ModalAddPromocode.module.scss"
 import { BarcodeIconSVG, XIconSVG } from "../../ui-kit"
 import { FormAddPromo } from "./FormAddPromo/FormAddPromo"
-import type { AmbassadorRoot } from "../../store/ambassador/types"
+import type { AmbassadorRoot, Promocodes } from "../../store/ambassador/types"
 
 type Props = {
   row: AmbassadorRoot
@@ -22,21 +22,26 @@ export const ModalAddPromocode: FC<Props> = ({ row }) => {
     setOpen(false)
   }
 
+  const promoCode = useMemo(() => {
+    // const promoMap = new Map(row.promo_code.map(item => [item.id, item]))
+    return row.promo_code.reduce((prev, curr) => {
+      return prev.id > curr.id ? prev : curr
+    }, {} as Promocodes)?.name
+  }, [row.promo_code])
+
   useEffect(() => {
-    if (row.promo_code !== null) {
+    if (row.promo_code.length) {
       setIsValid(false)
     } else {
       setIsValid(true)
     }
-  }, [])
+  }, [row.promo_code])
 
   return (
     <>
-      {" "}
       {!isValid ? (
         <button type="button" disabled={true} className={style.modal__button}>
-          {" "}
-          {row.promo_code}
+          {promoCode}
         </button>
       ) : (
         <Button
@@ -52,7 +57,7 @@ export const ModalAddPromocode: FC<Props> = ({ row }) => {
             border: `1px solid var(--gray-100)`,
           }}
         >
-          {row.promo_code}
+          {promoCode}
         </Button>
       )}
       <Modal
@@ -80,11 +85,7 @@ export const ModalAddPromocode: FC<Props> = ({ row }) => {
               <XIconSVG />
             </button>
           </div>
-          <FormAddPromo
-            onClick={handleClose}
-            //onUpdate={handleUpdate}
-            row={row}
-          />
+          <FormAddPromo onClick={handleClose} row={row} />
         </Box>
       </Modal>
     </>

@@ -17,7 +17,7 @@ const initialState: TypeInitialState = {
     id: 0,
     ya_edu: { id: 0, name: "" },
     amb_goals: [],
-    promo_code: "",
+    promo_code: [],
     full_name: "",
     gender: "",
     address: "",
@@ -55,21 +55,15 @@ const ambassadorSlice = createSlice({
         }
         state.loading = false
         state.error = null
-        // Удалить
-        console.log(action.payload)
       })
       .addCase(patchAmbassador.fulfilled, (state, action) => {
         state.ambassadorCard = action.payload
         state.loading = false
         state.error = null
-        // Удалить
-        console.log(action.payload)
       })
       .addCase(deleteAmbassador.fulfilled, (state, action) => {
         // сбрасываем стейт
         Object.assign(state, initialState)
-        // Удалить
-        console.log(action.payload)
       })
       .addMatcher(
         isAnyOf(

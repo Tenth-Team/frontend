@@ -14,20 +14,18 @@ import { visuallyHidden } from "@mui/utils"
 import style from "../../components/TableComponent/TableComponent.module.scss"
 import theme from "../../assets/theme"
 import { Link } from "react-router-dom"
-import { useForm } from "react-hook-form"
-import { yupResolver } from "@hookform/resolvers/yup"
-import * as yup from "yup"
+// import { useForm } from "react-hook-form"
+// import { yupResolver } from "@hookform/resolvers/yup"
+// import * as yup from "yup"
 import { ModalAddPromocode } from "../../modules/ModalAddPromocode/ModalAddPromocode"
-import { Select } from "../formElements/DropdownBoxes/Select"
-import { filters } from "../../modules/Search/Filters/constants"
 import { useAppSelector } from "../../store/hooks"
 import { getAmbassadorsData } from "../../store/selectors"
 import type {
   AmbGoal,
   AmbassadorRoot,
+  Promocodes,
   YaEdu,
 } from "../../store/ambassador/types"
-import { Promocode } from "../../store/promocodes/type"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -59,8 +57,8 @@ function getComparator<Key extends keyof any>(
   order: Order,
   orderBy: Key,
 ): (
-  a: { [key in Key]: number | string | YaEdu | AmbGoal[] },
-  b: { [key in Key]: number | string | YaEdu | AmbGoal[] },
+  a: { [key in Key]: number | string | YaEdu | AmbGoal[] | Promocodes[] },
+  b: { [key in Key]: number | string | YaEdu | AmbGoal[] | Promocodes[] },
 ) => number {
   return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
@@ -237,8 +235,8 @@ const TablePromocodes = () => {
   }
 
   const visibleRows = React.useMemo(
-    () => stableSort(results, getComparator(order, orderBy)),
-    [order, orderBy],
+    () => (results ? stableSort(results, getComparator(order, orderBy)) : []),
+    [order, orderBy, results],
   )
 
   const getStatusClass = (status: string | number) => {
@@ -277,43 +275,44 @@ const TablePromocodes = () => {
     return statusName
   }
 
-  const formInputsData: Record<
-    string,
-    {
-      label: string
-      name: string
-      type: string
-      placeholder: string
-      schema: yup.StringSchema | yup.MixedSchema
-    }
-  > = {
-    promo_code: {
-      label: "Промокод",
-      name: "promo_code",
-      type: "text",
-      placeholder: "",
-      schema: yup.string().min(1).max(100),
-    },
-  }
-  const schema = yup
-    .object(
-      Object.keys(formInputsData).reduce(
-        (prev, cur) => ({ ...prev, [cur]: formInputsData[cur].schema }),
-        {},
-      ),
-    )
-    .required()
+  // const formInputsData: Record<
+  //   string,
+  //   {
+  //     label: string
+  //     name: string
+  //     type: string
+  //     placeholder: string
+  //     schema: yup.StringSchema | yup.MixedSchema
+  //   }
+  // > = {
+  //   promo_code: {
+  //     label: "Промокод",
+  //     name: "promo_code",
+  //     type: "text",
+  //     placeholder: "",
+  //     schema: yup.string().min(1).max(100),
+  //   },
+  // }
+  // const schema = yup
+  //   .object(
+  //     Object.keys(formInputsData).reduce(
+  //       (prev, cur) => ({ ...prev, [cur]: formInputsData[cur].schema }),
+  //       {},
+  //     ),
+  //   )
+  //   .required()
 
-  const { register } = useForm<typeof formInputsData>({
-    mode: "onBlur",
-    resolver: yupResolver(schema),
-  })
+  // const { register } = useForm<typeof formInputsData>({
+  //   mode: "onBlur",
+  //   resolver: yupResolver(schema),
+  // })
 
   return (
     <section className={style.tableBlock}>
       <TableContainer
         component={Paper}
-        sx={{ maxHeight: 700, border: "none", boxShadow: "none" }}
+        sx={{ border: "none", boxShadow: "none" }}
+        className={style.tableContainer}
       >
         <Table
           sx={{ minWidth: 750 }}
@@ -338,6 +337,10 @@ const TablePromocodes = () => {
               const labelId = `enhanced-table-checkbox-${index}`
 
               const newtelegram = row.telegram.replace("@", "")
+
+              const promoCode = row.promo_code.reduce((prev, curr) => {
+                return prev.id > curr.id ? prev : curr
+              }, {} as Promocodes)
 
               return (
                 <TableRow
@@ -367,18 +370,18 @@ const TablePromocodes = () => {
                     sx={{ color: theme.palette.primary.main }}
                     padding="none"
                   >
-                    <Link to="/">{row.full_name}</Link>
+                    <Link to={`/ambassadors/${row.id}`}>{row.full_name}</Link>
                   </StyledTableCell>
                   <StyledTableCell
                     align="right"
                     sx={{ color: theme.palette.primary.main }}
                   >
                     {!row.telegram.includes("@") ? (
-                      <a href={`https://t.me/${row.telegram}`} target="_blank">
+                      <a href={`https://t.me/${row.telegram}`} target="_blank" rel="noreferrer">
                         {row.telegram}
                       </a>
                     ) : (
-                      <a href={`https://t.me/${newtelegram}`} target="_blank">
+                      <a href={`https://t.me/${newtelegram}`} target="_blank" rel="noreferrer">
                         {newtelegram}
                       </a>
                     )}
@@ -390,10 +393,10 @@ const TablePromocodes = () => {
                   <StyledTableCell align="right">
                     <div
                       className={
-                        style.status + " " + style[getStatusClass(row.status)]
+                        style.status + " " + style[getStatusClass(promoCode.status)]
                       }
                     >
-                      <button type="button">{getStatusName(row.status)}</button>
+                      <button type="button">{getStatusName(promoCode.status)}</button>
                     </div>
                   </StyledTableCell>
                   <StyledTableCell align="right">

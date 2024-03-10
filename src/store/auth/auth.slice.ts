@@ -21,7 +21,6 @@ const authSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(login.fulfilled, (state, action) => {
-        console.log(action.payload)
         setToken(action.payload.auth_token)
         state.isAuthorized = true
       })

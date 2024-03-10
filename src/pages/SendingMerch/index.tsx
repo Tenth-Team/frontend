@@ -1,1 +1,0 @@
-export { SendingMerch } from "./SendingMerch"

@@ -6,24 +6,22 @@ import style from "./Promocodes.module.scss"
 import { Search } from "../../modules/Search"
 import { useEffect } from "react"
 import { useAppDispatch } from "../../store/hooks"
-import { getAmbassadors, getAmbassadorsFilters, getPromocodes } from "../../store/api"
+import { getAmbassadors, getAmbassadorsFilters } from "../../store/api"
 
 const Promocodes = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(getAmbassadorsFilters())
     dispatch(getAmbassadors())
-    console.log(getAmbassadors())
   }, [dispatch])
 
-  
   return (
     <Content>
       <div className={style.container}>
         <div className={style.container__area}>
           <HeaderContent>Промо-коды</HeaderContent>
-          {/* <Search /> */}
+          <Search />
         </div>
         <div className={style.container__area}>
           <Button primary type="button">

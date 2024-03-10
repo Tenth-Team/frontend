@@ -42,26 +42,22 @@ const promocodesSlice = createSlice({
         state.promocodesList = action.payload
         state.loading = false
         state.error = null
-        console.log(action.payload)
       })
       .addCase(postPromocodes.fulfilled, (state, action) => {
         state.currentPromocode = action.payload
         state.loading = false
         state.error = null
         state.promocodesList = [...state.promocodesList, action.payload]
-        console.log(action.payload)
       })
       .addCase(getPromocodeByID.fulfilled, (state, action) => {
         state.currentPromocode = action.payload
         state.loading = false
         state.error = null
-        console.log(action.payload)
       })
 
       .addCase(deletePromocodeByID.fulfilled, (state, action) => {
         state.loading = false
         state.error = null
-        console.log(action.payload)
       })
       .addMatcher(
         isAnyOf(putPromocodeByID.fulfilled, patchPromocodeByID.fulfilled),
@@ -75,7 +71,6 @@ const promocodesSlice = createSlice({
           }
           state.loading = false
           state.error = null
-          console.log(action.payload)
         },
       )
       .addMatcher(

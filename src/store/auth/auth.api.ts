@@ -8,7 +8,6 @@ export const login = createAsyncThunk<
   { rejectValue: unknown }
 >("auth/login", async (userData, { rejectWithValue }) => {
   try {
-    console.log(userData)
     const res = await axiosInstance.post("/api/v1/auth/token/login/", userData)
     return res.data
   } catch (err) {

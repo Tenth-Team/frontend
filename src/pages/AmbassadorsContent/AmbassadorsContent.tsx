@@ -4,19 +4,19 @@ import { TableAmbassadorContent } from "../../components/TableAmbassadorContent/
 import { useAppDispatch } from "../../store/hooks"
 import { useEffect } from "react"
 import { getСontent } from "../../store/api"
+import { Search } from "../../modules/Search"
 
-export const AmbassadorContent = () => {
+export const AmbassadorsContent = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(getСontent())
-    console.log(getСontent())
   }, [dispatch])
 
   return (
     <Content>
       <HeaderContent>Контент амбассадоров</HeaderContent>
-      {/* <Search /> */}
+      <Search />
       <TableAmbassadorContent />
     </Content>
   )

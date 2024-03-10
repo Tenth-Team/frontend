@@ -1,10 +1,3 @@
-export interface ContentPage {
-  count: number
-  next: string
-  previous: string
-  results: СontentType[]
-}
-
 export type СontentType = {
   id: number
   status: string
@@ -14,6 +7,7 @@ export type СontentType = {
   guide: boolean
   created_date: string
   ambassador: number
+  comment: string | null
 }
 
 export interface СontentRequest {
