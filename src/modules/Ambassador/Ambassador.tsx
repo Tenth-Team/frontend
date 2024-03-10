@@ -4,7 +4,7 @@ import { useAppDispatch } from "../../store/hooks"
 import { getAmbassador } from "../../store/api"
 import { HeaderCard } from "./HeaderCard"
 
-import { AmbassadorForm } from "./HeaderCard/AmbassadorForm"
+import { AmbassadorForm } from "./AmbassadorForm"
 
 export const Ambassador = () => {
   const { id } = useParams()
