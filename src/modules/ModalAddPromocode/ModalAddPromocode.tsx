@@ -1,12 +1,12 @@
 import { Button } from "../../components/formElements/Button"
-import { Box, Modal } from "@mui/material/"
 import type { FC } from "react"
-import { useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import s from "../ModalAddUser/styles.module.scss"
 import style from "./ModalAddPromocode.module.scss"
-import { BarcodeIconSVG, XIconSVG } from "../../ui-kit"
+import { BarcodeIconSVG, Box, Modal, XIconSVG } from "../../ui-kit"
 import { FormAddPromo } from "./FormAddPromo/FormAddPromo"
 import type { AmbassadorRoot, Promocodes } from "../../store/ambassador/types"
+import { IconButton } from "../../components/formElements"
 
 type Props = {
   row: AmbassadorRoot
@@ -15,12 +15,12 @@ export const ModalAddPromocode: FC<Props> = ({ row }) => {
   const [open, setOpen] = useState<boolean>(false)
   const [isValid, setIsValid] = useState<boolean>(true)
 
-  const handleClickOpen = () => {
+  const handleClickOpen = useCallback(() => {
     setOpen(true)
-  }
-  const handleClose = () => {
+  }, [])
+  const handleClose = useCallback(() => {
     setOpen(false)
-  }
+  }, [])
 
   const promoCode = useMemo(() => {
     // const promoMap = new Map(row.promo_code.map(item => [item.id, item]))
@@ -77,13 +77,7 @@ export const ModalAddPromocode: FC<Props> = ({ row }) => {
               <BarcodeIconSVG className={s.modal__titleIcon} />
               Новый промо-код
             </h2>
-            <button
-              className={s.modal__close}
-              aria-label="close"
-              onClick={handleClose}
-            >
-              <XIconSVG />
-            </button>
+            <IconButton big onClick={handleClose} icon={<XIconSVG />} />
           </div>
           <FormAddPromo onClick={handleClose} row={row} />
         </Box>

@@ -20,19 +20,18 @@ export const Ambassador = () => {
   }, [id, dispatch])
 
   return (
-    <div>
+    <>
       <HeaderCard
-        // handleSubmit={handleSubmit}
         isEditMode={isEditMode}
         onToggleEditMode={() => setEditMode(prev => !prev)}
         isDisabledSubmit={isDisabledSubmit}
       />
-      <div className={s.contant}>
+      <div className={s.content}>
         <AmbassadorForm
           setDisabledSubmit={setDisabledSubmit}
           isEditMode={!isEditMode}
         />
       </div>
-    </div>
+    </>
   )
 }
