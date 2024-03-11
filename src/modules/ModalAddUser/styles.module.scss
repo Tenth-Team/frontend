@@ -9,6 +9,9 @@
     height: fit-content;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
     background: var(--gray-02-100);
+    max-height: 100%;
+    height: fit-content;
+    overflow: auto;
   }
 
   &__header {
@@ -35,21 +38,6 @@
     aspect-ratio: 1;
     & path {
       stroke: var(--gray-800);
-    }
-  }
-
-  &__close {
-    margin: 0;
-    padding: 0;
-    width: 32px;
-    height: 32px;
-    & svg {
-      width: 32px;
-      height: auto;
-      aspect-ratio: 1;
-      & path {
-        fill: var(--gray-800);
-      }
     }
   }
 }

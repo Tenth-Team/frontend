@@ -1,4 +1,4 @@
-import type { FC } from "react"
+import { useCallback, type FC } from "react"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
@@ -32,10 +32,18 @@ export const FormAddUser: FC<TypeFormProps> = ({ onClick }) => {
     resolver: yupResolver(schema),
   })
 
-  const onSubmit = (data: any) => {
+  const onSubmit = useCallback(
+    (data: any) => {
+      onClick()
+      reset()
+    },
+    [onClick, reset],
+  )
+
+  const handleCancel = useCallback(() => {
     onClick()
     reset()
-  }
+  }, [onClick, reset])
 
   return (
     <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
@@ -66,7 +74,7 @@ export const FormAddUser: FC<TypeFormProps> = ({ onClick }) => {
       </div>
 
       <div className={s.form__footer}>
-        <Button secondary type="button">
+        <Button secondary type="button" onClick={handleCancel}>
           Отменить
         </Button>
 

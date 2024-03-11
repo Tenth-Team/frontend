@@ -7,6 +7,7 @@ import { Settings } from "./Settings"
 import { Analytics } from "./Analytics"
 import { Promocodes } from "./Promocodes"
 import { AmbassadorsContent } from "./AmbassadorsContent"
+import { Mailing } from './Mailing'
 
 export {
   Ambassadors,
@@ -18,4 +19,5 @@ export {
   Settings,
   Analytics,
   Promocodes,
+  Mailing
 }

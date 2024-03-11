@@ -2,6 +2,8 @@
 
 ХАКАТОН+. Задача Амбассадоров Яндекс Практикума
 
+## Проект задеплоин по [ссылке](https://crm.ragimov700.ru/) 
+
 ## Команда Frontend
 
 - [TokmakDA](https://github.com/TokmakDA)
