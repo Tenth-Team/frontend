@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { Content } from "../../components/Content"
 import { HeaderContent } from "../../components/HeaderContent"
 import { TableComponent } from "../../components/TableComponent"
@@ -9,9 +9,18 @@ import { IconButton } from "../../components/formElements/IconButton"
 import { Button } from "../../components/formElements/Button"
 import { ArchiveBoxIconSVG, UserPlusIconSVG } from "../../ui-kit"
 import { Search } from "../../modules/Search"
+import { ModalAddUser } from "../../modules/ModalAddUser"
 
 export const Ambassadors = () => {
   const dispatch = useAppDispatch()
+  const [open, setOpen] = useState<boolean>(false)
+
+  const handleClickOpen = useCallback(() => {
+    setOpen(true)
+  }, [setOpen])
+  const handleClose = useCallback(() => {
+    setOpen(false)
+  }, [setOpen])
 
   useEffect(() => {
     dispatch(getAmbassadorsFilters())
@@ -31,27 +40,36 @@ export const Ambassadors = () => {
   }
 
   return (
-    <Content>
-      <div className={style.container}>
-        <HeaderContent>Список амбассадоров</HeaderContent>
-        <IconButton
-          big
-          onClick={() => {
-            console.log("onClick")
-          }}
-          icon={<ArchiveBoxIconSVG />}
-          type="button"
-          style={styleIconButton}
-        ></IconButton>
-        <div className={style.container__button}>
-          <Button primary type="button" style={styleButton} onClick={() => {}}>
-            <UserPlusIconSVG className={style.container__button} />
-            Добавить
-          </Button>
+    <>
+      <Content>
+        <div className={style.container}>
+          <HeaderContent>Список амбассадоров</HeaderContent>
+          <IconButton
+            big
+            onClick={() => {
+              console.log("onClick")
+            }}
+            icon={<ArchiveBoxIconSVG />}
+            type="button"
+            style={styleIconButton}
+          ></IconButton>
+          <div className={style.container__button}>
+            <Button
+              primary
+              type="button"
+              style={styleButton}
+              onClick={handleClickOpen}
+            >
+              <UserPlusIconSVG className={style.container__button} />
+              Добавить
+            </Button>
+          </div>
         </div>
-      </div>
-      <Search />
-      <TableComponent />
-    </Content>
+        <Search />
+        <TableComponent />
+      </Content>
+
+      <ModalAddUser isOpen={open} onClose={handleClose} />
+    </>
   )
 }

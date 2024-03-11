@@ -1,36 +1,27 @@
-import Button from "@mui/material/Button"
-import { Box, Modal } from "@mui/material/"
 import type { FC } from "react"
-import { useState } from "react"
 import s from "./styles.module.scss"
-import { UserIconSVG } from "../../ui-kit"
+import { Box, Modal, UserIconSVG, XIconSVG } from "../../ui-kit"
 import { FormAddUser } from "./FormAddUser"
+import { IconButton } from "../../components/formElements"
 
-export const ModalAddUser: FC = () => {
-  const [open, setOpen] = useState<boolean>(false)
+type TypeModalAddUser = {
+  isOpen: boolean
+  onClose: () => void
+}
 
-  const handleClickOpen = () => {
-    setOpen(true)
-  }
-  const handleClose = () => {
-    setOpen(false)
-  }
+export const ModalAddUser: FC<TypeModalAddUser> = ({ isOpen, onClose }) => {
   return (
     <>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open dialog
-      </Button>
-
       <Modal
         sx={{
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
         }}
-        onClose={handleClose}
+        onClose={onClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-        open={open}
+        open={isOpen}
       >
         <Box className={s.modal__contaner}>
           <div className={s.modal__header}>
@@ -38,16 +29,10 @@ export const ModalAddUser: FC = () => {
               <UserIconSVG className={s.modal__titleIcon} />
               Добавление нового Амбасадора
             </h2>
-            <button
-              className={s.modal__close}
-              aria-label="close"
-              onClick={handleClose}
-            >
-              {/*               <XIconSVG /> */}
-            </button>
+            <IconButton big onClick={onClose} icon={<XIconSVG />} />
           </div>
 
-          <FormAddUser onClick={handleClose} />
+          <FormAddUser onClick={onClose} />
         </Box>
       </Modal>
     </>

@@ -1,4 +1,4 @@
-import type { FC } from "react"
+import { useCallback, type FC } from "react"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
@@ -66,6 +66,11 @@ export const FormAddPromo: FC<TypeFormProps> = ({
     return data
   }
 
+  const handleCancel = useCallback(() => {
+    onClick()
+    reset()
+  }, [onClick, reset])
+
   return (
     <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
       <div className={s.form__inputs}>
@@ -88,7 +93,7 @@ export const FormAddPromo: FC<TypeFormProps> = ({
       </div>
 
       <div className={`${s.form__footer} ${style.form__footer}`}>
-        <Button secondary type="button">
+        <Button secondary type="button" onClick={handleCancel}>
           Отменить
         </Button>
 

@@ -1,5 +1,22 @@
-import { Skeleton, CircularProgress as Spinner } from "@mui/material"
-import { LinearProgress, Box } from "@mui/material"
+import {
+  Skeleton,
+  CircularProgress as Spinner,
+  LinearProgress,
+  Box,
+  Modal,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  tableCellClasses,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TableSortLabel,
+  Checkbox,
+} from "@mui/material"
+import { styled } from "@mui/material/styles"
+import { visuallyHidden } from "@mui/utils"
 
 import AlertTtriangleIconSVG from "../assets/images/icons/alert-triangle.svg?react"
 import ArchiveBoxIconSVG from "../assets/images/icons/archive-box.svg?react"
@@ -101,4 +118,17 @@ export {
   LinearProgress,
   Box,
   Skeleton,
+  Modal,
+  Table,
+  TableBody,
+  TableCell,
+  tableCellClasses,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TableSortLabel,
+  Checkbox,
+  Paper,
+  styled,
+  visuallyHidden,
 }
