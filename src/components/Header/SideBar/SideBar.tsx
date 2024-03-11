@@ -1,14 +1,15 @@
 import type { FC } from "react"
 import style from "./SideBar.module.scss"
 import { Link } from "react-router-dom"
-import {NOTIFICATIONS_NOT_READ} from '../../../assets/constants/constants'
+import { NOTIFICATIONS_NOT_READ } from "../../../assets/constants/constants"
+import { Box, Modal } from "../../../ui-kit"
 
 type TypeSideBarProps = {
   onClick: () => void
+  isOpen: boolean
 }
 
-export const SideBar: FC<TypeSideBarProps> = ({ onClick }) => {
-
+export const SideBar: FC<TypeSideBarProps> = ({ isOpen, onClick }) => {
   type NotificationValue = {
     id: number
     time: string
@@ -41,11 +42,19 @@ export const SideBar: FC<TypeSideBarProps> = ({ onClick }) => {
   )
 
   return (
-    <div
-      className={`${style.sidebar} ${style.sidebar_opened}`}
-      onClick={onClick}
+    <Modal
+      onClose={onClick}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+      open={isOpen}
+      sx={{
+        marginTop: "56px",
+        display: "flex",
+        justifyContent: "end",
+      }}
+      className={`${style.sidebar}`}
     >
-      <section className={style.sidebar__container}>
+      <Box className={style.sidebar__container}>
         <h2 className={style.sidebar__title}>Уведомления</h2>
         <ul className={`${style.sidebar__items} `}>
           <li className={style.sidebar__item}>
@@ -75,7 +84,7 @@ export const SideBar: FC<TypeSideBarProps> = ({ onClick }) => {
             <h3 className={style.sidebar__itemTitle}>Ранее</h3>
           </li>
         </ul>
-      </section>
-    </div>
+      </Box>
+    </Modal>
   )
 }
